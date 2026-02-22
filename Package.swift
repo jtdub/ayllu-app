@@ -17,7 +17,8 @@ let package = Package(
     ],
     dependencies: [
         // Database - GRDB for SQLite with full SQL control, migrations, offline reliability
-        .package(url: "https://github.com/groue/GRDB.swift.git", from: "7.0.0"),
+        // Pin to 7.4.x for Swift 6.0 (Xcode 16.2) compatibility
+        .package(url: "https://github.com/groue/GRDB.swift.git", .upToNextMinor(from: "7.4.0")),
 
         // Coordinate Transforms (UTM)
         .package(url: "https://github.com/wtw-software/UTMConversion.git", from: "1.4.0"),
