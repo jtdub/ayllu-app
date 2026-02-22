@@ -105,23 +105,19 @@ export default function NotesScreen() {
   };
 
   const handleDeleteNote = (note: FieldNote) => {
-    Alert.alert(
-      'Delete Note',
-      'Are you sure you want to delete this note?',
-      [
-        { text: 'Cancel', style: 'cancel' },
-        {
-          text: 'Delete',
-          style: 'destructive',
-          onPress: async () => {
-            if (fieldNoteRepository) {
-              await fieldNoteRepository.delete(note.id);
-              setNotes((prev) => prev.filter((n) => n.id !== note.id));
-            }
-          },
+    Alert.alert('Delete Note', 'Are you sure you want to delete this note?', [
+      { text: 'Cancel', style: 'cancel' },
+      {
+        text: 'Delete',
+        style: 'destructive',
+        onPress: async () => {
+          if (fieldNoteRepository) {
+            await fieldNoteRepository.delete(note.id);
+            setNotes((prev) => prev.filter((n) => n.id !== note.id));
+          }
         },
-      ]
-    );
+      },
+    ]);
   };
 
   const handleSelectProject = () => {
@@ -155,10 +151,7 @@ export default function NotesScreen() {
   };
 
   const renderNote = ({ item }: { item: FieldNote }) => (
-    <TouchableOpacity
-      style={styles.noteCard}
-      onLongPress={() => handleDeleteNote(item)}
-    >
+    <TouchableOpacity style={styles.noteCard} onLongPress={() => handleDeleteNote(item)}>
       {item.title && <Text style={styles.noteTitle}>{item.title}</Text>}
       <Text style={styles.noteContent} numberOfLines={4}>
         {item.content}
@@ -193,14 +186,9 @@ export default function NotesScreen() {
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
     >
       {/* Project selector */}
-      <TouchableOpacity
-        style={styles.projectSelector}
-        onPress={handleSelectProject}
-      >
+      <TouchableOpacity style={styles.projectSelector} onPress={handleSelectProject}>
         <Ionicons name="folder" size={18} color="#4a9eff" />
-        <Text style={styles.projectName}>
-          {selectedProject?.name || 'Select Project'}
-        </Text>
+        <Text style={styles.projectName}>{selectedProject?.name || 'Select Project'}</Text>
         <Ionicons name="chevron-down" size={18} color="#888" />
       </TouchableOpacity>
 
@@ -217,7 +205,12 @@ export default function NotesScreen() {
           returnKeyType="search"
         />
         {searchQuery.length > 0 && (
-          <TouchableOpacity onPress={() => { setSearchQuery(''); loadNotes(); }}>
+          <TouchableOpacity
+            onPress={() => {
+              setSearchQuery('');
+              loadNotes();
+            }}
+          >
             <Ionicons name="close-circle" size={18} color="#888" />
           </TouchableOpacity>
         )}
@@ -230,19 +223,13 @@ export default function NotesScreen() {
         renderItem={renderNote}
         contentContainerStyle={styles.list}
         refreshControl={
-          <RefreshControl
-            refreshing={refreshing}
-            onRefresh={onRefresh}
-            tintColor="#4a9eff"
-          />
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} tintColor="#4a9eff" />
         }
         ListEmptyComponent={
           <View style={styles.emptyState}>
             <Ionicons name="document-text-outline" size={64} color="#444" />
             <Text style={styles.emptyTitle}>No Notes Yet</Text>
-            <Text style={styles.emptySubtitle}>
-              Start writing field notes for this project
-            </Text>
+            <Text style={styles.emptySubtitle}>Start writing field notes for this project</Text>
           </View>
         }
       />
@@ -262,7 +249,10 @@ export default function NotesScreen() {
           <View style={styles.composeActions}>
             <TouchableOpacity
               style={styles.composeCancel}
-              onPress={() => { setIsComposing(false); setNewNoteText(''); }}
+              onPress={() => {
+                setIsComposing(false);
+                setNewNoteText('');
+              }}
             >
               <Text style={styles.cancelText}>Cancel</Text>
             </TouchableOpacity>
@@ -276,10 +266,7 @@ export default function NotesScreen() {
           </View>
         </View>
       ) : (
-        <TouchableOpacity
-          style={styles.fab}
-          onPress={() => setIsComposing(true)}
-        >
+        <TouchableOpacity style={styles.fab} onPress={() => setIsComposing(true)}>
           <Ionicons name="create" size={24} color="#fff" />
         </TouchableOpacity>
       )}

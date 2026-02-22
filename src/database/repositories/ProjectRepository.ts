@@ -7,9 +7,9 @@
  * @module database/repositories/ProjectRepository
  */
 
-import type { SQLiteDatabase } from 'expo-sqlite';
 import type { Project, BoundingBox, CustomFieldDefinition } from '@/types';
 import { generateId, getCurrentTimestamp, safeJsonParse } from '@/utils';
+import type { SQLiteDatabase, SQLiteBindValue } from 'expo-sqlite';
 
 /**
  * Data access repository for Project entities.
@@ -68,9 +68,7 @@ export class ProjectRepository {
    * });
    * ```
    */
-  async create(
-    data: Omit<Project, 'id' | 'createdAt' | 'updatedAt'>
-  ): Promise<Project> {
+  async create(data: Omit<Project, 'id' | 'createdAt' | 'updatedAt'>): Promise<Project> {
     const id = generateId();
     const now = getCurrentTimestamp();
 
@@ -116,10 +114,9 @@ export class ProjectRepository {
    * ```
    */
   async getById(id: string): Promise<Project | null> {
-    const row = await this.db.getFirstAsync<ProjectRow>(
-      'SELECT * FROM projects WHERE id = ?',
-      [id]
-    );
+    const row = await this.db.getFirstAsync<ProjectRow>('SELECT * FROM projects WHERE id = ?', [
+      id,
+    ]);
 
     return row ? this.mapRowToProject(row) : null;
   }
@@ -169,7 +166,7 @@ export class ProjectRepository {
     if (!existing) return null;
 
     const updates: string[] = [];
-    const values: unknown[] = [];
+    const values: SQLiteBindValue[] = [];
 
     if (data.name !== undefined) {
       updates.push('name = ?');
@@ -207,10 +204,7 @@ export class ProjectRepository {
     values.push(now);
     values.push(id);
 
-    await this.db.runAsync(
-      `UPDATE projects SET ${updates.join(', ')} WHERE id = ?`,
-      values
-    );
+    await this.db.runAsync(`UPDATE projects SET ${updates.join(', ')} WHERE id = ?`, values);
 
     return this.getById(id);
   }
@@ -233,10 +227,7 @@ export class ProjectRepository {
    * ```
    */
   async delete(id: string): Promise<boolean> {
-    const result = await this.db.runAsync(
-      'DELETE FROM projects WHERE id = ?',
-      [id]
-    );
+    const result = await this.db.runAsync('DELETE FROM projects WHERE id = ?', [id]);
 
     return result.changes > 0;
   }
@@ -332,10 +323,7 @@ export class ProjectRepository {
       endDate: row.end_date,
       boundingBox: safeJsonParse<BoundingBox | null>(row.bounding_box, null),
       defaultTags: safeJsonParse<string[]>(row.default_tags, []),
-      customFields: safeJsonParse<Record<string, CustomFieldDefinition>>(
-        row.custom_fields,
-        {}
-      ),
+      customFields: safeJsonParse<Record<string, CustomFieldDefinition>>(row.custom_fields, {}),
       createdAt: row.created_at,
       updatedAt: row.updated_at,
     };

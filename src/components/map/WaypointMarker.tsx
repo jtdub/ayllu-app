@@ -11,11 +11,7 @@ interface WaypointMarkerProps {
 /**
  * Custom marker component for map waypoints
  */
-export function WaypointMarker({
-  type,
-  selected = false,
-  size = 32,
-}: WaypointMarkerProps) {
+export function WaypointMarker({ type, selected = false, size = 32 }: WaypointMarkerProps) {
   const getMarkerStyle = () => {
     const baseStyle = {
       width: size,
@@ -62,9 +58,7 @@ export function WaypointMarker({
 
   return (
     <View style={[styles.container, selected && styles.selected]}>
-      <View style={getMarkerStyle()}>
-        {getIcon()}
-      </View>
+      <View style={getMarkerStyle()}>{getIcon()}</View>
       {selected && <View style={styles.selectedIndicator} />}
     </View>
   );

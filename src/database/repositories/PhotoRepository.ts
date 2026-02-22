@@ -1,6 +1,6 @@
-import type { SQLiteDatabase } from 'expo-sqlite';
 import type { Photo, PhotoFilter, ExifData } from '@/types';
 import { generateId, getCurrentTimestamp, safeJsonParse } from '@/utils';
+import type { SQLiteDatabase, SQLiteBindValue } from 'expo-sqlite';
 
 export class PhotoRepository {
   constructor(private db: SQLiteDatabase) {}
@@ -8,9 +8,7 @@ export class PhotoRepository {
   /**
    * Create a new photo record
    */
-  async create(
-    data: Omit<Photo, 'id' | 'createdAt' | 'updatedAt'>
-  ): Promise<Photo> {
+  async create(data: Omit<Photo, 'id' | 'createdAt' | 'updatedAt'>): Promise<Photo> {
     const id = generateId();
     const now = getCurrentTimestamp();
 
@@ -54,10 +52,7 @@ export class PhotoRepository {
    * Get photo by ID
    */
   async getById(id: string): Promise<Photo | null> {
-    const row = await this.db.getFirstAsync<PhotoRow>(
-      'SELECT * FROM photos WHERE id = ?',
-      [id]
-    );
+    const row = await this.db.getFirstAsync<PhotoRow>('SELECT * FROM photos WHERE id = ?', [id]);
 
     return row ? this.mapRowToPhoto(row) : null;
   }
@@ -91,7 +86,7 @@ export class PhotoRepository {
    */
   async query(filter: PhotoFilter): Promise<Photo[]> {
     const conditions: string[] = [];
-    const values: unknown[] = [];
+    const values: SQLiteBindValue[] = [];
 
     if (filter.projectId) {
       conditions.push('project_id = ?');
@@ -116,7 +111,7 @@ export class PhotoRepository {
     if (filter.tags && filter.tags.length > 0) {
       const tagConditions = filter.tags.map(() => 'tags LIKE ?');
       conditions.push(`(${tagConditions.join(' OR ')})`);
-      values.push(...filter.tags.map(tag => `%"${tag}"%`));
+      values.push(...filter.tags.map((tag) => `%"${tag}"%`));
     }
 
     if (filter.hasCaption === true) {
@@ -125,9 +120,7 @@ export class PhotoRepository {
       conditions.push('(caption IS NULL OR caption = "")');
     }
 
-    const whereClause = conditions.length > 0
-      ? `WHERE ${conditions.join(' AND ')}`
-      : '';
+    const whereClause = conditions.length > 0 ? `WHERE ${conditions.join(' AND ')}` : '';
 
     const rows = await this.db.getAllAsync<PhotoRow>(
       `SELECT * FROM photos ${whereClause} ORDER BY captured_at DESC`,
@@ -148,7 +141,7 @@ export class PhotoRepository {
     if (!existing) return null;
 
     const updates: string[] = [];
-    const values: unknown[] = [];
+    const values: SQLiteBindValue[] = [];
 
     if (data.waypointId !== undefined) {
       updates.push('waypoint_id = ?');
@@ -202,10 +195,7 @@ export class PhotoRepository {
     values.push(now);
     values.push(id);
 
-    await this.db.runAsync(
-      `UPDATE photos SET ${updates.join(', ')} WHERE id = ?`,
-      values
-    );
+    await this.db.runAsync(`UPDATE photos SET ${updates.join(', ')} WHERE id = ?`, values);
 
     return this.getById(id);
   }
@@ -214,10 +204,7 @@ export class PhotoRepository {
    * Delete photo
    */
   async delete(id: string): Promise<boolean> {
-    const result = await this.db.runAsync(
-      'DELETE FROM photos WHERE id = ?',
-      [id]
-    );
+    const result = await this.db.runAsync('DELETE FROM photos WHERE id = ?', [id]);
 
     return result.changes > 0;
   }
@@ -226,10 +213,7 @@ export class PhotoRepository {
    * Delete all photos for a project
    */
   async deleteByProject(projectId: string): Promise<number> {
-    const result = await this.db.runAsync(
-      'DELETE FROM photos WHERE project_id = ?',
-      [projectId]
-    );
+    const result = await this.db.runAsync('DELETE FROM photos WHERE project_id = ?', [projectId]);
 
     return result.changes;
   }
@@ -258,7 +242,7 @@ export class PhotoRepository {
     const tagSet = new Set<string>();
     for (const row of rows) {
       const tags = safeJsonParse<string[]>(row.tags, []);
-      tags.forEach(tag => tagSet.add(tag));
+      tags.forEach((tag) => tagSet.add(tag));
     }
 
     return Array.from(tagSet).sort();

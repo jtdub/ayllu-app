@@ -1,8 +1,8 @@
 import { useState, useCallback, useRef, useEffect } from 'react';
-import type { BoundingBox, MapLayer, MapRegion } from '@/types';
 import { OfflineMapService } from '@/services/maps';
-import { useDatabase } from './useDatabase';
+import type { BoundingBox, MapLayer, MapRegion } from '@/types';
 import { generateId, getCurrentTimestamp, calculateTileCount, estimateDownloadSize } from '@/utils';
+import { useDatabase } from './useDatabase';
 
 interface UseOfflineMapReturn {
   regions: MapRegion[];
@@ -14,7 +14,12 @@ interface UseOfflineMapReturn {
   deleteRegion: (regionId: string) => Promise<void>;
   refreshRegions: () => Promise<void>;
   getTotalSize: () => Promise<number>;
-  estimateSize: (bounds: BoundingBox, minZoom: number, maxZoom: number, layers: MapLayer[]) => number;
+  estimateSize: (
+    bounds: BoundingBox,
+    minZoom: number,
+    maxZoom: number,
+    layers: MapLayer[]
+  ) => number;
 }
 
 interface DownloadRegionConfig {
@@ -65,7 +70,8 @@ export function useOfflineMap(): UseOfflineMapReturn {
         return;
       }
 
-      const tileCount = calculateTileCount(config.bounds, config.minZoom, config.maxZoom) * config.layers.length;
+      const tileCount =
+        calculateTileCount(config.bounds, config.minZoom, config.maxZoom) * config.layers.length;
 
       // Create region record
       const region = await mapRegionRepository.create({

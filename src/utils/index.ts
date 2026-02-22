@@ -36,19 +36,14 @@ export function formatCoordinates(
 /**
  * Convert decimal degrees to DMS format
  */
-export function decimalToDMS(
-  decimal: number,
-  type: 'lat' | 'lon'
-): string {
+export function decimalToDMS(decimal: number, type: 'lat' | 'lon'): string {
   const absolute = Math.abs(decimal);
   const degrees = Math.floor(absolute);
   const minutesNotTruncated = (absolute - degrees) * 60;
   const minutes = Math.floor(minutesNotTruncated);
   const seconds = ((minutesNotTruncated - minutes) * 60).toFixed(2);
 
-  const direction = type === 'lat'
-    ? decimal >= 0 ? 'N' : 'S'
-    : decimal >= 0 ? 'E' : 'W';
+  const direction = type === 'lat' ? (decimal >= 0 ? 'N' : 'S') : decimal >= 0 ? 'E' : 'W';
 
   return `${degrees}°${minutes}'${seconds}"${direction}`;
 }
@@ -65,9 +60,9 @@ export function formatUTM(lat: number, lon: number): string {
   const k0 = 0.9996;
   const a = 6378137; // WGS84 semi-major axis
 
-  const latRad = lat * Math.PI / 180;
-  const lonRad = lon * Math.PI / 180;
-  const lon0Rad = ((zone - 1) * 6 - 180 + 3) * Math.PI / 180;
+  const latRad = (lat * Math.PI) / 180;
+  const lonRad = (lon * Math.PI) / 180;
+  const lon0Rad = (((zone - 1) * 6 - 180 + 3) * Math.PI) / 180;
 
   const n = Math.sin(latRad);
   const c = Math.cos(latRad);
@@ -83,20 +78,17 @@ export function formatUTM(lat: number, lon: number): string {
 /**
  * Calculate distance between two points in meters (Haversine formula)
  */
-export function calculateDistance(
-  lat1: number,
-  lon1: number,
-  lat2: number,
-  lon2: number
-): number {
+export function calculateDistance(lat1: number, lon1: number, lat2: number, lon2: number): number {
   const R = 6371000; // Earth's radius in meters
-  const dLat = (lat2 - lat1) * Math.PI / 180;
-  const dLon = (lon2 - lon1) * Math.PI / 180;
+  const dLat = ((lat2 - lat1) * Math.PI) / 180;
+  const dLon = ((lon2 - lon1) * Math.PI) / 180;
 
   const a =
     Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-    Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
-    Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    Math.cos((lat1 * Math.PI) / 180) *
+      Math.cos((lat2 * Math.PI) / 180) *
+      Math.sin(dLon / 2) *
+      Math.sin(dLon / 2);
 
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
@@ -106,10 +98,7 @@ export function calculateDistance(
 /**
  * Format distance for display
  */
-export function formatDistance(
-  meters: number,
-  unit: 'meters' | 'feet' = 'meters'
-): string {
+export function formatDistance(meters: number, unit: 'meters' | 'feet' = 'meters'): string {
   if (unit === 'feet') {
     const feet = meters * 3.28084;
     if (feet < 5280) {
@@ -127,16 +116,9 @@ export function formatDistance(
 /**
  * Check if a point is within a bounding box
  */
-export function isPointInBounds(
-  lat: number,
-  lon: number,
-  bounds: BoundingBox
-): boolean {
+export function isPointInBounds(lat: number, lon: number, bounds: BoundingBox): boolean {
   return (
-    lat >= bounds.minLat &&
-    lat <= bounds.maxLat &&
-    lon >= bounds.minLon &&
-    lon <= bounds.maxLon
+    lat >= bounds.minLat && lat <= bounds.maxLat && lon >= bounds.minLon && lon <= bounds.maxLon
   );
 }
 
@@ -183,26 +165,32 @@ export function expandBounds(bounds: BoundingBox, percent: number = 10): Boundin
 /**
  * Calculate number of tiles for a region at given zoom levels
  */
-export function calculateTileCount(
-  bounds: BoundingBox,
-  minZoom: number,
-  maxZoom: number
-): number {
+export function calculateTileCount(bounds: BoundingBox, minZoom: number, maxZoom: number): number {
   let total = 0;
 
   for (let z = minZoom; z <= maxZoom; z++) {
     const n = Math.pow(2, z);
 
-    const xMin = Math.floor((bounds.minLon + 180) / 360 * n);
-    const xMax = Math.floor((bounds.maxLon + 180) / 360 * n);
+    const xMin = Math.floor(((bounds.minLon + 180) / 360) * n);
+    const xMax = Math.floor(((bounds.maxLon + 180) / 360) * n);
 
     const yMin = Math.floor(
-      (1 - Math.log(Math.tan(bounds.maxLat * Math.PI / 180) +
-        1 / Math.cos(bounds.maxLat * Math.PI / 180)) / Math.PI) / 2 * n
+      ((1 -
+        Math.log(
+          Math.tan((bounds.maxLat * Math.PI) / 180) + 1 / Math.cos((bounds.maxLat * Math.PI) / 180)
+        ) /
+          Math.PI) /
+        2) *
+        n
     );
     const yMax = Math.floor(
-      (1 - Math.log(Math.tan(bounds.minLat * Math.PI / 180) +
-        1 / Math.cos(bounds.minLat * Math.PI / 180)) / Math.PI) / 2 * n
+      ((1 -
+        Math.log(
+          Math.tan((bounds.minLat * Math.PI) / 180) + 1 / Math.cos((bounds.minLat * Math.PI) / 180)
+        ) /
+          Math.PI) /
+        2) *
+        n
     );
 
     total += (xMax - xMin + 1) * (yMax - yMin + 1);

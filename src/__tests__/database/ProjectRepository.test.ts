@@ -59,9 +59,7 @@ describe('ProjectRepository', () => {
 
       expect(mockDb.runAsync).toHaveBeenCalledWith(
         expect.any(String),
-        expect.arrayContaining([
-          expect.stringContaining('"minLat":37'),
-        ])
+        expect.arrayContaining([expect.stringContaining('"minLat":37')])
       );
     });
   });
@@ -218,10 +216,9 @@ describe('ProjectRepository', () => {
       const result = await repository.delete('test-id');
 
       expect(result).toBe(true);
-      expect(mockDb.runAsync).toHaveBeenCalledWith(
-        'DELETE FROM projects WHERE id = ?',
-        ['test-id']
-      );
+      expect(mockDb.runAsync).toHaveBeenCalledWith('DELETE FROM projects WHERE id = ?', [
+        'test-id',
+      ]);
     });
 
     it('should return false when project not found', async () => {
@@ -254,10 +251,10 @@ describe('ProjectRepository', () => {
 
       expect(results).toHaveLength(1);
       expect(results[0].name).toBe('Archaeological Survey');
-      expect(mockDb.getAllAsync).toHaveBeenCalledWith(
-        expect.stringContaining('LIKE'),
-        ['%survey%', '%survey%']
-      );
+      expect(mockDb.getAllAsync).toHaveBeenCalledWith(expect.stringContaining('LIKE'), [
+        '%survey%',
+        '%survey%',
+      ]);
     });
   });
 
@@ -265,9 +262,10 @@ describe('ProjectRepository', () => {
     it('should return project statistics', async () => {
       mockDb.getFirstAsync
         .mockResolvedValueOnce({ count: 10 }) // waypoints
-        .mockResolvedValueOnce({ count: 5 })  // photos
-        .mockResolvedValueOnce({ count: 3 })  // notes
-        .mockResolvedValueOnce({              // date range
+        .mockResolvedValueOnce({ count: 5 }) // photos
+        .mockResolvedValueOnce({ count: 3 }) // notes
+        .mockResolvedValueOnce({
+          // date range
           min_date: '2024-01-01T00:00:00Z',
           max_date: '2024-01-15T00:00:00Z',
         });

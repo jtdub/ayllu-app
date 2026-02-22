@@ -35,17 +35,8 @@ export function LayerSelector({
   onClose,
 }: LayerSelectorProps) {
   return (
-    <Modal
-      visible={visible}
-      transparent
-      animationType="fade"
-      onRequestClose={onClose}
-    >
-      <TouchableOpacity
-        style={styles.overlay}
-        activeOpacity={1}
-        onPress={onClose}
-      >
+    <Modal visible={visible} transparent animationType="fade" onRequestClose={onClose}>
+      <TouchableOpacity style={styles.overlay} activeOpacity={1} onPress={onClose}>
         <View style={styles.container}>
           <View style={styles.header}>
             <Text style={styles.title}>Map Layer</Text>
@@ -57,10 +48,7 @@ export function LayerSelector({
           {LAYERS.map((layer) => (
             <TouchableOpacity
               key={layer.id}
-              style={[
-                styles.layerOption,
-                currentLayer === layer.id && styles.selectedLayer,
-              ]}
+              style={[styles.layerOption, currentLayer === layer.id && styles.selectedLayer]}
               onPress={() => {
                 onSelectLayer(layer.id);
                 onClose();
@@ -74,12 +62,7 @@ export function LayerSelector({
                 />
               </View>
               <View style={styles.layerInfo}>
-                <Text
-                  style={[
-                    styles.layerName,
-                    currentLayer === layer.id && styles.selectedText,
-                  ]}
-                >
+                <Text style={[styles.layerName, currentLayer === layer.id && styles.selectedText]}>
                   {layer.name}
                 </Text>
                 <Text style={styles.layerDescription}>{layer.description}</Text>

@@ -1,12 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  ActivityIndicator,
-  Alert,
-} from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ActivityIndicator, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import * as Location from 'expo-location';
 import { useDatabase } from '@/hooks/useDatabase';
@@ -151,9 +144,7 @@ export default function MapScreen() {
               {formatCoordinates(location.latitude, location.longitude)}
             </Text>
             {location.altitude !== null && (
-              <Text style={styles.locationAlt}>
-                Alt: {location.altitude.toFixed(1)}m
-              </Text>
+              <Text style={styles.locationAlt}>Alt: {location.altitude.toFixed(1)}m</Text>
             )}
             {location.accuracy !== null && (
               <Text style={styles.locationAccuracy}>
@@ -163,20 +154,13 @@ export default function MapScreen() {
           </View>
         )}
 
-        {locationError && (
-          <Text style={styles.errorText}>{locationError}</Text>
-        )}
+        {locationError && <Text style={styles.errorText}>{locationError}</Text>}
       </View>
 
       {/* Project selector */}
-      <TouchableOpacity
-        style={styles.projectSelector}
-        onPress={handleSelectProject}
-      >
+      <TouchableOpacity style={styles.projectSelector} onPress={handleSelectProject}>
         <Ionicons name="folder" size={18} color="#4a9eff" />
-        <Text style={styles.projectName}>
-          {selectedProject?.name || 'Select Project'}
-        </Text>
+        <Text style={styles.projectName}>{selectedProject?.name || 'Select Project'}</Text>
         <Ionicons name="chevron-down" size={18} color="#888" />
       </TouchableOpacity>
 
@@ -184,9 +168,7 @@ export default function MapScreen() {
       {selectedProject && (
         <View style={styles.waypointCount}>
           <Ionicons name="location" size={16} color="#4a9eff" />
-          <Text style={styles.waypointCountText}>
-            {waypoints.length} waypoints
-          </Text>
+          <Text style={styles.waypointCountText}>{waypoints.length} waypoints</Text>
         </View>
       )}
 
@@ -196,11 +178,7 @@ export default function MapScreen() {
           style={[styles.controlButton, isTracking && styles.activeButton]}
           onPress={isTracking ? stopTracking : startTracking}
         >
-          <Ionicons
-            name={isTracking ? 'pause' : 'navigate'}
-            size={24}
-            color="#fff"
-          />
+          <Ionicons name={isTracking ? 'pause' : 'navigate'} size={24} color="#fff" />
         </TouchableOpacity>
 
         <TouchableOpacity

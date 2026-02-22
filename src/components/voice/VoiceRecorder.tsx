@@ -1,12 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  Animated,
-  Platform,
-} from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Animated, Platform } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { Audio } from 'expo-av';
 
@@ -176,9 +169,7 @@ export function VoiceRecorder({
     return (
       <View style={styles.container}>
         <Ionicons name="mic-off" size={48} color="#ff6b6b" />
-        <Text style={styles.permissionText}>
-          Microphone permission required
-        </Text>
+        <Text style={styles.permissionText}>Microphone permission required</Text>
         <TouchableOpacity style={styles.permissionButton} onPress={checkPermission}>
           <Text style={styles.permissionButtonText}>Grant Permission</Text>
         </TouchableOpacity>
@@ -216,25 +207,15 @@ export function VoiceRecorder({
           </TouchableOpacity>
         ) : (
           <>
-            <TouchableOpacity
-              style={styles.controlButton}
-              onPress={() => stopRecording(false)}
-            >
+            <TouchableOpacity style={styles.controlButton} onPress={() => stopRecording(false)}>
               <Ionicons name="close" size={24} color="#ff6b6b" />
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.pauseButton} onPress={togglePause}>
-              <Ionicons
-                name={isPaused ? 'play' : 'pause'}
-                size={28}
-                color="#fff"
-              />
+              <Ionicons name={isPaused ? 'play' : 'pause'} size={28} color="#fff" />
             </TouchableOpacity>
 
-            <TouchableOpacity
-              style={styles.controlButton}
-              onPress={() => stopRecording(true)}
-            >
+            <TouchableOpacity style={styles.controlButton} onPress={() => stopRecording(true)}>
               <Ionicons name="checkmark" size={24} color="#4a9eff" />
             </TouchableOpacity>
           </>

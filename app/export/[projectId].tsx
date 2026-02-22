@@ -1,15 +1,8 @@
 import { useState, useEffect } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  ActivityIndicator,
-  Alert,
-} from 'react-native';
-import { useLocalSearchParams, useRouter, Stack } from 'expo-router';
+import { View, Text, StyleSheet, TouchableOpacity, ActivityIndicator, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import * as FileSystem from 'expo-file-system';
+import { useLocalSearchParams, useRouter, Stack } from 'expo-router';
 import * as Sharing from 'expo-sharing';
 import { useDatabase } from '@/hooks/useDatabase';
 import { GeoJSONExporter } from '@/services/export/GeoJSONExporter';
@@ -143,15 +136,19 @@ export default function ExportScreen() {
     }
   };
 
-  const exportAsCSV = (waypoints: { name: string; latitude: number; longitude: number; altitude: number | null; timestamp: string }[]): string => {
+  const exportAsCSV = (
+    waypoints: {
+      name: string;
+      latitude: number;
+      longitude: number;
+      altitude: number | null;
+      timestamp: string;
+    }[]
+  ): string => {
     const headers = ['name', 'latitude', 'longitude', 'altitude', 'timestamp'];
-    const rows = waypoints.map(wp => [
-      `"${wp.name}"`,
-      wp.latitude,
-      wp.longitude,
-      wp.altitude ?? '',
-      wp.timestamp,
-    ].join(','));
+    const rows = waypoints.map((wp) =>
+      [`"${wp.name}"`, wp.latitude, wp.longitude, wp.altitude ?? '', wp.timestamp].join(',')
+    );
 
     return [headers.join(','), ...rows].join('\n');
   };
@@ -245,9 +242,7 @@ export default function ExportScreen() {
           </View>
           <View style={styles.formatInfo}>
             <Text style={styles.formatTitle}>CSV</Text>
-            <Text style={styles.formatDescription}>
-              Simple spreadsheet format. Waypoints only.
-            </Text>
+            <Text style={styles.formatDescription}>Simple spreadsheet format. Waypoints only.</Text>
           </View>
           {selectedFormat === 'csv' && (
             <Ionicons name="checkmark-circle" size={24} color="#4a9eff" />

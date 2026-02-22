@@ -95,11 +95,7 @@ export function TranscriptionView({
       {/* Audio player */}
       <View style={styles.audioPlayer}>
         <TouchableOpacity style={styles.playButton} onPress={playAudio}>
-          <Ionicons
-            name={isPlaying ? 'pause' : 'play'}
-            size={24}
-            color="#fff"
-          />
+          <Ionicons name={isPlaying ? 'pause' : 'play'} size={24} color="#fff" />
         </TouchableOpacity>
 
         <View style={styles.progressContainer}>
@@ -176,10 +172,7 @@ export function TranscriptionView({
         <View style={styles.noTranscription}>
           <Ionicons name="document-text-outline" size={48} color="#444" />
           <Text style={styles.noTranscriptionText}>No transcription yet</Text>
-          <TouchableOpacity
-            style={styles.transcribeButton}
-            onPress={onTranscribe}
-          >
+          <TouchableOpacity style={styles.transcribeButton} onPress={onTranscribe}>
             <Ionicons name="text" size={18} color="#fff" />
             <Text style={styles.transcribeButtonText}>Transcribe Audio</Text>
           </TouchableOpacity>

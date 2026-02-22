@@ -119,7 +119,7 @@ export class GeoJSONExporter {
    * @returns Formatted GeoJSON string
    */
   static exportWaypoints(waypoints: Waypoint[]): string {
-    const features = waypoints.map(wp => this.waypointToFeature(wp));
+    const features = waypoints.map((wp) => this.waypointToFeature(wp));
 
     const featureCollection: GeoJSONFeatureCollection = {
       type: 'FeatureCollection',
@@ -139,8 +139,8 @@ export class GeoJSONExporter {
    */
   static exportPhotos(photos: Photo[]): string {
     const features = photos
-      .filter(p => p.latitude !== null && p.longitude !== null)
-      .map(p => this.photoToFeature(p));
+      .filter((p) => p.latitude !== null && p.longitude !== null)
+      .map((p) => this.photoToFeature(p));
 
     const featureCollection: GeoJSONFeatureCollection = {
       type: 'FeatureCollection',

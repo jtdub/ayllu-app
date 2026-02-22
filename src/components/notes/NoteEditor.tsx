@@ -85,17 +85,9 @@ export function NoteEditor({
         <TouchableOpacity onPress={onCancel} style={styles.headerButton}>
           <Ionicons name="close" size={24} color="#888" />
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>
-          {initialNote?.id ? 'Edit Note' : 'New Note'}
-        </Text>
-        <TouchableOpacity
-          onPress={handleSave}
-          style={styles.headerButton}
-          disabled={!canSave}
-        >
-          <Text style={[styles.saveText, !canSave && styles.saveTextDisabled]}>
-            Save
-          </Text>
+        <Text style={styles.headerTitle}>{initialNote?.id ? 'Edit Note' : 'New Note'}</Text>
+        <TouchableOpacity onPress={handleSave} style={styles.headerButton} disabled={!canSave}>
+          <Text style={[styles.saveText, !canSave && styles.saveTextDisabled]}>Save</Text>
         </TouchableOpacity>
       </View>
 
@@ -158,15 +150,8 @@ export function NoteEditor({
                   : 'Location disabled'}
               </Text>
             </View>
-            <View
-              style={[
-                styles.checkbox,
-                includeLocation && styles.checkboxChecked,
-              ]}
-            >
-              {includeLocation && (
-                <Ionicons name="checkmark" size={14} color="#fff" />
-              )}
+            <View style={[styles.checkbox, includeLocation && styles.checkboxChecked]}>
+              {includeLocation && <Ionicons name="checkmark" size={14} color="#fff" />}
             </View>
           </TouchableOpacity>
         )}
@@ -176,11 +161,7 @@ export function NoteEditor({
           <Text style={styles.sectionLabel}>Tags</Text>
           <View style={styles.tagsContainer}>
             {tags.map((tag) => (
-              <TouchableOpacity
-                key={tag}
-                style={styles.tag}
-                onPress={() => handleRemoveTag(tag)}
-              >
+              <TouchableOpacity key={tag} style={styles.tag} onPress={() => handleRemoveTag(tag)}>
                 <Text style={styles.tagText}>{tag}</Text>
                 <Ionicons name="close" size={14} color="#888" />
               </TouchableOpacity>
@@ -201,11 +182,7 @@ export function NoteEditor({
               onPress={handleAddTag}
               disabled={!newTag.trim()}
             >
-              <Ionicons
-                name="add"
-                size={20}
-                color={newTag.trim() ? '#4a9eff' : '#666'}
-              />
+              <Ionicons name="add" size={20} color={newTag.trim() ? '#4a9eff' : '#666'} />
             </TouchableOpacity>
           </View>
         </View>

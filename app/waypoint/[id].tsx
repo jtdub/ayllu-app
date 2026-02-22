@@ -8,8 +8,8 @@ import {
   TextInput,
   Alert,
 } from 'react-native';
-import { useLocalSearchParams, useRouter, Stack } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
+import { useLocalSearchParams, useRouter, Stack } from 'expo-router';
 import { useDatabase } from '@/hooks/useDatabase';
 import type { Waypoint, Photo, FieldNote } from '@/types';
 import { formatDate, formatCoordinates } from '@/utils';
@@ -17,11 +17,7 @@ import { formatDate, formatCoordinates } from '@/utils';
 export default function WaypointDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
-  const {
-    waypointRepository,
-    photoRepository,
-    fieldNoteRepository,
-  } = useDatabase();
+  const { waypointRepository, photoRepository, fieldNoteRepository } = useDatabase();
 
   const [waypoint, setWaypoint] = useState<Waypoint | null>(null);
   const [photos, setPhotos] = useState<Photo[]>([]);
@@ -114,15 +110,8 @@ export default function WaypointDetailScreen() {
         options={{
           title: waypoint.name,
           headerRight: () => (
-            <TouchableOpacity
-              onPress={() => setIsEditing(!isEditing)}
-              style={styles.headerButton}
-            >
-              <Ionicons
-                name={isEditing ? 'close' : 'create'}
-                size={22}
-                color="#4a9eff"
-              />
+            <TouchableOpacity onPress={() => setIsEditing(!isEditing)} style={styles.headerButton}>
+              <Ionicons name={isEditing ? 'close' : 'create'} size={22} color="#4a9eff" />
             </TouchableOpacity>
           ),
         }}
@@ -212,9 +201,7 @@ export default function WaypointDetailScreen() {
           <Text style={styles.sectionTitle}>Recorded</Text>
           <View style={styles.dateRow}>
             <Ionicons name="time" size={16} color="#888" />
-            <Text style={styles.dateText}>
-              {formatDate(waypoint.timestamp, true)}
-            </Text>
+            <Text style={styles.dateText}>{formatDate(waypoint.timestamp, true)}</Text>
           </View>
         </View>
 
@@ -241,9 +228,7 @@ export default function WaypointDetailScreen() {
                 <Ionicons name="image" size={18} color="#4a9eff" />
                 <View style={styles.listItemText}>
                   <Text style={styles.listItemTitle}>{photo.filename}</Text>
-                  <Text style={styles.listItemSubtitle}>
-                    {formatDate(photo.capturedAt, true)}
-                  </Text>
+                  <Text style={styles.listItemSubtitle}>{formatDate(photo.capturedAt, true)}</Text>
                 </View>
               </View>
             ))}
@@ -261,9 +246,7 @@ export default function WaypointDetailScreen() {
                   <Text style={styles.listItemTitle} numberOfLines={2}>
                     {note.title || note.content.substring(0, 50)}
                   </Text>
-                  <Text style={styles.listItemSubtitle}>
-                    {formatDate(note.timestamp, true)}
-                  </Text>
+                  <Text style={styles.listItemSubtitle}>{formatDate(note.timestamp, true)}</Text>
                 </View>
               </View>
             ))}
@@ -271,10 +254,7 @@ export default function WaypointDetailScreen() {
         )}
 
         {/* Delete Action */}
-        <TouchableOpacity
-          style={[styles.actionButton, styles.deleteAction]}
-          onPress={handleDelete}
-        >
+        <TouchableOpacity style={[styles.actionButton, styles.deleteAction]} onPress={handleDelete}>
           <Ionicons name="trash" size={20} color="#ff6b6b" />
           <Text style={[styles.actionText, styles.deleteText]}>Delete Waypoint</Text>
         </TouchableOpacity>

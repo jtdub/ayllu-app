@@ -1,16 +1,8 @@
 import { useState, useCallback } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  TouchableOpacity,
-  Switch,
-  Alert,
-} from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Switch, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { useRouter } from 'expo-router';
 import { useFocusEffect } from '@react-navigation/native';
+import { useRouter } from 'expo-router';
 import { useDatabase } from '@/hooks/useDatabase';
 import { formatFileSize } from '@/utils';
 
@@ -65,39 +57,27 @@ export default function SettingsScreen() {
   };
 
   const handleCoordinateFormat = () => {
-    Alert.alert(
-      'Coordinate Format',
-      'Select your preferred coordinate display format:',
-      [
-        { text: 'Decimal (37.7749, -122.4194)', onPress: () => setCoordinateFormat('decimal') },
-        { text: 'DMS (37°46\'29.64"N, 122°25\'9.84"W)', onPress: () => setCoordinateFormat('dms') },
-        { text: 'UTM (10S 551766E 4180096N)', onPress: () => setCoordinateFormat('utm') },
-        { text: 'Cancel', style: 'cancel' },
-      ]
-    );
+    Alert.alert('Coordinate Format', 'Select your preferred coordinate display format:', [
+      { text: 'Decimal (37.7749, -122.4194)', onPress: () => setCoordinateFormat('decimal') },
+      { text: 'DMS (37°46\'29.64"N, 122°25\'9.84"W)', onPress: () => setCoordinateFormat('dms') },
+      { text: 'UTM (10S 551766E 4180096N)', onPress: () => setCoordinateFormat('utm') },
+      { text: 'Cancel', style: 'cancel' },
+    ]);
   };
 
   const handleDistanceUnit = () => {
-    Alert.alert(
-      'Distance Unit',
-      'Select your preferred distance unit:',
-      [
-        { text: 'Meters/Kilometers', onPress: () => setDistanceUnit('meters') },
-        { text: 'Feet/Miles', onPress: () => setDistanceUnit('feet') },
-        { text: 'Cancel', style: 'cancel' },
-      ]
-    );
+    Alert.alert('Distance Unit', 'Select your preferred distance unit:', [
+      { text: 'Meters/Kilometers', onPress: () => setDistanceUnit('meters') },
+      { text: 'Feet/Miles', onPress: () => setDistanceUnit('feet') },
+      { text: 'Cancel', style: 'cancel' },
+    ]);
   };
 
   const handleExport = () => {
-    Alert.alert(
-      'Export All Data',
-      'Export all projects as a GeoJSON archive?',
-      [
-        { text: 'Cancel', style: 'cancel' },
-        { text: 'Export', onPress: () => Alert.alert('Info', 'Export functionality coming soon') },
-      ]
-    );
+    Alert.alert('Export All Data', 'Export all projects as a GeoJSON archive?', [
+      { text: 'Cancel', style: 'cancel' },
+      { text: 'Export', onPress: () => Alert.alert('Info', 'Export functionality coming soon') },
+    ]);
   };
 
   const handleAbout = () => {
@@ -192,8 +172,11 @@ export default function SettingsScreen() {
             <View style={styles.settingText}>
               <Text style={styles.settingLabel}>Coordinate Format</Text>
               <Text style={styles.settingValue}>
-                {coordinateFormat === 'decimal' ? 'Decimal degrees' :
-                 coordinateFormat === 'dms' ? 'Degrees, minutes, seconds' : 'UTM'}
+                {coordinateFormat === 'decimal'
+                  ? 'Decimal degrees'
+                  : coordinateFormat === 'dms'
+                    ? 'Degrees, minutes, seconds'
+                    : 'UTM'}
               </Text>
             </View>
           </View>

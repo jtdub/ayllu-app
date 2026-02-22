@@ -7,9 +7,9 @@
  * @module database/repositories/WaypointRepository
  */
 
-import type { SQLiteDatabase } from 'expo-sqlite';
 import type { Waypoint, WaypointFilter, BoundingBox } from '@/types';
 import { generateId, getCurrentTimestamp, safeJsonParse } from '@/utils';
+import type { SQLiteDatabase, SQLiteBindValue } from 'expo-sqlite';
 
 /**
  * Data access repository for Waypoint entities.
@@ -75,9 +75,7 @@ export class WaypointRepository {
    * });
    * ```
    */
-  async create(
-    data: Omit<Waypoint, 'id' | 'createdAt' | 'updatedAt'>
-  ): Promise<Waypoint> {
+  async create(data: Omit<Waypoint, 'id' | 'createdAt' | 'updatedAt'>): Promise<Waypoint> {
     const id = generateId();
     const now = getCurrentTimestamp();
 
@@ -121,10 +119,9 @@ export class WaypointRepository {
    * @returns The waypoint if found, null otherwise
    */
   async getById(id: string): Promise<Waypoint | null> {
-    const row = await this.db.getFirstAsync<WaypointRow>(
-      'SELECT * FROM waypoints WHERE id = ?',
-      [id]
-    );
+    const row = await this.db.getFirstAsync<WaypointRow>('SELECT * FROM waypoints WHERE id = ?', [
+      id,
+    ]);
 
     return row ? this.mapRowToWaypoint(row) : null;
   }
@@ -182,7 +179,7 @@ export class WaypointRepository {
    */
   async query(filter: WaypointFilter): Promise<Waypoint[]> {
     const conditions: string[] = [];
-    const values: unknown[] = [];
+    const values: SQLiteBindValue[] = [];
 
     if (filter.projectId) {
       conditions.push('project_id = ?');
@@ -213,7 +210,7 @@ export class WaypointRepository {
       // Check if any of the filter tags exist in the waypoint's tags JSON array
       const tagConditions = filter.tags.map(() => 'tags LIKE ?');
       conditions.push(`(${tagConditions.join(' OR ')})`);
-      values.push(...filter.tags.map(tag => `%"${tag}"%`));
+      values.push(...filter.tags.map((tag) => `%"${tag}"%`));
     }
 
     if (filter.searchText) {
@@ -222,9 +219,7 @@ export class WaypointRepository {
       values.push(searchTerm, searchTerm);
     }
 
-    const whereClause = conditions.length > 0
-      ? `WHERE ${conditions.join(' AND ')}`
-      : '';
+    const whereClause = conditions.length > 0 ? `WHERE ${conditions.join(' AND ')}` : '';
 
     const rows = await this.db.getAllAsync<WaypointRow>(
       `SELECT * FROM waypoints ${whereClause} ORDER BY timestamp DESC`,
@@ -252,7 +247,7 @@ export class WaypointRepository {
     if (!existing) return null;
 
     const updates: string[] = [];
-    const values: unknown[] = [];
+    const values: SQLiteBindValue[] = [];
 
     if (data.name !== undefined) {
       updates.push('name = ?');
@@ -306,10 +301,7 @@ export class WaypointRepository {
     values.push(now);
     values.push(id);
 
-    await this.db.runAsync(
-      `UPDATE waypoints SET ${updates.join(', ')} WHERE id = ?`,
-      values
-    );
+    await this.db.runAsync(`UPDATE waypoints SET ${updates.join(', ')} WHERE id = ?`, values);
 
     return this.getById(id);
   }
@@ -321,10 +313,7 @@ export class WaypointRepository {
    * @returns `true` if deleted, `false` if not found
    */
   async delete(id: string): Promise<boolean> {
-    const result = await this.db.runAsync(
-      'DELETE FROM waypoints WHERE id = ?',
-      [id]
-    );
+    const result = await this.db.runAsync('DELETE FROM waypoints WHERE id = ?', [id]);
 
     return result.changes > 0;
   }
@@ -336,10 +325,9 @@ export class WaypointRepository {
    * @returns Number of waypoints deleted
    */
   async deleteByProject(projectId: string): Promise<number> {
-    const result = await this.db.runAsync(
-      'DELETE FROM waypoints WHERE project_id = ?',
-      [projectId]
-    );
+    const result = await this.db.runAsync('DELETE FROM waypoints WHERE project_id = ?', [
+      projectId,
+    ]);
 
     return result.changes;
   }
@@ -405,7 +393,7 @@ export class WaypointRepository {
     const tagSet = new Set<string>();
     for (const row of rows) {
       const tags = safeJsonParse<string[]>(row.tags, []);
-      tags.forEach(tag => tagSet.add(tag));
+      tags.forEach((tag) => tagSet.add(tag));
     }
 
     return Array.from(tagSet).sort();
@@ -455,13 +443,10 @@ export class WaypointRepository {
   ): Promise<Waypoint[]> {
     // Approximate degrees for bounding box query
     const latDelta = radiusMeters / 111000; // ~111km per degree latitude
-    const lonDelta = radiusMeters / (111000 * Math.cos(latitude * Math.PI / 180));
+    const lonDelta = radiusMeters / (111000 * Math.cos((latitude * Math.PI) / 180));
 
-    const conditions = [
-      'latitude BETWEEN ? AND ?',
-      'longitude BETWEEN ? AND ?',
-    ];
-    const values: unknown[] = [
+    const conditions = ['latitude BETWEEN ? AND ?', 'longitude BETWEEN ? AND ?'];
+    const values: SQLiteBindValue[] = [
       latitude - latDelta,
       latitude + latDelta,
       longitude - lonDelta,
@@ -479,15 +464,10 @@ export class WaypointRepository {
     );
 
     // Filter by actual distance (Haversine)
-    return rows
-      .map(this.mapRowToWaypoint)
-      .filter(wp => {
-        const distance = this.haversineDistance(
-          latitude, longitude,
-          wp.latitude, wp.longitude
-        );
-        return distance <= radiusMeters;
-      });
+    return rows.map(this.mapRowToWaypoint).filter((wp) => {
+      const distance = this.haversineDistance(latitude, longitude, wp.latitude, wp.longitude);
+      return distance <= radiusMeters;
+    });
   }
 
   /**
@@ -500,17 +480,16 @@ export class WaypointRepository {
    * @returns Distance in meters
    * @internal
    */
-  private haversineDistance(
-    lat1: number, lon1: number,
-    lat2: number, lon2: number
-  ): number {
+  private haversineDistance(lat1: number, lon1: number, lat2: number, lon2: number): number {
     const R = 6371000;
-    const dLat = (lat2 - lat1) * Math.PI / 180;
-    const dLon = (lon2 - lon1) * Math.PI / 180;
+    const dLat = ((lat2 - lat1) * Math.PI) / 180;
+    const dLon = ((lon2 - lon1) * Math.PI) / 180;
     const a =
       Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-      Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
-      Math.sin(dLon / 2) * Math.sin(dLon / 2);
+      Math.cos((lat1 * Math.PI) / 180) *
+        Math.cos((lat2 * Math.PI) / 180) *
+        Math.sin(dLon / 2) *
+        Math.sin(dLon / 2);
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     return R * c;
   }
@@ -535,10 +514,7 @@ export class WaypointRepository {
       heading: row.heading,
       speed: row.speed,
       tags: safeJsonParse<string[]>(row.tags, []),
-      customFields: safeJsonParse<Record<string, string | number | null>>(
-        row.custom_fields,
-        {}
-      ),
+      customFields: safeJsonParse<Record<string, string | number | null>>(row.custom_fields, {}),
       timestamp: row.timestamp,
       createdAt: row.created_at,
       updatedAt: row.updated_at,

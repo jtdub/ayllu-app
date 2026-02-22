@@ -93,10 +93,7 @@ export class PhotoService {
    *
    * Note: Requires react-native-exify in native build
    */
-  async writeGpsToExif(
-    uri: string,
-    location: LocationCoordinates
-  ): Promise<boolean> {
+  async writeGpsToExif(uri: string, location: LocationCoordinates): Promise<boolean> {
     try {
       // Placeholder for EXIF writing
       // In a full implementation with react-native-exify:
@@ -117,10 +114,7 @@ export class PhotoService {
   /**
    * Generate thumbnail for photo
    */
-  async generateThumbnail(
-    uri: string,
-    maxSize: number = 300
-  ): Promise<string | null> {
+  async generateThumbnail(uri: string, maxSize: number = 300): Promise<string | null> {
     await this.initialize();
 
     try {

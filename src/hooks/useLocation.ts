@@ -229,7 +229,14 @@ export function useLocation(options: UseLocationOptions = {}): UseLocationReturn
       const message = err instanceof Error ? err.message : 'Failed to start tracking';
       setError(message);
     }
-  }, [isTracking, hasPermission, enableHighAccuracy, distanceInterval, timeInterval, requestPermission]);
+  }, [
+    isTracking,
+    hasPermission,
+    enableHighAccuracy,
+    distanceInterval,
+    timeInterval,
+    requestPermission,
+  ]);
 
   /**
    * Stop continuous location tracking.

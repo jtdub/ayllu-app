@@ -260,10 +260,7 @@ export async function openDatabase(): Promise<SQLite.SQLiteDatabase> {
 /**
  * Run database migrations from current version to latest
  */
-export async function runMigrations(
-  db: SQLite.SQLiteDatabase,
-  fromVersion: number
-): Promise<void> {
+export async function runMigrations(db: SQLite.SQLiteDatabase, fromVersion: number): Promise<void> {
   console.log(`Running migrations from version ${fromVersion} to ${DATABASE_VERSION}`);
 
   // Add migration logic here as the schema evolves

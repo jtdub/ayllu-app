@@ -52,13 +52,10 @@ export function usePhoto(): UsePhotoReturn {
     }
   }, []);
 
-  const deletePhoto = useCallback(
-    async (uri: string, thumbnailUri?: string | null) => {
-      if (!serviceRef.current) return;
-      await serviceRef.current.deletePhoto(uri, thumbnailUri);
-    },
-    []
-  );
+  const deletePhoto = useCallback(async (uri: string, thumbnailUri?: string | null) => {
+    if (!serviceRef.current) return;
+    await serviceRef.current.deletePhoto(uri, thumbnailUri);
+  }, []);
 
   const readExif = useCallback(async (uri: string): Promise<ExifData | null> => {
     if (!serviceRef.current) return null;

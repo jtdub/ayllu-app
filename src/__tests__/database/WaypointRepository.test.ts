@@ -1,6 +1,6 @@
 import { WaypointRepository } from '../../database/repositories/WaypointRepository';
-import type { SQLiteDatabase } from 'expo-sqlite';
 import type { WaypointFilter } from '../../types';
+import type { SQLiteDatabase } from 'expo-sqlite';
 
 describe('WaypointRepository', () => {
   let mockDb: jest.Mocked<SQLiteDatabase>;
@@ -105,11 +105,7 @@ describe('WaypointRepository', () => {
 
       expect(mockDb.getAllAsync).toHaveBeenCalledWith(
         expect.stringContaining('timestamp >='),
-        expect.arrayContaining([
-          'project-123',
-          '2024-01-01T00:00:00Z',
-          '2024-01-31T23:59:59Z',
-        ])
+        expect.arrayContaining(['project-123', '2024-01-01T00:00:00Z', '2024-01-31T23:59:59Z'])
       );
     });
 
@@ -210,7 +206,7 @@ describe('WaypointRepository', () => {
           project_id: 'project-123',
           name: 'Nearby WP',
           description: null,
-          latitude: 37.7750,
+          latitude: 37.775,
           longitude: -122.4195,
           altitude: null,
           accuracy: 5,

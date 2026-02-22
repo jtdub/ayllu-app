@@ -1,7 +1,8 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import * as turf from '@turf/turf';
-import { DataManager, BoundingBox, Waypoint, Photo } from '../data-manager.js';
+import { Waypoint, Photo } from '../data-manager.js';
+import type { DataManager, BoundingBox } from '../data-manager.js';
 
 export interface QueryWaypointsArgs {
   projectId: string;
@@ -45,9 +46,7 @@ export async function queryWaypoints(
 
   // Filter by tags
   if (args.tags && args.tags.length > 0) {
-    waypoints = waypoints.filter((wp) =>
-      args.tags!.some((tag) => wp.tags.includes(tag))
-    );
+    waypoints = waypoints.filter((wp) => args.tags!.some((tag) => wp.tags.includes(tag)));
   }
 
   // Filter by date range
@@ -95,16 +94,12 @@ export async function queryPhotos(
 
   // Filter by tags
   if (args.tags && args.tags.length > 0) {
-    photos = photos.filter((p) =>
-      args.tags!.some((tag) => p.tags.includes(tag))
-    );
+    photos = photos.filter((p) => args.tags!.some((tag) => p.tags.includes(tag)));
   }
 
   // Filter by caption presence
   if (args.hasCaption !== undefined) {
-    photos = photos.filter((p) =>
-      args.hasCaption ? p.caption !== null : p.caption === null
-    );
+    photos = photos.filter((p) => (args.hasCaption ? p.caption !== null : p.caption === null));
   }
 
   return {
@@ -191,9 +186,7 @@ export async function exportToQgis(
 
   // Write GeoJSON
   const geojsonPath =
-    args.format === 'geopackage'
-      ? args.outputPath.replace(/\.gpkg$/, '.geojson')
-      : args.outputPath;
+    args.format === 'geopackage' ? args.outputPath.replace(/\.gpkg$/, '.geojson') : args.outputPath;
 
   fs.writeFileSync(geojsonPath, JSON.stringify(featureCollection, null, 2));
 
@@ -201,8 +194,7 @@ export async function exportToQgis(
 
   if (args.format === 'geopackage') {
     message +=
-      '\n\nTo convert to GeoPackage, run:\n' +
-      `ogr2ogr -f GPKG ${args.outputPath} ${geojsonPath}`;
+      '\n\nTo convert to GeoPackage, run:\n' + `ogr2ogr -f GPKG ${args.outputPath} ${geojsonPath}`;
   }
 
   return {
@@ -222,27 +214,24 @@ export async function spatialAnalysis(
     };
   }
 
-  const points = waypoints.map((wp) =>
-    turf.point([wp.longitude, wp.latitude])
-  );
+  const points = waypoints.map((wp) => turf.point([wp.longitude, wp.latitude]));
   const pointsCollection = turf.featureCollection(points);
 
   let result: any;
 
   switch (args.operation) {
-    case 'buffer':
+    case 'buffer': {
       const radius = args.bufferRadius || 100;
-      const buffered = points.map((p) =>
-        turf.buffer(p, radius, { units: 'meters' })
-      );
+      const buffered = points.map((p) => turf.buffer(p, radius, { units: 'meters' }));
       result = {
         type: 'buffer',
         radiusMeters: radius,
         buffers: turf.featureCollection(buffered),
       };
       break;
+    }
 
-    case 'convex_hull':
+    case 'convex_hull': {
       const hull = turf.convex(pointsCollection);
       result = {
         type: 'convex_hull',
@@ -250,8 +239,9 @@ export async function spatialAnalysis(
         areaSquareMeters: hull ? turf.area(hull) : 0,
       };
       break;
+    }
 
-    case 'centroid':
+    case 'centroid': {
       const centroid = turf.centroid(pointsCollection);
       result = {
         type: 'centroid',
@@ -259,8 +249,9 @@ export async function spatialAnalysis(
         coordinates: centroid.geometry.coordinates,
       };
       break;
+    }
 
-    case 'bounding_box':
+    case 'bounding_box': {
       const bbox = turf.bbox(pointsCollection);
       result = {
         type: 'bounding_box',
@@ -273,8 +264,9 @@ export async function spatialAnalysis(
         polygon: turf.bboxPolygon(bbox),
       };
       break;
+    }
 
-    case 'total_distance':
+    case 'total_distance': {
       if (waypoints.length < 2) {
         result = { type: 'total_distance', distanceMeters: 0 };
       } else {
@@ -293,6 +285,7 @@ export async function spatialAnalysis(
         };
       }
       break;
+    }
 
     default:
       result = { error: `Unknown operation: ${args.operation}` };
@@ -319,12 +312,8 @@ export async function generateReport(
   const format = args.format || 'markdown';
 
   // Calculate statistics
-  const photoWithLocation = photos.filter(
-    (p) => p.latitude !== null && p.longitude !== null
-  );
-  const notesWithLocation = notes.filter(
-    (n) => n.latitude !== null && n.longitude !== null
-  );
+  const photoWithLocation = photos.filter((p) => p.latitude !== null && p.longitude !== null);
+  const notesWithLocation = notes.filter((n) => n.latitude !== null && n.longitude !== null);
   const voiceNotes = notes.filter((n) => n.audioUri !== null);
 
   // Calculate date range
@@ -382,8 +371,7 @@ export async function generateReport(
           start: dateRange.start.toISOString(),
           end: dateRange.end.toISOString(),
           durationDays: Math.ceil(
-            (dateRange.end.getTime() - dateRange.start.getTime()) /
-              (1000 * 60 * 60 * 24)
+            (dateRange.end.getTime() - dateRange.start.getTime()) / (1000 * 60 * 60 * 24)
           ),
         }
       : null,

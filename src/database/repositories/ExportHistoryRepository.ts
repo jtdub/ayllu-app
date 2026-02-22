@@ -1,6 +1,6 @@
-import type { SQLiteDatabase } from 'expo-sqlite';
 import type { ExportHistory, ExportFormat } from '@/types';
 import { generateId, getCurrentTimestamp } from '@/utils';
+import type { SQLiteDatabase } from 'expo-sqlite';
 
 export class ExportHistoryRepository {
   constructor(private db: SQLiteDatabase) {}
@@ -8,9 +8,7 @@ export class ExportHistoryRepository {
   /**
    * Create a new export history entry
    */
-  async create(
-    data: Omit<ExportHistory, 'id' | 'exportedAt'>
-  ): Promise<ExportHistory> {
+  async create(data: Omit<ExportHistory, 'id' | 'exportedAt'>): Promise<ExportHistory> {
     const id = generateId();
     const now = getCurrentTimestamp();
 
@@ -103,10 +101,7 @@ export class ExportHistoryRepository {
    * Delete export history entry
    */
   async delete(id: string): Promise<boolean> {
-    const result = await this.db.runAsync(
-      'DELETE FROM export_history WHERE id = ?',
-      [id]
-    );
+    const result = await this.db.runAsync('DELETE FROM export_history WHERE id = ?', [id]);
 
     return result.changes > 0;
   }
@@ -115,10 +110,9 @@ export class ExportHistoryRepository {
    * Delete all export history for a project
    */
   async deleteByProject(projectId: string): Promise<number> {
-    const result = await this.db.runAsync(
-      'DELETE FROM export_history WHERE project_id = ?',
-      [projectId]
-    );
+    const result = await this.db.runAsync('DELETE FROM export_history WHERE project_id = ?', [
+      projectId,
+    ]);
 
     return result.changes;
   }
@@ -167,7 +161,7 @@ export class ExportHistoryRepository {
         [project_id, keepPerProject]
       );
 
-      const keepIds = toKeep.map(r => r.id);
+      const keepIds = toKeep.map((r) => r.id);
 
       if (keepIds.length === 0) continue;
 

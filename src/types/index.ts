@@ -430,10 +430,7 @@ export interface GeoJSONFeature {
 /**
  * Union type for supported GeoJSON geometry types.
  */
-export type GeoJSONGeometry =
-  | GeoJSONPoint
-  | GeoJSONLineString
-  | GeoJSONPolygon;
+export type GeoJSONGeometry = GeoJSONPoint | GeoJSONLineString | GeoJSONPolygon;
 
 /**
  * GeoJSON Point geometry.

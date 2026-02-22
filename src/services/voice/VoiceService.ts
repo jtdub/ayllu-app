@@ -235,10 +235,7 @@ export class VoiceService {
   /**
    * Copy audio to app's document directory
    */
-  async saveAudioFile(
-    sourceUri: string,
-    filename: string
-  ): Promise<string> {
+  async saveAudioFile(sourceUri: string, filename: string): Promise<string> {
     const destDir = `${FileSystem.documentDirectory}audio/`;
     const destUri = `${destDir}${filename}`;
 

@@ -38,7 +38,7 @@ describe('GeoJSONExporter', () => {
       projectId: 'project-123',
       name: 'WP002',
       description: null,
-      latitude: 37.7750,
+      latitude: 37.775,
       longitude: -122.4195,
       altitude: null,
       accuracy: 10,
@@ -112,12 +112,7 @@ describe('GeoJSONExporter', () => {
     });
 
     it('should include all waypoints as features', () => {
-      const geojson = GeoJSONExporter.exportProject(
-        mockProject,
-        mockWaypoints,
-        [],
-        []
-      );
+      const geojson = GeoJSONExporter.exportProject(mockProject, mockWaypoints, [], []);
 
       const parsed = JSON.parse(geojson);
 
@@ -127,12 +122,7 @@ describe('GeoJSONExporter', () => {
     });
 
     it('should include photos with location', () => {
-      const geojson = GeoJSONExporter.exportProject(
-        mockProject,
-        [],
-        mockPhotos,
-        []
-      );
+      const geojson = GeoJSONExporter.exportProject(mockProject, [], mockPhotos, []);
 
       const parsed = JSON.parse(geojson);
 
@@ -141,12 +131,7 @@ describe('GeoJSONExporter', () => {
     });
 
     it('should include notes with location', () => {
-      const geojson = GeoJSONExporter.exportProject(
-        mockProject,
-        [],
-        [],
-        mockNotes
-      );
+      const geojson = GeoJSONExporter.exportProject(mockProject, [], [], mockNotes);
 
       const parsed = JSON.parse(geojson);
 
@@ -163,12 +148,7 @@ describe('GeoJSONExporter', () => {
         },
       ];
 
-      const geojson = GeoJSONExporter.exportProject(
-        mockProject,
-        [],
-        photosWithoutLocation,
-        []
-      );
+      const geojson = GeoJSONExporter.exportProject(mockProject, [], photosWithoutLocation, []);
 
       const parsed = JSON.parse(geojson);
 

@@ -107,14 +107,10 @@ export class LocationService {
    * }
    * ```
    */
-  static async getCurrentLocation(
-    highAccuracy = true
-  ): Promise<LocationCoordinates | null> {
+  static async getCurrentLocation(highAccuracy = true): Promise<LocationCoordinates | null> {
     try {
       const location = await Location.getCurrentPositionAsync({
-        accuracy: highAccuracy
-          ? Location.Accuracy.BestForNavigation
-          : Location.Accuracy.Balanced,
+        accuracy: highAccuracy ? Location.Accuracy.BestForNavigation : Location.Accuracy.Balanced,
       });
 
       return {
@@ -174,9 +170,7 @@ export class LocationService {
 
     this.subscription = await Location.watchPositionAsync(
       {
-        accuracy: highAccuracy
-          ? Location.Accuracy.BestForNavigation
-          : Location.Accuracy.Balanced,
+        accuracy: highAccuracy ? Location.Accuracy.BestForNavigation : Location.Accuracy.Balanced,
         distanceInterval,
         timeInterval,
       },
@@ -244,16 +238,9 @@ export class LocationService {
    * );
    * ```
    */
-  static isInBounds(
-    lat: number,
-    lon: number,
-    bounds: BoundingBox
-  ): boolean {
+  static isInBounds(lat: number, lon: number, bounds: BoundingBox): boolean {
     return (
-      lat >= bounds.minLat &&
-      lat <= bounds.maxLat &&
-      lon >= bounds.minLon &&
-      lon <= bounds.maxLon
+      lat >= bounds.minLat && lat <= bounds.maxLat && lon >= bounds.minLon && lon <= bounds.maxLon
     );
   }
 
@@ -278,12 +265,7 @@ export class LocationService {
    * console.log(`Distance: ${distance / 1000} km`);
    * ```
    */
-  static calculateDistance(
-    lat1: number,
-    lon1: number,
-    lat2: number,
-    lon2: number
-  ): number {
+  static calculateDistance(lat1: number, lon1: number, lat2: number, lon2: number): number {
     const R = 6371000; // Earth's radius in meters
     const dLat = ((lat2 - lat1) * Math.PI) / 180;
     const dLon = ((lon2 - lon1) * Math.PI) / 180;
@@ -321,12 +303,7 @@ export class LocationService {
    * console.log(`Head ${bearing}° from North`);
    * ```
    */
-  static calculateBearing(
-    lat1: number,
-    lon1: number,
-    lat2: number,
-    lon2: number
-  ): number {
+  static calculateBearing(lat1: number, lon1: number, lat2: number, lon2: number): number {
     const dLon = ((lon2 - lon1) * Math.PI) / 180;
     const lat1Rad = (lat1 * Math.PI) / 180;
     const lat2Rad = (lat2 * Math.PI) / 180;

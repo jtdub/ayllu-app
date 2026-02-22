@@ -62,9 +62,7 @@ export function NoteCard({
               <Text style={styles.tagText}>{tag}</Text>
             </View>
           ))}
-          {note.tags.length > 3 && (
-            <Text style={styles.moreTags}>+{note.tags.length - 3}</Text>
-          )}
+          {note.tags.length > 3 && <Text style={styles.moreTags}>+{note.tags.length - 3}</Text>}
         </View>
       )}
 
@@ -97,9 +95,7 @@ export function NoteCard({
         </View>
 
         <View style={styles.dateContainer}>
-          {showProject && projectName && (
-            <Text style={styles.projectName}>{projectName}</Text>
-          )}
+          {showProject && projectName && <Text style={styles.projectName}>{projectName}</Text>}
           <Text style={styles.date}>{formatDate(note.timestamp, true)}</Text>
         </View>
       </View>

@@ -1,6 +1,5 @@
-import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
-import type { SQLiteDatabase } from 'expo-sqlite';
-import { openDatabase } from '@/database/schema';
+import type { ReactNode } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 import {
   ProjectRepository,
   WaypointRepository,
@@ -9,6 +8,8 @@ import {
   MapRegionRepository,
   ExportHistoryRepository,
 } from '@/database/repositories';
+import { openDatabase } from '@/database/schema';
+import type { SQLiteDatabase } from 'expo-sqlite';
 
 interface DatabaseContextType {
   db: SQLiteDatabase | null;
@@ -48,7 +49,8 @@ export function DatabaseProvider({ children }: DatabaseProviderProps) {
   const [photoRepository, setPhotoRepository] = useState<PhotoRepository | null>(null);
   const [fieldNoteRepository, setFieldNoteRepository] = useState<FieldNoteRepository | null>(null);
   const [mapRegionRepository, setMapRegionRepository] = useState<MapRegionRepository | null>(null);
-  const [exportHistoryRepository, setExportHistoryRepository] = useState<ExportHistoryRepository | null>(null);
+  const [exportHistoryRepository, setExportHistoryRepository] =
+    useState<ExportHistoryRepository | null>(null);
 
   useEffect(() => {
     let mounted = true;

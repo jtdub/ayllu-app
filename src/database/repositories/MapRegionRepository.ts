@@ -1,6 +1,6 @@
-import type { SQLiteDatabase } from 'expo-sqlite';
 import type { MapRegion, BoundingBox, MapLayer } from '@/types';
 import { generateId, getCurrentTimestamp, safeJsonParse } from '@/utils';
+import type { SQLiteDatabase } from 'expo-sqlite';
 
 export class MapRegionRepository {
   constructor(private db: SQLiteDatabase) {}
@@ -9,7 +9,10 @@ export class MapRegionRepository {
    * Create a new map region for offline download
    */
   async create(
-    data: Omit<MapRegion, 'id' | 'downloadedTiles' | 'sizeBytes' | 'status' | 'errorMessage' | 'createdAt' | 'updatedAt'>
+    data: Omit<
+      MapRegion,
+      'id' | 'downloadedTiles' | 'sizeBytes' | 'status' | 'errorMessage' | 'createdAt' | 'updatedAt'
+    >
   ): Promise<MapRegion> {
     const id = generateId();
     const now = getCurrentTimestamp();
@@ -82,11 +85,7 @@ export class MapRegionRepository {
   /**
    * Update download progress
    */
-  async updateProgress(
-    id: string,
-    downloadedTiles: number,
-    sizeBytes: number
-  ): Promise<void> {
+  async updateProgress(id: string, downloadedTiles: number, sizeBytes: number): Promise<void> {
     await this.db.runAsync(
       `UPDATE map_regions
        SET downloaded_tiles = ?, size_bytes = ?, updated_at = ?
@@ -131,15 +130,9 @@ export class MapRegionRepository {
    */
   async delete(id: string): Promise<boolean> {
     // First delete associated tile cache entries
-    await this.db.runAsync(
-      'DELETE FROM tile_cache WHERE region_id = ?',
-      [id]
-    );
+    await this.db.runAsync('DELETE FROM tile_cache WHERE region_id = ?', [id]);
 
-    const result = await this.db.runAsync(
-      'DELETE FROM map_regions WHERE id = ?',
-      [id]
-    );
+    const result = await this.db.runAsync('DELETE FROM map_regions WHERE id = ?', [id]);
 
     return result.changes > 0;
   }
@@ -166,7 +159,7 @@ export class MapRegionRepository {
 
     return rows
       .map(this.mapRowToMapRegion)
-      .filter(region => this.boundsOverlap(region.bounds, bounds));
+      .filter((region) => this.boundsOverlap(region.bounds, bounds));
   }
 
   /**

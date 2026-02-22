@@ -8,8 +8,8 @@ import {
   TextInput,
   Alert,
 } from 'react-native';
-import { useLocalSearchParams, useRouter, Stack } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
+import { useLocalSearchParams, useRouter, Stack } from 'expo-router';
 import { useDatabase } from '@/hooks/useDatabase';
 import type { Project, Waypoint, Photo, FieldNote } from '@/types';
 import { formatDate } from '@/utils';
@@ -17,12 +17,8 @@ import { formatDate } from '@/utils';
 export default function ProjectDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
-  const {
-    projectRepository,
-    waypointRepository,
-    photoRepository,
-    fieldNoteRepository,
-  } = useDatabase();
+  const { projectRepository, waypointRepository, photoRepository, fieldNoteRepository } =
+    useDatabase();
 
   const [project, setProject] = useState<Project | null>(null);
   const [waypoints, setWaypoints] = useState<Waypoint[]>([]);
@@ -127,15 +123,8 @@ export default function ProjectDetailScreen() {
         options={{
           title: project.name,
           headerRight: () => (
-            <TouchableOpacity
-              onPress={() => setIsEditing(!isEditing)}
-              style={styles.headerButton}
-            >
-              <Ionicons
-                name={isEditing ? 'close' : 'create'}
-                size={22}
-                color="#4a9eff"
-              />
+            <TouchableOpacity onPress={() => setIsEditing(!isEditing)} style={styles.headerButton}>
+              <Ionicons name={isEditing ? 'close' : 'create'} size={22} color="#4a9eff" />
             </TouchableOpacity>
           ),
         }}
@@ -173,9 +162,7 @@ export default function ProjectDetailScreen() {
               )}
               <View style={styles.dateRow}>
                 <Ionicons name="calendar" size={14} color="#888" />
-                <Text style={styles.dateText}>
-                  Started {formatDate(project.startDate)}
-                </Text>
+                <Text style={styles.dateText}>Started {formatDate(project.startDate)}</Text>
               </View>
             </>
           )}

@@ -1,6 +1,6 @@
-import type { SQLiteDatabase } from 'expo-sqlite';
 import type { FieldNote, NoteFilter } from '@/types';
 import { generateId, getCurrentTimestamp, safeJsonParse } from '@/utils';
+import type { SQLiteDatabase, SQLiteBindValue } from 'expo-sqlite';
 
 export class FieldNoteRepository {
   constructor(private db: SQLiteDatabase) {}
@@ -8,9 +8,7 @@ export class FieldNoteRepository {
   /**
    * Create a new field note
    */
-  async create(
-    data: Omit<FieldNote, 'id' | 'createdAt' | 'updatedAt'>
-  ): Promise<FieldNote> {
+  async create(data: Omit<FieldNote, 'id' | 'createdAt' | 'updatedAt'>): Promise<FieldNote> {
     const id = generateId();
     const now = getCurrentTimestamp();
 
@@ -101,7 +99,7 @@ export class FieldNoteRepository {
    */
   async query(filter: NoteFilter): Promise<FieldNote[]> {
     const conditions: string[] = [];
-    const values: unknown[] = [];
+    const values: SQLiteBindValue[] = [];
 
     if (filter.projectId) {
       conditions.push('project_id = ?');
@@ -121,7 +119,7 @@ export class FieldNoteRepository {
     if (filter.tags && filter.tags.length > 0) {
       const tagConditions = filter.tags.map(() => 'tags LIKE ?');
       conditions.push(`(${tagConditions.join(' OR ')})`);
-      values.push(...filter.tags.map(tag => `%"${tag}"%`));
+      values.push(...filter.tags.map((tag) => `%"${tag}"%`));
     }
 
     if (filter.transcriptionSource) {
@@ -129,9 +127,7 @@ export class FieldNoteRepository {
       values.push(filter.transcriptionSource);
     }
 
-    const whereClause = conditions.length > 0
-      ? `WHERE ${conditions.join(' AND ')}`
-      : '';
+    const whereClause = conditions.length > 0 ? `WHERE ${conditions.join(' AND ')}` : '';
 
     const rows = await this.db.getAllAsync<FieldNoteRow>(
       `SELECT * FROM field_notes ${whereClause} ORDER BY timestamp DESC`,
@@ -168,7 +164,7 @@ export class FieldNoteRepository {
     if (!existing) return null;
 
     const updates: string[] = [];
-    const values: unknown[] = [];
+    const values: SQLiteBindValue[] = [];
 
     if (data.waypointId !== undefined) {
       updates.push('waypoint_id = ?');
@@ -226,10 +222,7 @@ export class FieldNoteRepository {
     values.push(now);
     values.push(id);
 
-    await this.db.runAsync(
-      `UPDATE field_notes SET ${updates.join(', ')} WHERE id = ?`,
-      values
-    );
+    await this.db.runAsync(`UPDATE field_notes SET ${updates.join(', ')} WHERE id = ?`, values);
 
     return this.getById(id);
   }
@@ -238,10 +231,7 @@ export class FieldNoteRepository {
    * Delete field note
    */
   async delete(id: string): Promise<boolean> {
-    const result = await this.db.runAsync(
-      'DELETE FROM field_notes WHERE id = ?',
-      [id]
-    );
+    const result = await this.db.runAsync('DELETE FROM field_notes WHERE id = ?', [id]);
 
     return result.changes > 0;
   }
@@ -250,10 +240,9 @@ export class FieldNoteRepository {
    * Delete all field notes for a project
    */
   async deleteByProject(projectId: string): Promise<number> {
-    const result = await this.db.runAsync(
-      'DELETE FROM field_notes WHERE project_id = ?',
-      [projectId]
-    );
+    const result = await this.db.runAsync('DELETE FROM field_notes WHERE project_id = ?', [
+      projectId,
+    ]);
 
     return result.changes;
   }
@@ -282,7 +271,7 @@ export class FieldNoteRepository {
     const tagSet = new Set<string>();
     for (const row of rows) {
       const tags = safeJsonParse<string[]>(row.tags, []);
-      tags.forEach(tag => tagSet.add(tag));
+      tags.forEach((tag) => tagSet.add(tag));
     }
 
     return Array.from(tagSet).sort();

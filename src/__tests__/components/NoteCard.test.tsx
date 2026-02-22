@@ -9,7 +9,8 @@ const mockNote: FieldNote = {
   waypointId: 'wp-1',
   photoId: null,
   title: 'Field Observation',
-  content: 'Observed ceramic fragments near the eastern wall. Appears to be late period pottery with distinctive red slip.',
+  content:
+    'Observed ceramic fragments near the eastern wall. Appears to be late period pottery with distinctive red slip.',
   audioUri: null,
   audioDuration: null,
   transcriptionSource: null,
@@ -98,11 +99,7 @@ describe('NoteCard', () => {
 
   it('should show project name when showProject is true', () => {
     const { getByText } = render(
-      <NoteCard
-        note={mockNote}
-        showProject={true}
-        projectName="Test Project"
-      />
+      <NoteCard note={mockNote} showProject={true} projectName="Test Project" />
     );
 
     expect(getByText('Test Project')).toBeTruthy();
@@ -110,11 +107,7 @@ describe('NoteCard', () => {
 
   it('should not show project name when showProject is false', () => {
     const { queryByText } = render(
-      <NoteCard
-        note={mockNote}
-        showProject={false}
-        projectName="Test Project"
-      />
+      <NoteCard note={mockNote} showProject={false} projectName="Test Project" />
     );
 
     expect(queryByText('Test Project')).toBeNull();

@@ -1,10 +1,4 @@
-import type {
-  Project,
-  Waypoint,
-  Photo,
-  FieldNote,
-  BoundingBox,
-} from '@/types';
+import type { Project, Waypoint, Photo, FieldNote, BoundingBox } from '@/types';
 
 /**
  * GeoPackage exporter
@@ -36,11 +30,11 @@ export class GeoPackageExporter {
           geometryColumn: 'geometry',
           geometryType: 'POINT',
           srsId: 4326,
-          features: waypoints.map(wp => ({
+          features: waypoints.map((wp) => ({
             id: wp.id,
             geometry: {
               type: 'Point',
-              coordinates: [wp.longitude, wp.latitude, wp.altitude].filter(v => v !== null),
+              coordinates: [wp.longitude, wp.latitude, wp.altitude].filter((v) => v !== null),
             },
             properties: {
               name: wp.name,
@@ -61,12 +55,12 @@ export class GeoPackageExporter {
           geometryType: 'POINT',
           srsId: 4326,
           features: photos
-            .filter(p => p.latitude !== null && p.longitude !== null)
-            .map(p => ({
+            .filter((p) => p.latitude !== null && p.longitude !== null)
+            .map((p) => ({
               id: p.id,
               geometry: {
                 type: 'Point',
-                coordinates: [p.longitude, p.latitude, p.altitude].filter(v => v !== null),
+                coordinates: [p.longitude, p.latitude, p.altitude].filter((v) => v !== null),
               },
               properties: {
                 waypoint_id: p.waypointId,
@@ -89,8 +83,8 @@ export class GeoPackageExporter {
           geometryType: 'POINT',
           srsId: 4326,
           features: notes
-            .filter(n => n.latitude !== null && n.longitude !== null)
-            .map(n => ({
+            .filter((n) => n.latitude !== null && n.longitude !== null)
+            .map((n) => ({
               id: n.id,
               geometry: {
                 type: 'Point',

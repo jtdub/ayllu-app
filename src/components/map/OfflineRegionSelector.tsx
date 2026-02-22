@@ -59,9 +59,7 @@ export function OfflineRegionSelector({
   if (includeTopo) layers.push('topo');
   if (includeSatellite) layers.push('satellite');
 
-  const tileCount = bounds
-    ? calculateTileCount(bounds, minZoom, maxZoom) * layers.length
-    : 0;
+  const tileCount = bounds ? calculateTileCount(bounds, minZoom, maxZoom) * layers.length : 0;
   const estimatedSize = estimateDownloadSize(tileCount);
 
   const handleDownload = () => {
@@ -79,12 +77,7 @@ export function OfflineRegionSelector({
   const canDownload = bounds && name.trim() && layers.length > 0 && !isDownloading;
 
   return (
-    <Modal
-      visible={visible}
-      transparent
-      animationType="slide"
-      onRequestClose={onClose}
-    >
+    <Modal visible={visible} transparent animationType="slide" onRequestClose={onClose}>
       <View style={styles.overlay}>
         <View style={styles.container}>
           <View style={styles.header}>
@@ -124,10 +117,7 @@ export function OfflineRegionSelector({
                     {ZOOM_LEVELS.slice(0, 3).map((z) => (
                       <TouchableOpacity
                         key={z.value}
-                        style={[
-                          styles.zoomOption,
-                          minZoom === z.value && styles.zoomSelected,
-                        ]}
+                        style={[styles.zoomOption, minZoom === z.value && styles.zoomSelected]}
                         onPress={() => setMinZoom(z.value)}
                       >
                         <Text
@@ -146,10 +136,7 @@ export function OfflineRegionSelector({
                     {ZOOM_LEVELS.slice(2).map((z) => (
                       <TouchableOpacity
                         key={z.value}
-                        style={[
-                          styles.zoomOption,
-                          maxZoom === z.value && styles.zoomSelected,
-                        ]}
+                        style={[styles.zoomOption, maxZoom === z.value && styles.zoomSelected]}
                         onPress={() => setMaxZoom(z.value)}
                       >
                         <Text
@@ -193,15 +180,11 @@ export function OfflineRegionSelector({
               <View style={styles.estimate}>
                 <View style={styles.estimateRow}>
                   <Text style={styles.estimateLabel}>Tiles</Text>
-                  <Text style={styles.estimateValue}>
-                    {tileCount.toLocaleString()}
-                  </Text>
+                  <Text style={styles.estimateValue}>{tileCount.toLocaleString()}</Text>
                 </View>
                 <View style={styles.estimateRow}>
                   <Text style={styles.estimateLabel}>Est. Size</Text>
-                  <Text style={styles.estimateValue}>
-                    {formatFileSize(estimatedSize)}
-                  </Text>
+                  <Text style={styles.estimateValue}>{formatFileSize(estimatedSize)}</Text>
                 </View>
               </View>
 
@@ -209,12 +192,7 @@ export function OfflineRegionSelector({
               {isDownloading && (
                 <View style={styles.progressContainer}>
                   <View style={styles.progressBar}>
-                    <View
-                      style={[
-                        styles.progressFill,
-                        { width: `${downloadProgress * 100}%` },
-                      ]}
-                    />
+                    <View style={[styles.progressFill, { width: `${downloadProgress * 100}%` }]} />
                   </View>
                   <Text style={styles.progressText}>
                     {Math.round(downloadProgress * 100)}% complete
@@ -224,10 +202,7 @@ export function OfflineRegionSelector({
 
               {/* Download button */}
               <TouchableOpacity
-                style={[
-                  styles.downloadButton,
-                  !canDownload && styles.downloadButtonDisabled,
-                ]}
+                style={[styles.downloadButton, !canDownload && styles.downloadButtonDisabled]}
                 onPress={handleDownload}
                 disabled={!canDownload}
               >

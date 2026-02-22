@@ -102,24 +102,20 @@ export default function PhotosScreen() {
   };
 
   const handleDeletePhoto = (photo: Photo) => {
-    Alert.alert(
-      'Delete Photo',
-      'Are you sure you want to delete this photo?',
-      [
-        { text: 'Cancel', style: 'cancel' },
-        {
-          text: 'Delete',
-          style: 'destructive',
-          onPress: async () => {
-            if (photoRepository) {
-              await photoRepository.delete(photo.id);
-              setPhotos((prev) => prev.filter((p) => p.id !== photo.id));
-              setSelectedPhoto(null);
-            }
-          },
+    Alert.alert('Delete Photo', 'Are you sure you want to delete this photo?', [
+      { text: 'Cancel', style: 'cancel' },
+      {
+        text: 'Delete',
+        style: 'destructive',
+        onPress: async () => {
+          if (photoRepository) {
+            await photoRepository.delete(photo.id);
+            setPhotos((prev) => prev.filter((p) => p.id !== photo.id));
+            setSelectedPhoto(null);
+          }
         },
-      ]
-    );
+      },
+    ]);
   };
 
   const renderPhoto = ({ item }: { item: Photo }) => (
@@ -150,26 +146,17 @@ export default function PhotosScreen() {
   if (selectedPhoto) {
     return (
       <View style={styles.detailContainer}>
-        <TouchableOpacity
-          style={styles.closeButton}
-          onPress={() => setSelectedPhoto(null)}
-        >
+        <TouchableOpacity style={styles.closeButton} onPress={() => setSelectedPhoto(null)}>
           <Ionicons name="close" size={28} color="#fff" />
         </TouchableOpacity>
 
-        <Image
-          source={{ uri: selectedPhoto.uri }}
-          style={styles.fullPhoto}
-          resizeMode="contain"
-        />
+        <Image source={{ uri: selectedPhoto.uri }} style={styles.fullPhoto} resizeMode="contain" />
 
         <View style={styles.photoInfo}>
           {selectedPhoto.caption && (
             <Text style={styles.photoCaption}>{selectedPhoto.caption}</Text>
           )}
-          <Text style={styles.photoDate}>
-            {formatDate(selectedPhoto.capturedAt, true)}
-          </Text>
+          <Text style={styles.photoDate}>{formatDate(selectedPhoto.capturedAt, true)}</Text>
           {selectedPhoto.latitude !== null && (
             <Text style={styles.photoLocation}>
               {selectedPhoto.latitude.toFixed(6)}, {selectedPhoto.longitude?.toFixed(6)}
@@ -200,14 +187,9 @@ export default function PhotosScreen() {
   return (
     <View style={styles.container}>
       {/* Project selector */}
-      <TouchableOpacity
-        style={styles.projectSelector}
-        onPress={handleSelectProject}
-      >
+      <TouchableOpacity style={styles.projectSelector} onPress={handleSelectProject}>
         <Ionicons name="folder" size={18} color="#4a9eff" />
-        <Text style={styles.projectName}>
-          {selectedProject?.name || 'Select Project'}
-        </Text>
+        <Text style={styles.projectName}>{selectedProject?.name || 'Select Project'}</Text>
         <Ionicons name="chevron-down" size={18} color="#888" />
       </TouchableOpacity>
 
@@ -219,19 +201,13 @@ export default function PhotosScreen() {
         numColumns={COLUMN_COUNT}
         contentContainerStyle={styles.grid}
         refreshControl={
-          <RefreshControl
-            refreshing={refreshing}
-            onRefresh={onRefresh}
-            tintColor="#4a9eff"
-          />
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} tintColor="#4a9eff" />
         }
         ListEmptyComponent={
           <View style={styles.emptyState}>
             <Ionicons name="images-outline" size={64} color="#444" />
             <Text style={styles.emptyTitle}>No Photos Yet</Text>
-            <Text style={styles.emptySubtitle}>
-              Capture field photos with GPS metadata
-            </Text>
+            <Text style={styles.emptySubtitle}>Capture field photos with GPS metadata</Text>
           </View>
         }
       />

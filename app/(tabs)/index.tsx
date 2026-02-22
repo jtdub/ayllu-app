@@ -8,9 +8,9 @@ import {
   RefreshControl,
   Alert,
 } from 'react-native';
-import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { useFocusEffect } from '@react-navigation/native';
+import { useRouter } from 'expo-router';
 import { useDatabase } from '@/hooks/useDatabase';
 import type { Project } from '@/types';
 import { formatDate } from '@/utils';
@@ -20,7 +20,9 @@ export default function DashboardScreen() {
   const { projectRepository } = useDatabase();
   const [projects, setProjects] = useState<Project[]>([]);
   const [refreshing, setRefreshing] = useState(false);
-  const [stats, setStats] = useState<Record<string, { waypoints: number; photos: number; notes: number }>>({});
+  const [stats, setStats] = useState<
+    Record<string, { waypoints: number; photos: number; notes: number }>
+  >({});
 
   const loadProjects = useCallback(async () => {
     if (!projectRepository) return;
@@ -149,11 +151,7 @@ export default function DashboardScreen() {
         renderItem={renderProject}
         contentContainerStyle={styles.list}
         refreshControl={
-          <RefreshControl
-            refreshing={refreshing}
-            onRefresh={onRefresh}
-            tintColor="#4a9eff"
-          />
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} tintColor="#4a9eff" />
         }
         ListEmptyComponent={
           <View style={styles.emptyState}>

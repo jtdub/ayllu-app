@@ -11,8 +11,8 @@ import {
   Platform,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import type { CapturedPhoto } from './CameraView';
 import { formatCoordinates } from '@/utils';
+import type { CapturedPhoto } from './CameraView';
 
 interface PhotoPreviewProps {
   photo: CapturedPhoto;
@@ -100,9 +100,7 @@ export function PhotoPreview({
               {formatCoordinates(photo.latitude, photo.longitude)}
             </Text>
             {photo.altitude !== null && (
-              <Text style={styles.altitudeText}>
-                Alt: {photo.altitude.toFixed(1)}m
-              </Text>
+              <Text style={styles.altitudeText}>Alt: {photo.altitude.toFixed(1)}m</Text>
             )}
           </View>
         )}
@@ -126,11 +124,7 @@ export function PhotoPreview({
           <Text style={styles.label}>Tags</Text>
           <View style={styles.tagsContainer}>
             {tags.map((tag) => (
-              <TouchableOpacity
-                key={tag}
-                style={styles.tag}
-                onPress={() => handleRemoveTag(tag)}
-              >
+              <TouchableOpacity key={tag} style={styles.tag} onPress={() => handleRemoveTag(tag)}>
                 <Text style={styles.tagText}>{tag}</Text>
                 <Ionicons name="close" size={14} color="#888" />
               </TouchableOpacity>
@@ -151,11 +145,7 @@ export function PhotoPreview({
               onPress={handleAddTag}
               disabled={!newTag.trim()}
             >
-              <Ionicons
-                name="add"
-                size={20}
-                color={newTag.trim() ? '#4a9eff' : '#666'}
-              />
+              <Ionicons name="add" size={20} color={newTag.trim() ? '#4a9eff' : '#666'} />
             </TouchableOpacity>
           </View>
         </View>
