@@ -4,11 +4,12 @@ export const DATABASE_NAME = 'ayllu.db';
 export const DATABASE_VERSION = 1;
 
 /**
- * SQL schema for all tables in the Ayllu database
+ * SQL statements for all tables in the Ayllu database
+ * Each entry is an array of individual SQL statements to execute
  */
-export const SCHEMA = {
-  projects: `
-    CREATE TABLE IF NOT EXISTS projects (
+export const SCHEMA: Record<string, string[]> = {
+  projects: [
+    `CREATE TABLE IF NOT EXISTS projects (
       id TEXT PRIMARY KEY NOT NULL,
       name TEXT NOT NULL,
       description TEXT,
@@ -19,13 +20,13 @@ export const SCHEMA = {
       custom_fields TEXT NOT NULL DEFAULT '{}',
       created_at TEXT NOT NULL DEFAULT (datetime('now')),
       updated_at TEXT NOT NULL DEFAULT (datetime('now'))
-    );
-    CREATE INDEX IF NOT EXISTS idx_projects_name ON projects(name);
-    CREATE INDEX IF NOT EXISTS idx_projects_start_date ON projects(start_date);
-  `,
+    )`,
+    `CREATE INDEX IF NOT EXISTS idx_projects_name ON projects(name)`,
+    `CREATE INDEX IF NOT EXISTS idx_projects_start_date ON projects(start_date)`,
+  ],
 
-  waypoints: `
-    CREATE TABLE IF NOT EXISTS waypoints (
+  waypoints: [
+    `CREATE TABLE IF NOT EXISTS waypoints (
       id TEXT PRIMARY KEY NOT NULL,
       project_id TEXT NOT NULL,
       name TEXT NOT NULL,
@@ -42,14 +43,14 @@ export const SCHEMA = {
       created_at TEXT NOT NULL DEFAULT (datetime('now')),
       updated_at TEXT NOT NULL DEFAULT (datetime('now')),
       FOREIGN KEY (project_id) REFERENCES projects(id) ON DELETE CASCADE
-    );
-    CREATE INDEX IF NOT EXISTS idx_waypoints_project_id ON waypoints(project_id);
-    CREATE INDEX IF NOT EXISTS idx_waypoints_timestamp ON waypoints(timestamp);
-    CREATE INDEX IF NOT EXISTS idx_waypoints_location ON waypoints(latitude, longitude);
-  `,
+    )`,
+    `CREATE INDEX IF NOT EXISTS idx_waypoints_project_id ON waypoints(project_id)`,
+    `CREATE INDEX IF NOT EXISTS idx_waypoints_timestamp ON waypoints(timestamp)`,
+    `CREATE INDEX IF NOT EXISTS idx_waypoints_location ON waypoints(latitude, longitude)`,
+  ],
 
-  photos: `
-    CREATE TABLE IF NOT EXISTS photos (
+  photos: [
+    `CREATE TABLE IF NOT EXISTS photos (
       id TEXT PRIMARY KEY NOT NULL,
       project_id TEXT NOT NULL,
       waypoint_id TEXT,
@@ -70,15 +71,15 @@ export const SCHEMA = {
       updated_at TEXT NOT NULL DEFAULT (datetime('now')),
       FOREIGN KEY (project_id) REFERENCES projects(id) ON DELETE CASCADE,
       FOREIGN KEY (waypoint_id) REFERENCES waypoints(id) ON DELETE SET NULL
-    );
-    CREATE INDEX IF NOT EXISTS idx_photos_project_id ON photos(project_id);
-    CREATE INDEX IF NOT EXISTS idx_photos_waypoint_id ON photos(waypoint_id);
-    CREATE INDEX IF NOT EXISTS idx_photos_captured_at ON photos(captured_at);
-    CREATE INDEX IF NOT EXISTS idx_photos_location ON photos(latitude, longitude);
-  `,
+    )`,
+    `CREATE INDEX IF NOT EXISTS idx_photos_project_id ON photos(project_id)`,
+    `CREATE INDEX IF NOT EXISTS idx_photos_waypoint_id ON photos(waypoint_id)`,
+    `CREATE INDEX IF NOT EXISTS idx_photos_captured_at ON photos(captured_at)`,
+    `CREATE INDEX IF NOT EXISTS idx_photos_location ON photos(latitude, longitude)`,
+  ],
 
-  field_notes: `
-    CREATE TABLE IF NOT EXISTS field_notes (
+  field_notes: [
+    `CREATE TABLE IF NOT EXISTS field_notes (
       id TEXT PRIMARY KEY NOT NULL,
       project_id TEXT NOT NULL,
       waypoint_id TEXT,
@@ -98,14 +99,14 @@ export const SCHEMA = {
       FOREIGN KEY (project_id) REFERENCES projects(id) ON DELETE CASCADE,
       FOREIGN KEY (waypoint_id) REFERENCES waypoints(id) ON DELETE SET NULL,
       FOREIGN KEY (photo_id) REFERENCES photos(id) ON DELETE SET NULL
-    );
-    CREATE INDEX IF NOT EXISTS idx_field_notes_project_id ON field_notes(project_id);
-    CREATE INDEX IF NOT EXISTS idx_field_notes_waypoint_id ON field_notes(waypoint_id);
-    CREATE INDEX IF NOT EXISTS idx_field_notes_timestamp ON field_notes(timestamp);
-  `,
+    )`,
+    `CREATE INDEX IF NOT EXISTS idx_field_notes_project_id ON field_notes(project_id)`,
+    `CREATE INDEX IF NOT EXISTS idx_field_notes_waypoint_id ON field_notes(waypoint_id)`,
+    `CREATE INDEX IF NOT EXISTS idx_field_notes_timestamp ON field_notes(timestamp)`,
+  ],
 
-  map_regions: `
-    CREATE TABLE IF NOT EXISTS map_regions (
+  map_regions: [
+    `CREATE TABLE IF NOT EXISTS map_regions (
       id TEXT PRIMARY KEY NOT NULL,
       name TEXT NOT NULL,
       bounds TEXT NOT NULL,
@@ -119,12 +120,12 @@ export const SCHEMA = {
       error_message TEXT,
       created_at TEXT NOT NULL DEFAULT (datetime('now')),
       updated_at TEXT NOT NULL DEFAULT (datetime('now'))
-    );
-    CREATE INDEX IF NOT EXISTS idx_map_regions_status ON map_regions(status);
-  `,
+    )`,
+    `CREATE INDEX IF NOT EXISTS idx_map_regions_status ON map_regions(status)`,
+  ],
 
-  tile_cache: `
-    CREATE TABLE IF NOT EXISTS tile_cache (
+  tile_cache: [
+    `CREATE TABLE IF NOT EXISTS tile_cache (
       id TEXT PRIMARY KEY NOT NULL,
       region_id TEXT,
       layer TEXT NOT NULL,
@@ -137,14 +138,14 @@ export const SCHEMA = {
       created_at TEXT NOT NULL DEFAULT (datetime('now')),
       FOREIGN KEY (region_id) REFERENCES map_regions(id) ON DELETE SET NULL,
       UNIQUE(layer, z, x, y)
-    );
-    CREATE INDEX IF NOT EXISTS idx_tile_cache_region_id ON tile_cache(region_id);
-    CREATE INDEX IF NOT EXISTS idx_tile_cache_layer ON tile_cache(layer);
-    CREATE INDEX IF NOT EXISTS idx_tile_cache_last_accessed ON tile_cache(last_accessed_at);
-  `,
+    )`,
+    `CREATE INDEX IF NOT EXISTS idx_tile_cache_region_id ON tile_cache(region_id)`,
+    `CREATE INDEX IF NOT EXISTS idx_tile_cache_layer ON tile_cache(layer)`,
+    `CREATE INDEX IF NOT EXISTS idx_tile_cache_last_accessed ON tile_cache(last_accessed_at)`,
+  ],
 
-  export_history: `
-    CREATE TABLE IF NOT EXISTS export_history (
+  export_history: [
+    `CREATE TABLE IF NOT EXISTS export_history (
       id TEXT PRIMARY KEY NOT NULL,
       project_id TEXT NOT NULL,
       format TEXT NOT NULL,
@@ -156,65 +157,80 @@ export const SCHEMA = {
       note_count INTEGER NOT NULL DEFAULT 0,
       exported_at TEXT NOT NULL DEFAULT (datetime('now')),
       FOREIGN KEY (project_id) REFERENCES projects(id) ON DELETE CASCADE
-    );
-    CREATE INDEX IF NOT EXISTS idx_export_history_project_id ON export_history(project_id);
-    CREATE INDEX IF NOT EXISTS idx_export_history_exported_at ON export_history(exported_at);
-  `,
+    )`,
+    `CREATE INDEX IF NOT EXISTS idx_export_history_project_id ON export_history(project_id)`,
+    `CREATE INDEX IF NOT EXISTS idx_export_history_exported_at ON export_history(exported_at)`,
+  ],
 
-  // Full-text search virtual table for notes
-  field_notes_fts: `
-    CREATE VIRTUAL TABLE IF NOT EXISTS field_notes_fts USING fts5(
-      title,
-      content,
-      content='field_notes',
-      content_rowid='rowid'
-    );
-
-    CREATE TRIGGER IF NOT EXISTS field_notes_ai AFTER INSERT ON field_notes BEGIN
-      INSERT INTO field_notes_fts(rowid, title, content)
-      VALUES (NEW.rowid, NEW.title, NEW.content);
-    END;
-
-    CREATE TRIGGER IF NOT EXISTS field_notes_ad AFTER DELETE ON field_notes BEGIN
-      INSERT INTO field_notes_fts(field_notes_fts, rowid, title, content)
-      VALUES('delete', OLD.rowid, OLD.title, OLD.content);
-    END;
-
-    CREATE TRIGGER IF NOT EXISTS field_notes_au AFTER UPDATE ON field_notes BEGIN
-      INSERT INTO field_notes_fts(field_notes_fts, rowid, title, content)
-      VALUES('delete', OLD.rowid, OLD.title, OLD.content);
-      INSERT INTO field_notes_fts(rowid, title, content)
-      VALUES (NEW.rowid, NEW.title, NEW.content);
-    END;
-  `,
-
-  // Settings table for app configuration
-  settings: `
-    CREATE TABLE IF NOT EXISTS settings (
+  settings: [
+    `CREATE TABLE IF NOT EXISTS settings (
       key TEXT PRIMARY KEY NOT NULL,
       value TEXT NOT NULL,
       updated_at TEXT NOT NULL DEFAULT (datetime('now'))
-    );
-  `,
+    )`,
+  ],
 };
+
+/**
+ * FTS5 schema - separated because it may fail if FTS5 is not enabled
+ */
+export const FTS_SCHEMA: string[] = [
+  `CREATE VIRTUAL TABLE IF NOT EXISTS field_notes_fts USING fts5(
+    title,
+    content,
+    content='field_notes',
+    content_rowid='rowid'
+  )`,
+  `CREATE TRIGGER IF NOT EXISTS field_notes_ai AFTER INSERT ON field_notes BEGIN
+    INSERT INTO field_notes_fts(rowid, title, content)
+    VALUES (NEW.rowid, NEW.title, NEW.content);
+  END`,
+  `CREATE TRIGGER IF NOT EXISTS field_notes_ad AFTER DELETE ON field_notes BEGIN
+    INSERT INTO field_notes_fts(field_notes_fts, rowid, title, content)
+    VALUES('delete', OLD.rowid, OLD.title, OLD.content);
+  END`,
+  `CREATE TRIGGER IF NOT EXISTS field_notes_au AFTER UPDATE ON field_notes BEGIN
+    INSERT INTO field_notes_fts(field_notes_fts, rowid, title, content)
+    VALUES('delete', OLD.rowid, OLD.title, OLD.content);
+    INSERT INTO field_notes_fts(rowid, title, content)
+    VALUES (NEW.rowid, NEW.title, NEW.content);
+  END`,
+];
 
 /**
  * Initialize the database with all tables
  */
 export async function initializeDatabase(db: SQLite.SQLiteDatabase): Promise<void> {
+  console.log('Starting database initialization...');
+
   // Enable foreign keys
   await db.execAsync('PRAGMA foreign_keys = ON;');
+  console.log('Foreign keys enabled');
 
   // Create all tables
-  for (const [tableName, schema] of Object.entries(SCHEMA)) {
+  for (const [tableName, statements] of Object.entries(SCHEMA)) {
+    for (const statement of statements) {
+      try {
+        await db.execAsync(statement);
+      } catch (error) {
+        console.error(`Error executing statement for ${tableName}:`, error);
+        throw error;
+      }
+    }
+    console.log(`Created table: ${tableName}`);
+  }
+
+  // Try to create FTS tables (may fail if FTS5 not enabled, which is ok)
+  for (const statement of FTS_SCHEMA) {
     try {
-      await db.execAsync(schema);
-      console.log(`Created table: ${tableName}`);
+      await db.execAsync(statement);
     } catch (error) {
-      console.error(`Error creating table ${tableName}:`, error);
-      throw error;
+      console.warn('FTS5 setup skipped (not available):', error);
+      // Don't throw - FTS is optional
+      break;
     }
   }
+  console.log('FTS setup attempted');
 
   // Set database version
   await db.execAsync(`PRAGMA user_version = ${DATABASE_VERSION};`);
@@ -242,9 +258,12 @@ export async function needsMigration(db: SQLite.SQLiteDatabase): Promise<boolean
  * Open and initialize the database
  */
 export async function openDatabase(): Promise<SQLite.SQLiteDatabase> {
+  console.log('Opening database...');
   const db = await SQLite.openDatabaseAsync(DATABASE_NAME);
+  console.log('Database opened');
 
   const currentVersion = await getDatabaseVersion(db);
+  console.log(`Current database version: ${currentVersion}`);
 
   if (currentVersion === 0) {
     // Fresh database, initialize

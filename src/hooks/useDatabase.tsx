@@ -39,6 +39,10 @@ interface DatabaseProviderProps {
   children: ReactNode;
 }
 
+/**
+ * Database provider component that initializes the SQLite database
+ * and creates all repository instances.
+ */
 export function DatabaseProvider({ children }: DatabaseProviderProps) {
   const [db, setDb] = useState<SQLiteDatabase | null>(null);
   const [isReady, setIsReady] = useState(false);
@@ -56,10 +60,16 @@ export function DatabaseProvider({ children }: DatabaseProviderProps) {
     let mounted = true;
 
     async function initDatabase() {
+      console.log('DatabaseProvider: Starting initialization...');
+
       try {
         const database = await openDatabase();
+        console.log('DatabaseProvider: Database opened successfully');
 
-        if (!mounted) return;
+        if (!mounted) {
+          console.log('DatabaseProvider: Component unmounted during init');
+          return;
+        }
 
         setDb(database);
         setProjectRepository(new ProjectRepository(database));
@@ -70,9 +80,9 @@ export function DatabaseProvider({ children }: DatabaseProviderProps) {
         setExportHistoryRepository(new ExportHistoryRepository(database));
         setIsReady(true);
 
-        console.log('Database initialized successfully');
+        console.log('DatabaseProvider: All repositories initialized');
       } catch (err) {
-        console.error('Failed to initialize database:', err);
+        console.error('DatabaseProvider: Failed to initialize database:', err);
         if (mounted) {
           setError(err instanceof Error ? err : new Error('Database initialization failed'));
         }
@@ -105,6 +115,10 @@ export function DatabaseProvider({ children }: DatabaseProviderProps) {
   );
 }
 
+/**
+ * Hook to access the database context and repositories.
+ * Must be used within a DatabaseProvider.
+ */
 export function useDatabase() {
   const context = useContext(DatabaseContext);
 

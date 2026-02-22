@@ -1,78 +1,101 @@
 import { useEffect, useState } from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View, Text, ActivityIndicator } from 'react-native';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { DatabaseProvider } from '@/hooks/useDatabase';
+import { DatabaseProvider, useDatabase } from '@/hooks/useDatabase';
 
-SplashScreen.preventAutoHideAsync();
+// Prevent the splash screen from auto-hiding
+SplashScreen.preventAutoHideAsync().catch(() => {
+  // Ignore errors - splash screen may already be hidden
+});
 
-export default function RootLayout() {
-  const [appReady, setAppReady] = useState(false);
+function AppContent() {
+  const { isReady, error } = useDatabase();
+  const [splashHidden, setSplashHidden] = useState(false);
 
   useEffect(() => {
-    async function prepare() {
-      try {
-        // Add any initialization logic here (e.g., load fonts, preload data)
-        // For now, we'll just mark as ready immediately
-        await new Promise((resolve) => setTimeout(resolve, 100));
-      } catch (e) {
-        console.warn('App initialization error:', e);
-      } finally {
-        setAppReady(true);
-        SplashScreen.hideAsync();
-      }
+    if (isReady && !splashHidden) {
+      SplashScreen.hideAsync()
+        .catch(() => {
+          // Ignore errors
+        })
+        .finally(() => {
+          setSplashHidden(true);
+        });
     }
+  }, [isReady, splashHidden]);
 
-    prepare();
-  }, []);
+  // Show error state
+  if (error) {
+    return (
+      <View style={styles.centerContainer}>
+        <Text style={styles.errorTitle}>Database Error</Text>
+        <Text style={styles.errorText}>{error.message}</Text>
+      </View>
+    );
+  }
 
-  if (!appReady) {
-    return null;
+  // Show loading state while database initializes
+  if (!isReady) {
+    return (
+      <View style={styles.centerContainer}>
+        <ActivityIndicator size="large" color="#4a9eff" />
+        <Text style={styles.loadingText}>Initializing...</Text>
+      </View>
+    );
   }
 
   return (
+    <>
+      <Stack
+        screenOptions={{
+          headerStyle: {
+            backgroundColor: '#1a1a2e',
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: '600',
+          },
+          contentStyle: {
+            backgroundColor: '#0f0f1a',
+          },
+        }}
+      >
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen
+          name="project/[id]"
+          options={{
+            title: 'Project Details',
+            presentation: 'card',
+          }}
+        />
+        <Stack.Screen
+          name="waypoint/[id]"
+          options={{
+            title: 'Waypoint Details',
+            presentation: 'card',
+          }}
+        />
+        <Stack.Screen
+          name="export/[projectId]"
+          options={{
+            title: 'Export Data',
+            presentation: 'modal',
+          }}
+        />
+      </Stack>
+      <StatusBar style="light" />
+    </>
+  );
+}
+
+export default function RootLayout() {
+  return (
     <GestureHandlerRootView style={styles.container}>
       <DatabaseProvider>
-        <Stack
-          screenOptions={{
-            headerStyle: {
-              backgroundColor: '#1a1a2e',
-            },
-            headerTintColor: '#fff',
-            headerTitleStyle: {
-              fontWeight: '600',
-            },
-            contentStyle: {
-              backgroundColor: '#0f0f1a',
-            },
-          }}
-        >
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen
-            name="project/[id]"
-            options={{
-              title: 'Project Details',
-              presentation: 'card',
-            }}
-          />
-          <Stack.Screen
-            name="waypoint/[id]"
-            options={{
-              title: 'Waypoint Details',
-              presentation: 'card',
-            }}
-          />
-          <Stack.Screen
-            name="export/[projectId]"
-            options={{
-              title: 'Export Data',
-              presentation: 'modal',
-            }}
-          />
-        </Stack>
-        <StatusBar style="light" />
+        <AppContent />
       </DatabaseProvider>
     </GestureHandlerRootView>
   );
@@ -81,5 +104,29 @@ export default function RootLayout() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#0f0f1a',
+  },
+  centerContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#0f0f1a',
+    padding: 20,
+  },
+  loadingText: {
+    marginTop: 16,
+    fontSize: 16,
+    color: '#888',
+  },
+  errorTitle: {
+    fontSize: 20,
+    fontWeight: '600',
+    color: '#ff6b6b',
+    marginBottom: 8,
+  },
+  errorText: {
+    fontSize: 14,
+    color: '#888',
+    textAlign: 'center',
   },
 });
