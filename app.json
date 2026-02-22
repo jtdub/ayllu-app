@@ -12,12 +12,10 @@
       "resizeMode": "contain",
       "backgroundColor": "#1a1a2e"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.ayllu.fieldresearch",
+      "bundleIdentifier": "com.jtdub.ayllu-fieldresearch",
       "infoPlist": {
         "NSLocationWhenInUseUsageDescription": "Ayllu needs your location to log GPS waypoints during fieldwork.",
         "NSLocationAlwaysAndWhenInUseUsageDescription": "Ayllu needs background location access to track your route during fieldwork.",
@@ -26,10 +24,7 @@
         "NSMicrophoneUsageDescription": "Ayllu uses the microphone to record voice notes for transcription.",
         "NSSpeechRecognitionUsageDescription": "Ayllu uses speech recognition to transcribe your field notes.",
         "NSPhotoLibraryUsageDescription": "Ayllu saves field photos to your photo library.",
-        "UIBackgroundModes": [
-          "location",
-          "audio"
-        ]
+        "UIBackgroundModes": ["location", "audio"]
       }
     },
     "android": {

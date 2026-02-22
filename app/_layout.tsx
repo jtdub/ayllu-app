@@ -1,6 +1,5 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { StyleSheet } from 'react-native';
-import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
@@ -10,17 +9,26 @@ import { DatabaseProvider } from '@/hooks/useDatabase';
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  const [fontsLoaded] = useFonts({
-    // Add custom fonts here if needed
-  });
+  const [appReady, setAppReady] = useState(false);
 
   useEffect(() => {
-    if (fontsLoaded) {
-      SplashScreen.hideAsync();
+    async function prepare() {
+      try {
+        // Add any initialization logic here (e.g., load fonts, preload data)
+        // For now, we'll just mark as ready immediately
+        await new Promise((resolve) => setTimeout(resolve, 100));
+      } catch (e) {
+        console.warn('App initialization error:', e);
+      } finally {
+        setAppReady(true);
+        SplashScreen.hideAsync();
+      }
     }
-  }, [fontsLoaded]);
 
-  if (!fontsLoaded) {
+    prepare();
+  }, []);
+
+  if (!appReady) {
     return null;
   }
 
