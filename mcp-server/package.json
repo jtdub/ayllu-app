@@ -15,7 +15,7 @@
     "@turf/turf": "^7.0.0",
     "better-sqlite3": "^11.0.0",
     "glob": "^10.3.10",
-    "zod": "^3.22.4"
+    "zod": "^4.3.6"
   },
   "devDependencies": {
     "@types/better-sqlite3": "^7.6.8",
