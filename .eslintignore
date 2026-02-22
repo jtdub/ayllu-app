@@ -1,9 +1,0 @@
-node_modules/
-dist/
-ios/
-android/
-.expo/
-*.config.js
-coverage/
-__mocks__/
-mcp-server/
