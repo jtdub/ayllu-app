@@ -139,7 +139,9 @@ struct OfflineRegionManagerView: View {
         // Delete from database
         let repo = MapRegionRepository(dbPool: database.dbPool)
         try? repo.delete(id: id)
-        regions.removeAll { $0.id == id }
+        withAnimation {
+            regions.removeAll { $0.id == id }
+        }
         totalStorageUsed = (try? repo.formattedStorageUsed()) ?? "—"
     }
 }

@@ -80,7 +80,9 @@ final class ProjectListViewModel {
 
         do {
             try repository.delete(id: id)
-            projects.removeAll { $0.id == id }
+            withAnimation {
+                projects.removeAll { $0.id == id }
+            }
         } catch {
             self.error = error
         }

@@ -100,7 +100,9 @@ struct NoteListView: View {
         let repo = NoteRepository(dbPool: database.dbPool)
         do {
             try repo.delete(id: id)
-            notes.removeAll { $0.id == id }
+            withAnimation {
+                notes.removeAll { $0.id == id }
+            }
         } catch {
             self.error = error
         }

@@ -90,7 +90,9 @@ final class WaypointListViewModel {
 
         do {
             try repository.delete(id: id)
-            waypoints.removeAll { $0.id == id }
+            withAnimation {
+                waypoints.removeAll { $0.id == id }
+            }
         } catch {
             self.error = error
         }

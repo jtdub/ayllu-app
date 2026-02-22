@@ -32,7 +32,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Select Xcode
-        run: sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer
+        run: sudo xcode-select -s /Applications/Xcode_16.2.app/Contents/Developer
 
       - name: Show Xcode version
         run: xcodebuild -version
@@ -49,7 +49,7 @@ jobs:
             -project Ayllu.xcodeproj \
             -scheme Ayllu \
             -sdk iphonesimulator \
-            -destination 'platform=iOS Simulator,name=iPhone 15 Pro,OS=17.2' \
+            -destination 'platform=iOS Simulator,name=iPhone 16 Pro,OS=18.2' \
             -configuration Debug \
             CODE_SIGNING_ALLOWED=NO
 
@@ -59,7 +59,7 @@ jobs:
             -project Ayllu.xcodeproj \
             -scheme Ayllu \
             -sdk iphonesimulator \
-            -destination 'platform=iOS Simulator,name=iPhone 15 Pro,OS=17.2' \
+            -destination 'platform=iOS Simulator,name=iPhone 16 Pro,OS=18.2' \
             -configuration Debug \
             -resultBundlePath TestResults.xcresult \
             CODE_SIGNING_ALLOWED=NO
