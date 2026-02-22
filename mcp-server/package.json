@@ -14,7 +14,7 @@
     "@modelcontextprotocol/sdk": "^1.0.0",
     "@turf/turf": "^7.0.0",
     "better-sqlite3": "^11.0.0",
-    "glob": "^10.3.10",
+    "glob": "^13.0.6",
     "zod": "^3.22.4"
   },
   "devDependencies": {
