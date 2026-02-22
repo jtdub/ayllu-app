@@ -61,6 +61,8 @@
 		F7E55143FC5146293004FE04 /* WaypointRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436DAF44E185C7469C64A867 /* WaypointRepository.swift */; };
 		FEAC8FB3C986A32A22CB8FAE /* ProjectRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53986E2C314E61FA1AF830DA /* ProjectRepository.swift */; };
 		FF0FDC0A0F9102D4F89CB733 /* ProjectListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E9514F75498DA6F4AAE6933 /* ProjectListViewModel.swift */; };
+		A1B2C3D4E5F60718A9B0C1D2 /* RegionSelectionMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F60718A9B0C1D3 /* RegionSelectionMapView.swift */; };
+		A1B2C3D4E5F60718A9B0C1D4 /* MapRegionModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F60718A9B0C1D5 /* MapRegionModelTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -135,6 +137,8 @@
 		F2BDC7F95E158483347B3736 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 		F5F2D515CE6EA11121C36260 /* WaypointFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaypointFormView.swift; sourceTree = "<group>"; };
 		FB1564BAC1453A41CB16E5A8 /* PhotoRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoRepositoryTests.swift; sourceTree = "<group>"; };
+		A1B2C3D4E5F60718A9B0C1D3 /* RegionSelectionMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionSelectionMapView.swift; sourceTree = "<group>"; };
+		A1B2C3D4E5F60718A9B0C1D5 /* MapRegionModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapRegionModelTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -414,11 +418,20 @@
 		C6220C7F3C3192FDBC04FA9A /* AylluTests */ = {
 			isa = PBXGroup;
 			children = (
+				A1B2C3D4E5F60718A9B0C1D6 /* ModelTests */,
 				E1D81B22F6B5609DAC30E742 /* RepositoryTests */,
 				4C622854968A43F2CECCF46C /* ServiceTests */,
 				3F0F9A53C3B6787EB4D267D6 /* ViewModelTests */,
 			);
 			path = AylluTests;
+			sourceTree = "<group>";
+		};
+		A1B2C3D4E5F60718A9B0C1D6 /* ModelTests */ = {
+			isa = PBXGroup;
+			children = (
+				A1B2C3D4E5F60718A9B0C1D5 /* MapRegionModelTests.swift */,
+			);
+			path = ModelTests;
 			sourceTree = "<group>";
 		};
 		C7A9CAFB3589C360CF06D268 /* Location */ = {
@@ -512,6 +525,7 @@
 				5CBDE8374861F1A0C49B47E7 /* MapContainerView.swift */,
 				2230F396031D1D860B3617B0 /* MapLibreMapView.swift */,
 				C00BFD06755E5C002138F6F2 /* OfflineRegionManagerView.swift */,
+				A1B2C3D4E5F60718A9B0C1D3 /* RegionSelectionMapView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -685,6 +699,7 @@
 				B0B3A101D686939215B11408 /* WaypointListView.swift in Sources */,
 				261C69CF54B2F9AB16094490 /* WaypointListViewModel.swift in Sources */,
 				F7E55143FC5146293004FE04 /* WaypointRepository.swift in Sources */,
+				A1B2C3D4E5F60718A9B0C1D2 /* RegionSelectionMapView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -693,6 +708,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D70FA4E09894F6FFC2C7ED17 /* CoordinateFormatterTests.swift in Sources */,
+				A1B2C3D4E5F60718A9B0C1D4 /* MapRegionModelTests.swift in Sources */,
 				DB3A3AC32473A7F43F2299FB /* MapRegionRepositoryTests.swift in Sources */,
 				A8C04541118CF4D77BD96164 /* NoteEditorViewModelTests.swift in Sources */,
 				B44BED216F4FD2BCB6377D72 /* NoteRepositoryTests.swift in Sources */,

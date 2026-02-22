@@ -1,5 +1,6 @@
 import Foundation
 import CoreLocation
+import SwiftUI
 
 /// ViewModel for the waypoint list
 @Observable
