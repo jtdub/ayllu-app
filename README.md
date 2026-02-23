@@ -12,6 +12,9 @@ Ayllu replaces 4-5 separate tools (GPS, camera, notes, offline maps, data export
 - **Offline Maps** - Download map regions for use without connectivity (OpenTopoMap tiles)
 - **Field Notes** - Text notes linked to projects and waypoints
 - **Voice Transcription** - On-device speech-to-text for hands-free note taking
+- **GPS Tracks** - Record breadcrumb trails with distance and statistics
+- **Navigation Tools** - Distance/bearing calculator and compass display
+- **GPX Export** - Export waypoints and tracks to standard GPX format
 - **Offline-First** - All core features work without network connectivity
 
 ## Requirements
@@ -19,7 +22,7 @@ Ayllu replaces 4-5 separate tools (GPS, camera, notes, offline maps, data export
 - iOS 17.0+
 - iPhone or iPad
 
-## Installation
+## Development Setup
 
 1. Clone the repository:
    ```bash
@@ -29,7 +32,7 @@ Ayllu replaces 4-5 separate tools (GPS, camera, notes, offline maps, data export
 
 2. Open in Xcode:
    ```bash
-   open Ayllu.xcodeproj
+   open Ayllu/Ayllu.xcodeproj
    ```
 
 3. Build and run on your device or simulator (iOS 17+)
@@ -48,32 +51,37 @@ Ayllu replaces 4-5 separate tools (GPS, camera, notes, offline maps, data export
 ## Project Structure
 
 ```
-Ayllu/
-├── App/                 # Entry point
-├── Core/
-│   ├── Database/        # GRDB setup, migrations, repositories
-│   ├── Models/          # Data models
-│   ├── Services/        # Location, Speech, Maps
-│   └── Extensions/      # Swift extensions
-├── Features/
-│   ├── Projects/        # Project management
-│   ├── Waypoints/       # GPS waypoint recording
-│   ├── Notes/           # Field notes
-│   ├── Map/             # MapLibre integration
-│   └── Settings/        # App settings
-└── Shared/              # Common UI components
+ayllu-app/
+├── Ayllu/                       # iOS project
+│   ├── Ayllu/                   # Source code
+│   │   ├── App/                 # Entry point
+│   │   ├── Core/
+│   │   │   ├── Database/        # GRDB setup, migrations, repositories
+│   │   │   ├── Models/          # Data models
+│   │   │   └── Services/        # Location, Speech, Maps, Export
+│   │   ├── Features/
+│   │   │   ├── Projects/        # Project management
+│   │   │   ├── Waypoints/       # GPS waypoint recording
+│   │   │   ├── Notes/           # Field notes
+│   │   │   ├── Map/             # MapLibre integration
+│   │   │   └── Settings/        # App settings
+│   │   └── Shared/              # Common UI components
+│   ├── AylluTests/              # Unit tests
+│   └── AylluUITests/            # UI tests
+├── CLAUDE.md                    # Development documentation
+└── README.md
 ```
 
-## Development
+## Build Commands
 
 Build the project:
 ```bash
-xcodebuild -project Ayllu.xcodeproj -scheme Ayllu -sdk iphonesimulator build
+xcodebuild -project Ayllu/Ayllu.xcodeproj -scheme Ayllu -sdk iphonesimulator build
 ```
 
 Run tests:
 ```bash
-xcodebuild test -project Ayllu.xcodeproj -scheme Ayllu -sdk iphonesimulator \
+xcodebuild test -project Ayllu/Ayllu.xcodeproj -scheme Ayllu -sdk iphonesimulator \
   -destination 'platform=iOS Simulator,name=iPhone 15 Pro'
 ```
 
@@ -84,18 +92,6 @@ See [GitHub Milestones](https://github.com/jtdub/ayllu-app/milestones) for plann
 - **Phase 2: Polish** - Photos, GPX export, navigation, UX improvements
 - **Phase 3: Pro Features** - Custom forms, hierarchical data, polygons
 - **Phase 4: Advanced** - Team collaboration, 3D scanning, video
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Submit a pull request
-
-Issues and feature requests: [GitHub Issues](https://github.com/jtdub/ayllu-app/issues)
-
-## License
-
-MIT License - see [LICENSE](LICENSE) for details.
 
 ## About
 
