@@ -133,7 +133,20 @@ Ayllu/
 - Microphone (voice notes)
 - Speech Recognition (on-device transcription)
 
-## Phase 1 MVP Features
+## Development Workflow
+
+### GitHub Issues
+- **Do not close issues directly** - Issues should only be closed via pull requests
+- Link PRs to issues using "Closes #XX" or "Fixes #XX" in PR description
+- All work should have a corresponding issue
+
+### Milestones
+- **Phase 1: MVP** - Core offline-first features (COMPLETE)
+- **Phase 2: Polish** - UX improvements, export, photos, navigation
+- **Phase 3: Pro Features** - Custom forms, hierarchical data, polygons
+- **Phase 4: Advanced** - Collaboration, 3D scanning, video
+
+## Phase 1 MVP Features (Complete)
 
 1. Project management (CRUD, statistics)
 2. Waypoint recording with GPS (auto-fill coordinates)
@@ -143,6 +156,23 @@ Ayllu/
 6. Field notes with text input
 7. Voice-to-text transcription (offline)
 8. Settings (units, formats, storage)
+
+## Phase 2 Features (Current)
+
+1. PhotoRepository and photo capture (#47, #46)
+2. GPX export for waypoints (#48)
+3. TrackRepository for GPS trails (#49)
+4. Distance/bearing calculator (#50)
+5. Compass heading display (#51)
+6. Waypoint category picker (#52)
+7. Onboarding flow (#53)
+8. Locate me button on map (#54)
+9. Local database backup (#55)
+10. Dark mode support (#56)
+11. Unified global search (#57)
+12. Network status indicator (#58)
+13. Undo and trash for deleted items (#59)
+14. Navigate to waypoint (#63)
 
 ## Common Tasks
 
