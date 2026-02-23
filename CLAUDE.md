@@ -12,25 +12,25 @@ Native iOS app for archaeological, anthropological, and ecological fieldwork. Re
 ### Build Commands
 ```bash
 # Build the project
-xcodebuild -project Ayllu.xcodeproj -scheme Ayllu -sdk iphonesimulator -configuration Debug build
+xcodebuild -project Ayllu/Ayllu.xcodeproj -scheme Ayllu -sdk iphonesimulator -configuration Debug build
 
 # Run tests
-xcodebuild test -project Ayllu.xcodeproj -scheme Ayllu -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 15 Pro'
+xcodebuild test -project Ayllu/Ayllu.xcodeproj -scheme Ayllu -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 15 Pro'
 
 # Clean build
-xcodebuild clean build -project Ayllu.xcodeproj -scheme Ayllu -sdk iphonesimulator
+xcodebuild clean build -project Ayllu/Ayllu.xcodeproj -scheme Ayllu -sdk iphonesimulator
 
 # Open in Xcode
-open Ayllu.xcodeproj
+open Ayllu/Ayllu.xcodeproj
 ```
 
 ### Swift Package Manager
 ```bash
-# Resolve dependencies
-swift package resolve
+# Resolve dependencies (run from Ayllu/ directory)
+cd Ayllu && swift package resolve
 
-# Update dependencies
-swift package update
+# Update dependencies (run from Ayllu/ directory)
+cd Ayllu && swift package update
 ```
 
 ## Architecture
@@ -62,22 +62,33 @@ swift package update
 ## Project Structure
 
 ```
-Ayllu/
-├── App/                          # @main entry point, Info.plist
-├── Core/
-│   ├── Database/                 # GRDB setup, migrations, repositories
-│   ├── Models/                   # Data models (Project, Waypoint, etc.)
-│   ├── Services/                 # Location, Camera, Speech, Maps, Export
-│   └── Extensions/               # Swift extensions
-├── Features/
-│   ├── Projects/                 # Project management views/viewmodels
-│   ├── Waypoints/                # Waypoint CRUD views/viewmodels
-│   ├── Notes/                    # Field notes with voice-to-text
-│   ├── Map/                      # MapLibre integration, offline tiles
-│   └── Settings/                 # App settings
-├── Shared/                       # TabBarView, shared styles
-├── Resources/                    # Assets
-└── Tests/                        # Unit and UI tests
+repo-root/
+├── .github/                      # GitHub workflows
+├── Ayllu/                        # iOS project wrapper
+│   ├── .swiftlint.yml            # SwiftLint configuration
+│   ├── Ayllu/                    # Source code
+│   │   ├── App/                  # @main entry point, Info.plist
+│   │   ├── Core/
+│   │   │   ├── Database/         # GRDB setup, migrations, repositories
+│   │   │   ├── Models/           # Data models (Project, Waypoint, etc.)
+│   │   │   ├── Services/         # Location, Camera, Speech, Maps, Export
+│   │   │   └── Extensions/       # Swift extensions
+│   │   ├── Features/
+│   │   │   ├── Projects/         # Project management views/viewmodels
+│   │   │   ├── Waypoints/        # Waypoint CRUD views/viewmodels
+│   │   │   ├── Notes/            # Field notes with voice-to-text
+│   │   │   ├── Map/              # MapLibre integration, offline tiles
+│   │   │   └── Settings/         # App settings
+│   │   ├── Shared/               # TabBarView, shared styles
+│   │   └── Resources/            # Assets
+│   ├── Ayllu.xcodeproj/          # Xcode project
+│   ├── AylluTests/               # Unit tests
+│   ├── AylluUITests/             # UI tests
+│   ├── Package.swift             # Swift Package Manager manifest
+│   └── project.yml               # XcodeGen project spec
+├── CLAUDE.md                     # Project documentation
+├── IMPLEMENTATION_PLAN.md        # Feature roadmap
+└── README.md                     # Repository readme
 ```
 
 ## Key Dependencies
@@ -177,14 +188,14 @@ Ayllu/
 ## Common Tasks
 
 ### Adding a New Model
-1. Create model struct in `Core/Models/`
+1. Create model struct in `Ayllu/Ayllu/Core/Models/`
 2. Add GRDB conformance (FetchableRecord, PersistableRecord)
-3. Add migration in `Core/Database/Migrations/`
-4. Create repository in `Core/Database/Repositories/`
+3. Add migration in `Ayllu/Ayllu/Core/Database/Migrations/`
+4. Create repository in `Ayllu/Ayllu/Core/Database/Repositories/`
 5. Write unit tests
 
 ### Adding a New Feature
-1. Create feature folder in `Features/`
+1. Create feature folder in `Ayllu/Ayllu/Features/`
 2. Add Views/ and ViewModels/ subdirectories
 3. Create ViewModel with @Observable
 4. Create SwiftUI views
