@@ -1,4 +1,5 @@
 import SwiftUI
+import CoreLocation
 
 /// List view for waypoints
 struct WaypointListView: View {
@@ -9,6 +10,8 @@ struct WaypointListView: View {
 
     @State private var viewModel: WaypointListViewModel?
     @State private var searchText = ""
+    @State private var selectedCategory: WaypointCategory?
+    @State private var showSortByDistance = false
 
     init(projectId: Int64? = nil) {
         self.projectId = projectId
@@ -17,13 +20,68 @@ struct WaypointListView: View {
     var body: some View {
         Group {
             if let viewModel = viewModel {
-                WaypointListContent(viewModel: viewModel, searchText: $searchText)
+                WaypointListContent(
+                    viewModel: viewModel,
+                    searchText: $searchText,
+                    showSortByDistance: showSortByDistance,
+                    currentLocation: locationService.currentLocation
+                )
             } else {
                 ProgressView()
             }
         }
         .navigationTitle("Waypoints")
         .toolbar {
+            ToolbarItem(placement: .primaryAction) {
+                Menu {
+                    Button {
+                        viewModel?.showingCreateSheet = true
+                    } label: {
+                        Label("New Waypoint", systemImage: "plus")
+                    }
+
+                    Divider()
+
+                    Toggle(isOn: $showSortByDistance) {
+                        Label("Sort by Distance", systemImage: "location")
+                    }
+
+                    Divider()
+
+                    Menu("Filter by Category") {
+                        Button {
+                            selectedCategory = nil
+                            viewModel?.selectedCategory = nil
+                        } label: {
+                            HStack {
+                                Text("All Categories")
+                                if selectedCategory == nil {
+                                    Image(systemName: "checkmark")
+                                }
+                            }
+                        }
+
+                        Divider()
+
+                        ForEach(WaypointCategory.allCases, id: \.self) { category in
+                            Button {
+                                selectedCategory = category
+                                viewModel?.selectedCategory = category
+                            } label: {
+                                HStack {
+                                    Label(category.displayName, systemImage: category.iconName)
+                                    if selectedCategory == category {
+                                        Image(systemName: "checkmark")
+                                    }
+                                }
+                            }
+                        }
+                    }
+                } label: {
+                    Image(systemName: "ellipsis.circle")
+                }
+            }
+
             ToolbarItem(placement: .primaryAction) {
                 Button {
                     viewModel?.showingCreateSheet = true
@@ -35,6 +93,16 @@ struct WaypointListView: View {
         .searchable(text: $searchText, prompt: "Search waypoints")
         .onChange(of: searchText) { _, newValue in
             viewModel?.searchText = newValue
+        }
+        .onAppear {
+            if showSortByDistance {
+                locationService.startUpdatingLocation()
+            }
+        }
+        .onChange(of: showSortByDistance) { _, newValue in
+            if newValue {
+                locationService.startUpdatingLocation()
+            }
         }
         .onAppear {
             if viewModel == nil {
@@ -70,8 +138,22 @@ struct WaypointListView: View {
 private struct WaypointListContent: View {
     @Bindable var viewModel: WaypointListViewModel
     @Binding var searchText: String
+    let showSortByDistance: Bool
+    let currentLocation: CLLocation?
 
     @AppStorage("coordinateFormat") private var coordinateFormat: CoordinateFormatter.Format = .decimal
+    @AppStorage("distanceUnit") private var distanceUnit: CoordinateFormatter.DistanceUnit = .meters
+
+    private var sortedWaypoints: [Waypoint] {
+        let waypoints = viewModel.filteredWaypoints
+        guard showSortByDistance, let location = currentLocation else {
+            return waypoints
+        }
+        return waypoints.sorted {
+            GeoCalculator.distance(from: location, to: $0) <
+            GeoCalculator.distance(from: location, to: $1)
+        }
+    }
 
     var body: some View {
         Group {
@@ -87,12 +169,30 @@ private struct WaypointListContent: View {
                 ContentUnavailableView.search(text: searchText)
             } else {
                 List {
-                    ForEach(viewModel.filteredWaypoints) { waypoint in
+                    // Category filter indicator
+                    if viewModel.selectedCategory != nil {
+                        CategoryFilterBanner(
+                            category: viewModel.selectedCategory!,
+                            onClear: { viewModel.selectedCategory = nil }
+                        )
+                        .listRowInsets(EdgeInsets())
+                        .listRowBackground(Color.clear)
+                    }
+
+                    ForEach(sortedWaypoints) { waypoint in
                         NavigationLink(value: waypoint) {
-                            WaypointRowView(
-                                waypoint: waypoint,
-                                coordinateFormat: coordinateFormat
-                            )
+                            if showSortByDistance {
+                                WaypointDistanceRow(
+                                    waypoint: waypoint,
+                                    currentLocation: currentLocation,
+                                    coordinateFormat: coordinateFormat
+                                )
+                            } else {
+                                WaypointRowView(
+                                    waypoint: waypoint,
+                                    coordinateFormat: coordinateFormat
+                                )
+                            }
                         }
                         .swipeActions(edge: .trailing, allowsFullSwipe: false) {
                             Button(role: .destructive) {
@@ -109,6 +209,33 @@ private struct WaypointListContent: View {
         .navigationDestination(for: Waypoint.self) { waypoint in
             WaypointDetailView(waypoint: waypoint)
         }
+    }
+}
+
+// MARK: - Category Filter Banner
+
+private struct CategoryFilterBanner: View {
+    let category: WaypointCategory
+    let onClear: () -> Void
+
+    var body: some View {
+        HStack {
+            Label(category.displayName, systemImage: category.iconName)
+                .font(.subheadline)
+
+            Spacer()
+
+            Button {
+                onClear()
+            } label: {
+                Image(systemName: "xmark.circle.fill")
+                    .foregroundStyle(.secondary)
+            }
+            .buttonStyle(.plain)
+        }
+        .padding(.horizontal)
+        .padding(.vertical, 8)
+        .background(Color.accentColor.opacity(0.1))
     }
 }
 

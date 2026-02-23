@@ -4,6 +4,7 @@ import MapKit
 /// Detail view for a single waypoint
 struct WaypointDetailView: View {
     @Environment(DatabaseManager.self) private var database
+    @Environment(LocationService.self) private var locationService
     @Environment(\.dismiss) private var dismiss
 
     @AppStorage("coordinateFormat") private var coordinateFormat: CoordinateFormatter.Format = .decimal
@@ -15,6 +16,7 @@ struct WaypointDetailView: View {
     @State private var showingEditSheet = false
     @State private var showingDeleteConfirmation = false
     @State private var showingAllFormats = false
+    @State private var showingDistanceCalculator = false
 
     init(waypoint: Waypoint) {
         self.waypoint = waypoint
@@ -81,6 +83,38 @@ struct WaypointDetailView: View {
                 }
             }
 
+            // Distance from Current Location
+            if let location = locationService.currentLocation {
+                Section("From Current Location") {
+                    let distance = GeoCalculator.distance(from: location, to: currentWaypoint)
+                    let bearing = GeoCalculator.bearing(from: location, to: currentWaypoint)
+
+                    LabeledContent("Distance") {
+                        Text(CoordinateFormatter.formatDistance(distance, unit: distanceUnit))
+                            .font(.system(.body, design: .monospaced))
+                    }
+
+                    LabeledContent("Bearing") {
+                        Text(GeoCalculator.formatBearing(bearing))
+                            .font(.system(.body, design: .monospaced))
+                    }
+
+                    if let heading = locationService.currentHeading,
+                       heading.magneticHeading >= 0 {
+                        let relativeBearing = (bearing - heading.magneticHeading + 360)
+                            .truncatingRemainder(dividingBy: 360)
+                        LabeledContent("Relative Direction") {
+                            HStack {
+                                Image(systemName: "arrow.up")
+                                    .rotationEffect(.degrees(relativeBearing))
+                                    .foregroundStyle(.blue)
+                                Text(relativeDirectionText(relativeBearing))
+                            }
+                        }
+                    }
+                }
+            }
+
             // Details Section
             Section("Details") {
                 LabeledContent("Name", value: currentWaypoint.name)
@@ -136,6 +170,12 @@ struct WaypointDetailView: View {
                 }
 
                 Button {
+                    showingDistanceCalculator = true
+                } label: {
+                    Label("Distance to Another Waypoint", systemImage: "arrow.left.and.right")
+                }
+
+                Button {
                     showingEditSheet = true
                 } label: {
                     Label("Edit Waypoint", systemImage: "pencil")
@@ -164,6 +204,36 @@ struct WaypointDetailView: View {
             Button("Delete", role: .destructive) {
                 deleteWaypoint()
             }
+        }
+        .sheet(isPresented: $showingDistanceCalculator) {
+            DistanceCalculatorSheet(fromWaypoint: currentWaypoint)
+        }
+        .onAppear {
+            locationService.startUpdatingLocation()
+            locationService.startUpdatingHeading()
+        }
+    }
+
+    private func relativeDirectionText(_ bearing: Double) -> String {
+        switch bearing {
+        case 0..<22.5, 337.5...360:
+            return "Ahead"
+        case 22.5..<67.5:
+            return "Ahead Right"
+        case 67.5..<112.5:
+            return "Right"
+        case 112.5..<157.5:
+            return "Behind Right"
+        case 157.5..<202.5:
+            return "Behind"
+        case 202.5..<247.5:
+            return "Behind Left"
+        case 247.5..<292.5:
+            return "Left"
+        case 292.5..<337.5:
+            return "Ahead Left"
+        default:
+            return ""
         }
     }
 
