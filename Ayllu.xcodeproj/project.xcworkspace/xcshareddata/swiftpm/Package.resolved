@@ -1,0 +1,42 @@
+{
+  "originHash" : "f6c451cfefbe1404969f676c812176a6bb277186193d45ed0e71d812eb2dbcfd",
+  "pins" : [
+    {
+      "identity" : "coregpx",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/vincentneo/CoreGPX.git",
+      "state" : {
+        "revision" : "42662cc9235d385bdd0356c8f4cb7b581da24e39",
+        "version" : "0.9.3"
+      }
+    },
+    {
+      "identity" : "grdb.swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/groue/GRDB.swift.git",
+      "state" : {
+        "revision" : "04e73c26c4ce8218ab85aaf791942bb0b204f330",
+        "version" : "7.4.1"
+      }
+    },
+    {
+      "identity" : "maplibre-gl-native-distribution",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/maplibre/maplibre-gl-native-distribution.git",
+      "state" : {
+        "revision" : "4cbd3f5f25583627006e60c5fcdaf5339813118c",
+        "version" : "6.23.0"
+      }
+    },
+    {
+      "identity" : "utmconversion",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/wtw-software/UTMConversion.git",
+      "state" : {
+        "revision" : "53172a2f32b4c403a7ab362e0995fd48e9ef9d2b",
+        "version" : "1.4.0"
+      }
+    }
+  ],
+  "version" : 3
+}

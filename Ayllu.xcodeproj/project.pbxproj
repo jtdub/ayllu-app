@@ -1,0 +1,1078 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0888A33AEAC0993839CA3DA5 /* ProjectDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC5F02C7CC5BC14A121017A8 /* ProjectDetailView.swift */; };
+		09EFDD9E441EE48C01774B5F /* GRDB in Frameworks */ = {isa = PBXBuildFile; productRef = 6E729C0136294F63050F52C3 /* GRDB */; };
+		101C2225E8C7DFB6ECE7D07D /* Waypoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 709467A8CE466AD8B758AB85 /* Waypoint.swift */; };
+		154D4E0C0534E2554A1D385F /* ProjectFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C2A3C73A836096F9F7C4566 /* ProjectFormView.swift */; };
+		16C2FAF003F7071C771BC85C /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC020FE5A13CEBFAE3EAA31F /* Colors.swift */; };
+		253CD772A4B4D59C528680F9 /* VoiceRecordingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 767AF164D9D4FDD27F282F2E /* VoiceRecordingButton.swift */; };
+		261C69CF54B2F9AB16094490 /* WaypointListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615348C8B3B1AD0318626432 /* WaypointListViewModel.swift */; };
+		297FA57797A6F1B8A6BC141B /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A6C0ED86DE7258749D1A01A /* SettingsView.swift */; };
+		2D27F1A241996CC599784BF8 /* PhotoRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DB9A22D8000C7BA9BFA6B6E /* PhotoRepository.swift */; };
+		41E8BFB618169664937DC057 /* MapLibre in Frameworks */ = {isa = PBXBuildFile; productRef = 3E2F60AA1F6FBC36CCDC9862 /* MapLibre */; };
+		42FDD7A474602EA68B9C8760 /* ProjectRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7FC6EED3561C02DC925DB6 /* ProjectRepositoryTests.swift */; };
+		4502D20ACC51982551B7EE22 /* OfflineRegionManagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00BFD06755E5C002138F6F2 /* OfflineRegionManagerView.swift */; };
+		4DB6170504C1C8B4EC065A95 /* WaypointListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8614C9EF47B1B2542B0341 /* WaypointListViewModelTests.swift */; };
+		529F38EDE35A0AC933C4250C /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C119CDC509311011E3C1A3A5 /* TabBarView.swift */; };
+		5354F5005D637EB4D0C78E0B /* AylluUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3248C0E4289A488309B1E495 /* AylluUITests.swift */; };
+		56AF8293F662E73FE98175DD /* PhotoRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB1564BAC1453A41CB16E5A8 /* PhotoRepositoryTests.swift */; };
+		5BF73953983F51D8B6C40426 /* MapContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CBDE8374861F1A0C49B47E7 /* MapContainerView.swift */; };
+		5E8962FCC552F07A7982D56C /* UTMConversion in Frameworks */ = {isa = PBXBuildFile; productRef = 32FB69F6BDFDB742229E2B7D /* UTMConversion */; };
+		5E937B94CF968145F8D6851E /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A4912C0928C430078BD8A4 /* Track.swift */; };
+		5FC4D19E998330E22DDD0830 /* FieldNote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CF5CAE926F215C661731B6 /* FieldNote.swift */; };
+		621979A7E9320AE227D34BE5 /* MapRegionRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54590C737C5B7F8C5E4591C8 /* MapRegionRepository.swift */; };
+		6A04ABA48F1BBCE22AA48FE6 /* TrackRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77EE3A8B71D59855593EA094 /* TrackRepositoryTests.swift */; };
+		6F0C85988064AC0F1D18038D /* ProjectListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E38E8A8A0BB2939DB6E27D2 /* ProjectListViewModelTests.swift */; };
+		793FE68DFDE81B0F0A2BF937 /* NoteEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44144BB77EF28C30DBFF6807 /* NoteEditorView.swift */; };
+		7E8F16F89369985B25CAF197 /* NoteEditorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F9F3DC23AFB22A7EFE162C5 /* NoteEditorViewModel.swift */; };
+		82EB04F925005AD4501E50A7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 326A05EC0508D0377B48DD14 /* Assets.xcassets */; };
+		8470ABC94020DA4CB803DAB0 /* WaypointRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557E0FF018AF0668BA0C736F /* WaypointRepositoryTests.swift */; };
+		85E49CB49A74EC3DEEC02DEE /* MapRegion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EE3526F29A3390D5B90FBEE /* MapRegion.swift */; };
+		870D291102B2CDA7031DF450 /* NoteRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA42693DF462447D7F3ED4 /* NoteRepository.swift */; };
+		926374A659DA8D306F7FFD18 /* NoteListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D92DEF26577BB49E0B2BAB /* NoteListView.swift */; };
+		97F28281C7AB66AFF376268E /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86596F74F8C358B0134C3838 /* DatabaseManager.swift */; };
+		A06A9B59E766D44BE8829ACD /* WaypointFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5F2D515CE6EA11121C36260 /* WaypointFormView.swift */; };
+		A70F466F206B501FFE71D6A7 /* TrackRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F9D2137F128348D8E5E37E /* TrackRepository.swift */; };
+		A8C04541118CF4D77BD96164 /* NoteEditorViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5600D717AD89CB20E3D7A0 /* NoteEditorViewModelTests.swift */; };
+		B057B727A5C1F220C30EB1DE /* GRDB in Frameworks */ = {isa = PBXBuildFile; productRef = C950F2E2F910A5780D1ABEBD /* GRDB */; };
+		B0B3A101D686939215B11408 /* WaypointListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36A208CCA388D1E74813796 /* WaypointListView.swift */; };
+		B44BED216F4FD2BCB6377D72 /* NoteRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF9B9615936D0C92E1E7B1D /* NoteRepositoryTests.swift */; };
+		B945472A1280DF6F7F575180 /* TrackPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 686EB75AE32C9F264EE8C030 /* TrackPoint.swift */; };
+		BC486FFA86FD3B6CAF3AD254 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE6D468AB72B9AE3F6A133A /* LocationService.swift */; };
+		BDB2BB9854287CDB9CAF2918 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2BDC7F95E158483347B3736 /* Photo.swift */; };
+		BDCC1AF0DC53DE56249F4106 /* CoordinateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F21CE247F13AB67ED037DC3B /* CoordinateFormatter.swift */; };
+		C9F786A06073B1E07EA1B1D4 /* SpeechService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF5AD8729FF5F61B8C2697D /* SpeechService.swift */; };
+		CD6BD70B14F35DE95F786F96 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2206F6B5470CB9AD5ADA3CE6 /* Project.swift */; };
+		CEA55A8978E82097C7EED7C8 /* AylluApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F6E7BE01CBF9CC66F3125BC /* AylluApp.swift */; };
+		D16032FFF39B1E04D508BC9E /* CoreGPX in Frameworks */ = {isa = PBXBuildFile; productRef = 9973158943B16BA78131D467 /* CoreGPX */; };
+		D70FA4E09894F6FFC2C7ED17 /* CoordinateFormatterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F4D243CBF91C5666E54BD74 /* CoordinateFormatterTests.swift */; };
+		DB3A3AC32473A7F43F2299FB /* MapRegionRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4507858446C617E7324655CF /* MapRegionRepositoryTests.swift */; };
+		E42D945A6C367FF6AF12C0C3 /* MapLibreMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2230F396031D1D860B3617B0 /* MapLibreMapView.swift */; };
+		E4D89F8067F555F319304BD7 /* OfflineMapService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2925A29F4CDEF42112867C25 /* OfflineMapService.swift */; };
+		EA73430E70219E94E458C667 /* WaypointDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A462211E5B890C61ABD9F8FE /* WaypointDetailView.swift */; };
+		F7896895B2CFDD89A5449FA9 /* ProjectListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4BB7BAEC46C25517AD8D30 /* ProjectListView.swift */; };
+		F7E55143FC5146293004FE04 /* WaypointRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436DAF44E185C7469C64A867 /* WaypointRepository.swift */; };
+		FEAC8FB3C986A32A22CB8FAE /* ProjectRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53986E2C314E61FA1AF830DA /* ProjectRepository.swift */; };
+		FF0FDC0A0F9102D4F89CB733 /* ProjectListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E9514F75498DA6F4AAE6933 /* ProjectListViewModel.swift */; };
+		A1B2C3D4E5F60718A9B0C1D2 /* RegionSelectionMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F60718A9B0C1D3 /* RegionSelectionMapView.swift */; };
+		A1B2C3D4E5F60718A9B0C1D4 /* MapRegionModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F60718A9B0C1D5 /* MapRegionModelTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		7A98C5CE2BD66CAD3281E3EA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2F7344BCCAC0B39274BD9C26 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B769AA1D3225B4DA90E810DF;
+			remoteInfo = Ayllu;
+		};
+		E9AE404980FDE9321BC905AF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2F7344BCCAC0B39274BD9C26 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B769AA1D3225B4DA90E810DF;
+			remoteInfo = Ayllu;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		02B07DD96469AB9072CFFBBA /* AylluUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = AylluUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		0E7FC6EED3561C02DC925DB6 /* ProjectRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectRepositoryTests.swift; sourceTree = "<group>"; };
+		0E9514F75498DA6F4AAE6933 /* ProjectListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectListViewModel.swift; sourceTree = "<group>"; };
+		0F6E7BE01CBF9CC66F3125BC /* AylluApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AylluApp.swift; sourceTree = "<group>"; };
+		0FCDFD0BCAB7D9DE48CF2A8F /* AylluTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = AylluTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		18CF5CAE926F215C661731B6 /* FieldNote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FieldNote.swift; sourceTree = "<group>"; };
+		1BF9B9615936D0C92E1E7B1D /* NoteRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteRepositoryTests.swift; sourceTree = "<group>"; };
+		2206F6B5470CB9AD5ADA3CE6 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
+		2230F396031D1D860B3617B0 /* MapLibreMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapLibreMapView.swift; sourceTree = "<group>"; };
+		2925A29F4CDEF42112867C25 /* OfflineMapService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfflineMapService.swift; sourceTree = "<group>"; };
+		2AED28453545C1E6AFC78440 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		2E38E8A8A0BB2939DB6E27D2 /* ProjectListViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectListViewModelTests.swift; sourceTree = "<group>"; };
+		31D92DEF26577BB49E0B2BAB /* NoteListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteListView.swift; sourceTree = "<group>"; };
+		3248C0E4289A488309B1E495 /* AylluUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AylluUITests.swift; sourceTree = "<group>"; };
+		326A05EC0508D0377B48DD14 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		436DAF44E185C7469C64A867 /* WaypointRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaypointRepository.swift; sourceTree = "<group>"; };
+		44144BB77EF28C30DBFF6807 /* NoteEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteEditorView.swift; sourceTree = "<group>"; };
+		4507858446C617E7324655CF /* MapRegionRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapRegionRepositoryTests.swift; sourceTree = "<group>"; };
+		4D5600D717AD89CB20E3D7A0 /* NoteEditorViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteEditorViewModelTests.swift; sourceTree = "<group>"; };
+		53986E2C314E61FA1AF830DA /* ProjectRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectRepository.swift; sourceTree = "<group>"; };
+		54590C737C5B7F8C5E4591C8 /* MapRegionRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapRegionRepository.swift; sourceTree = "<group>"; };
+		557E0FF018AF0668BA0C736F /* WaypointRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaypointRepositoryTests.swift; sourceTree = "<group>"; };
+		5C2A3C73A836096F9F7C4566 /* ProjectFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectFormView.swift; sourceTree = "<group>"; };
+		5CBDE8374861F1A0C49B47E7 /* MapContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapContainerView.swift; sourceTree = "<group>"; };
+		615348C8B3B1AD0318626432 /* WaypointListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaypointListViewModel.swift; sourceTree = "<group>"; };
+		6571BEC7DDACDC8A088D390B /* Ayllu.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Ayllu.entitlements; sourceTree = "<group>"; };
+		686EB75AE32C9F264EE8C030 /* TrackPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackPoint.swift; sourceTree = "<group>"; };
+		6EE3526F29A3390D5B90FBEE /* MapRegion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapRegion.swift; sourceTree = "<group>"; };
+		709467A8CE466AD8B758AB85 /* Waypoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Waypoint.swift; sourceTree = "<group>"; };
+		767AF164D9D4FDD27F282F2E /* VoiceRecordingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceRecordingButton.swift; sourceTree = "<group>"; };
+		77EE3A8B71D59855593EA094 /* TrackRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackRepositoryTests.swift; sourceTree = "<group>"; };
+		7CE6D468AB72B9AE3F6A133A /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
+		7F9F3DC23AFB22A7EFE162C5 /* NoteEditorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteEditorViewModel.swift; sourceTree = "<group>"; };
+		86596F74F8C358B0134C3838 /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
+		8E8614C9EF47B1B2542B0341 /* WaypointListViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaypointListViewModelTests.swift; sourceTree = "<group>"; };
+		8F4D243CBF91C5666E54BD74 /* CoordinateFormatterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateFormatterTests.swift; sourceTree = "<group>"; };
+		96A4912C0928C430078BD8A4 /* Track.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Track.swift; sourceTree = "<group>"; };
+		9A4BB7BAEC46C25517AD8D30 /* ProjectListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectListView.swift; sourceTree = "<group>"; };
+		9A6C0ED86DE7258749D1A01A /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		9DB9A22D8000C7BA9BFA6B6E /* PhotoRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoRepository.swift; sourceTree = "<group>"; };
+		A462211E5B890C61ABD9F8FE /* WaypointDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaypointDetailView.swift; sourceTree = "<group>"; };
+		AAAA42693DF462447D7F3ED4 /* NoteRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteRepository.swift; sourceTree = "<group>"; };
+		B3F9D2137F128348D8E5E37E /* TrackRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackRepository.swift; sourceTree = "<group>"; };
+		C00BFD06755E5C002138F6F2 /* OfflineRegionManagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfflineRegionManagerView.swift; sourceTree = "<group>"; };
+		C119CDC509311011E3C1A3A5 /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
+		C36A208CCA388D1E74813796 /* WaypointListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaypointListView.swift; sourceTree = "<group>"; };
+		CAF5AD8729FF5F61B8C2697D /* SpeechService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechService.swift; sourceTree = "<group>"; };
+		CC020FE5A13CEBFAE3EAA31F /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		EC5F02C7CC5BC14A121017A8 /* ProjectDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDetailView.swift; sourceTree = "<group>"; };
+		EE5CE6A0C7EE532727F2E32B /* Ayllu.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Ayllu.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F21CE247F13AB67ED037DC3B /* CoordinateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateFormatter.swift; sourceTree = "<group>"; };
+		F2BDC7F95E158483347B3736 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
+		F5F2D515CE6EA11121C36260 /* WaypointFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaypointFormView.swift; sourceTree = "<group>"; };
+		FB1564BAC1453A41CB16E5A8 /* PhotoRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoRepositoryTests.swift; sourceTree = "<group>"; };
+		A1B2C3D4E5F60718A9B0C1D3 /* RegionSelectionMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionSelectionMapView.swift; sourceTree = "<group>"; };
+		A1B2C3D4E5F60718A9B0C1D5 /* MapRegionModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapRegionModelTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		4584AAB7D6B7D2345780C456 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				09EFDD9E441EE48C01774B5F /* GRDB in Frameworks */,
+				5E8962FCC552F07A7982D56C /* UTMConversion in Frameworks */,
+				D16032FFF39B1E04D508BC9E /* CoreGPX in Frameworks */,
+				41E8BFB618169664937DC057 /* MapLibre in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A3AC2B8A77BBCCB3E16C5B41 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B057B727A5C1F220C30EB1DE /* GRDB in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1A0AB26366B1058FBDA2DB9A /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				53BEB652FA8907B965807AA8 /* ViewModels */,
+				FA38CA1B61E4EF3C1A7BA3AC /* Views */,
+			);
+			path = Map;
+			sourceTree = "<group>";
+		};
+		24C557A32DC6CC4F95D0A231 /* Waypoints */ = {
+			isa = PBXGroup;
+			children = (
+				6D670FBF2D1AD34D7DD87EBA /* ViewModels */,
+				C320E3E3716D2CBC1723A62C /* Views */,
+			);
+			path = Waypoints;
+			sourceTree = "<group>";
+		};
+		25E8B5434F6478407B56EBB4 /* Export */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Export;
+			sourceTree = "<group>";
+		};
+		28EAE752916E69C95DBD38F7 /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				1A0AB26366B1058FBDA2DB9A /* Map */,
+				F906A5B75616B4B519177590 /* Notes */,
+				555FE9648FBFDC5CA917E2F0 /* Projects */,
+				89D6EE4DA69508A0D0F8A920 /* Settings */,
+				24C557A32DC6CC4F95D0A231 /* Waypoints */,
+			);
+			path = Features;
+			sourceTree = "<group>";
+		};
+		32F7E837CA8225CF39F22231 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				18CF5CAE926F215C661731B6 /* FieldNote.swift */,
+				6EE3526F29A3390D5B90FBEE /* MapRegion.swift */,
+				F2BDC7F95E158483347B3736 /* Photo.swift */,
+				2206F6B5470CB9AD5ADA3CE6 /* Project.swift */,
+				96A4912C0928C430078BD8A4 /* Track.swift */,
+				686EB75AE32C9F264EE8C030 /* TrackPoint.swift */,
+				709467A8CE466AD8B758AB85 /* Waypoint.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		35A0A7310F80ED4DB3AB7FA6 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				EE5CE6A0C7EE532727F2E32B /* Ayllu.app */,
+				0FCDFD0BCAB7D9DE48CF2A8F /* AylluTests.xctest */,
+				02B07DD96469AB9072CFFBBA /* AylluUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		3F0F9A53C3B6787EB4D267D6 /* ViewModelTests */ = {
+			isa = PBXGroup;
+			children = (
+				4D5600D717AD89CB20E3D7A0 /* NoteEditorViewModelTests.swift */,
+				2E38E8A8A0BB2939DB6E27D2 /* ProjectListViewModelTests.swift */,
+				8E8614C9EF47B1B2542B0341 /* WaypointListViewModelTests.swift */,
+			);
+			path = ViewModelTests;
+			sourceTree = "<group>";
+		};
+		4958B9AB88AA293756E71D9E /* Ayllu */ = {
+			isa = PBXGroup;
+			children = (
+				892A36CF3B129EDDFE8C0011 /* App */,
+				C259AF46D87C0BA43F370BFA /* Core */,
+				28EAE752916E69C95DBD38F7 /* Features */,
+				5AA71E3F7CC5FF759013B05B /* Resources */,
+				8BE60B4A8C75D70546C0F48C /* Shared */,
+			);
+			path = Ayllu;
+			sourceTree = "<group>";
+		};
+		4C622854968A43F2CECCF46C /* ServiceTests */ = {
+			isa = PBXGroup;
+			children = (
+				8F4D243CBF91C5666E54BD74 /* CoordinateFormatterTests.swift */,
+			);
+			path = ServiceTests;
+			sourceTree = "<group>";
+		};
+		4FA9C0F3DEA4B48F3C544A08 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				EC5F02C7CC5BC14A121017A8 /* ProjectDetailView.swift */,
+				5C2A3C73A836096F9F7C4566 /* ProjectFormView.swift */,
+				9A4BB7BAEC46C25517AD8D30 /* ProjectListView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		53BEB652FA8907B965807AA8 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		53F6F8D9F4356A2A774BFAAB /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				EFE35FBFF38AD388B0CB0A27 /* Camera */,
+				25E8B5434F6478407B56EBB4 /* Export */,
+				C7A9CAFB3589C360CF06D268 /* Location */,
+				D2FFE11997E9CDA368BC1869 /* Maps */,
+				652478EAEF22D3E8462C0061 /* Speech */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		555FE9648FBFDC5CA917E2F0 /* Projects */ = {
+			isa = PBXGroup;
+			children = (
+				CAF1CE3DC4B99F478F44AED6 /* ViewModels */,
+				4FA9C0F3DEA4B48F3C544A08 /* Views */,
+			);
+			path = Projects;
+			sourceTree = "<group>";
+		};
+		5AA71E3F7CC5FF759013B05B /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				326A05EC0508D0377B48DD14 /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		652478EAEF22D3E8462C0061 /* Speech */ = {
+			isa = PBXGroup;
+			children = (
+				CAF5AD8729FF5F61B8C2697D /* SpeechService.swift */,
+			);
+			path = Speech;
+			sourceTree = "<group>";
+		};
+		6D670FBF2D1AD34D7DD87EBA /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				615348C8B3B1AD0318626432 /* WaypointListViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		6DED75EFEDDAAEA65D5DC8BB /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		82362CC81747252E82DFDDB1 /* Styles */ = {
+			isa = PBXGroup;
+			children = (
+				CC020FE5A13CEBFAE3EAA31F /* Colors.swift */,
+			);
+			path = Styles;
+			sourceTree = "<group>";
+		};
+		892A36CF3B129EDDFE8C0011 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				6571BEC7DDACDC8A088D390B /* Ayllu.entitlements */,
+				0F6E7BE01CBF9CC66F3125BC /* AylluApp.swift */,
+				2AED28453545C1E6AFC78440 /* Info.plist */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		89D6EE4DA69508A0D0F8A920 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				9A6C0ED86DE7258749D1A01A /* SettingsView.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		8BE60B4A8C75D70546C0F48C /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				82362CC81747252E82DFDDB1 /* Styles */,
+				C119CDC509311011E3C1A3A5 /* TabBarView.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		93C57E607D46AB959919AE7B /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				44144BB77EF28C30DBFF6807 /* NoteEditorView.swift */,
+				31D92DEF26577BB49E0B2BAB /* NoteListView.swift */,
+				767AF164D9D4FDD27F282F2E /* VoiceRecordingButton.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		9A9C393C59B2530630845882 /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				B3665129CB036A354F52E63F /* Migrations */,
+				E39A704A14D88A68684D0BCE /* Repositories */,
+				86596F74F8C358B0134C3838 /* DatabaseManager.swift */,
+			);
+			path = Database;
+			sourceTree = "<group>";
+		};
+		9E618BE5803F30720F84951C /* AylluUITests */ = {
+			isa = PBXGroup;
+			children = (
+				3248C0E4289A488309B1E495 /* AylluUITests.swift */,
+			);
+			path = AylluUITests;
+			sourceTree = "<group>";
+		};
+		B3665129CB036A354F52E63F /* Migrations */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Migrations;
+			sourceTree = "<group>";
+		};
+		C259AF46D87C0BA43F370BFA /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				9A9C393C59B2530630845882 /* Database */,
+				6DED75EFEDDAAEA65D5DC8BB /* Extensions */,
+				32F7E837CA8225CF39F22231 /* Models */,
+				53F6F8D9F4356A2A774BFAAB /* Services */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		C320E3E3716D2CBC1723A62C /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				A462211E5B890C61ABD9F8FE /* WaypointDetailView.swift */,
+				F5F2D515CE6EA11121C36260 /* WaypointFormView.swift */,
+				C36A208CCA388D1E74813796 /* WaypointListView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		C6220C7F3C3192FDBC04FA9A /* AylluTests */ = {
+			isa = PBXGroup;
+			children = (
+				A1B2C3D4E5F60718A9B0C1D6 /* ModelTests */,
+				E1D81B22F6B5609DAC30E742 /* RepositoryTests */,
+				4C622854968A43F2CECCF46C /* ServiceTests */,
+				3F0F9A53C3B6787EB4D267D6 /* ViewModelTests */,
+			);
+			path = AylluTests;
+			sourceTree = "<group>";
+		};
+		A1B2C3D4E5F60718A9B0C1D6 /* ModelTests */ = {
+			isa = PBXGroup;
+			children = (
+				A1B2C3D4E5F60718A9B0C1D5 /* MapRegionModelTests.swift */,
+			);
+			path = ModelTests;
+			sourceTree = "<group>";
+		};
+		C7A9CAFB3589C360CF06D268 /* Location */ = {
+			isa = PBXGroup;
+			children = (
+				F21CE247F13AB67ED037DC3B /* CoordinateFormatter.swift */,
+				7CE6D468AB72B9AE3F6A133A /* LocationService.swift */,
+			);
+			path = Location;
+			sourceTree = "<group>";
+		};
+		CAF1CE3DC4B99F478F44AED6 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				0E9514F75498DA6F4AAE6933 /* ProjectListViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		D2FFE11997E9CDA368BC1869 /* Maps */ = {
+			isa = PBXGroup;
+			children = (
+				2925A29F4CDEF42112867C25 /* OfflineMapService.swift */,
+			);
+			path = Maps;
+			sourceTree = "<group>";
+		};
+		D80C5A247F7518CB1569DF09 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				7F9F3DC23AFB22A7EFE162C5 /* NoteEditorViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		E1D81B22F6B5609DAC30E742 /* RepositoryTests */ = {
+			isa = PBXGroup;
+			children = (
+				4507858446C617E7324655CF /* MapRegionRepositoryTests.swift */,
+				1BF9B9615936D0C92E1E7B1D /* NoteRepositoryTests.swift */,
+				FB1564BAC1453A41CB16E5A8 /* PhotoRepositoryTests.swift */,
+				0E7FC6EED3561C02DC925DB6 /* ProjectRepositoryTests.swift */,
+				77EE3A8B71D59855593EA094 /* TrackRepositoryTests.swift */,
+				557E0FF018AF0668BA0C736F /* WaypointRepositoryTests.swift */,
+			);
+			path = RepositoryTests;
+			sourceTree = "<group>";
+		};
+		E39A704A14D88A68684D0BCE /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				54590C737C5B7F8C5E4591C8 /* MapRegionRepository.swift */,
+				AAAA42693DF462447D7F3ED4 /* NoteRepository.swift */,
+				9DB9A22D8000C7BA9BFA6B6E /* PhotoRepository.swift */,
+				53986E2C314E61FA1AF830DA /* ProjectRepository.swift */,
+				B3F9D2137F128348D8E5E37E /* TrackRepository.swift */,
+				436DAF44E185C7469C64A867 /* WaypointRepository.swift */,
+			);
+			path = Repositories;
+			sourceTree = "<group>";
+		};
+		EFE35FBFF38AD388B0CB0A27 /* Camera */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Camera;
+			sourceTree = "<group>";
+		};
+		F096D9E1D2989E31DDF32EC3 = {
+			isa = PBXGroup;
+			children = (
+				4958B9AB88AA293756E71D9E /* Ayllu */,
+				C6220C7F3C3192FDBC04FA9A /* AylluTests */,
+				9E618BE5803F30720F84951C /* AylluUITests */,
+				35A0A7310F80ED4DB3AB7FA6 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		F906A5B75616B4B519177590 /* Notes */ = {
+			isa = PBXGroup;
+			children = (
+				D80C5A247F7518CB1569DF09 /* ViewModels */,
+				93C57E607D46AB959919AE7B /* Views */,
+			);
+			path = Notes;
+			sourceTree = "<group>";
+		};
+		FA38CA1B61E4EF3C1A7BA3AC /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				5CBDE8374861F1A0C49B47E7 /* MapContainerView.swift */,
+				2230F396031D1D860B3617B0 /* MapLibreMapView.swift */,
+				C00BFD06755E5C002138F6F2 /* OfflineRegionManagerView.swift */,
+				A1B2C3D4E5F60718A9B0C1D3 /* RegionSelectionMapView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		709D3D1205128B7F5E819CEF /* AylluTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 89F46782F0527D857D55A123 /* Build configuration list for PBXNativeTarget "AylluTests" */;
+			buildPhases = (
+				AA027B57D9B4BE5BF0D52CD2 /* Sources */,
+				A3AC2B8A77BBCCB3E16C5B41 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				2D76C135BB5E944FA7CA6825 /* PBXTargetDependency */,
+			);
+			name = AylluTests;
+			packageProductDependencies = (
+				C950F2E2F910A5780D1ABEBD /* GRDB */,
+			);
+			productName = AylluTests;
+			productReference = 0FCDFD0BCAB7D9DE48CF2A8F /* AylluTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		B769AA1D3225B4DA90E810DF /* Ayllu */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = ABFF7BAE924859E3DF08FB3A /* Build configuration list for PBXNativeTarget "Ayllu" */;
+			buildPhases = (
+				9F9E13D9475D558FA4C6C6BF /* Sources */,
+				238F7E97D13703DDD125FC85 /* Resources */,
+				4584AAB7D6B7D2345780C456 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Ayllu;
+			packageProductDependencies = (
+				6E729C0136294F63050F52C3 /* GRDB */,
+				32FB69F6BDFDB742229E2B7D /* UTMConversion */,
+				9973158943B16BA78131D467 /* CoreGPX */,
+				3E2F60AA1F6FBC36CCDC9862 /* MapLibre */,
+			);
+			productName = Ayllu;
+			productReference = EE5CE6A0C7EE532727F2E32B /* Ayllu.app */;
+			productType = "com.apple.product-type.application";
+		};
+		E01365DD8A9C353934F8CEBA /* AylluUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 036BEB90CF2B423BC83E16A4 /* Build configuration list for PBXNativeTarget "AylluUITests" */;
+			buildPhases = (
+				2284F8F7DD9E6886D525F6F6 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9EB06B8528ECC28630C61B4A /* PBXTargetDependency */,
+			);
+			name = AylluUITests;
+			packageProductDependencies = (
+			);
+			productName = AylluUITests;
+			productReference = 02B07DD96469AB9072CFFBBA /* AylluUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		2F7344BCCAC0B39274BD9C26 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					B769AA1D3225B4DA90E810DF = {
+						ProvisioningStyle = Automatic;
+					};
+					E01365DD8A9C353934F8CEBA = {
+						TestTargetID = B769AA1D3225B4DA90E810DF;
+					};
+				};
+			};
+			buildConfigurationList = 6A9827ABF0EDAA6CC0C93162 /* Build configuration list for PBXProject "Ayllu" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = F096D9E1D2989E31DDF32EC3;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				097E589E8542E213ACC3E172 /* XCRemoteSwiftPackageReference "CoreGPX" */,
+				C0582A4B3766941027CF83D0 /* XCRemoteSwiftPackageReference "GRDB.swift" */,
+				DDFEE04521007514209FCA5B /* XCRemoteSwiftPackageReference "maplibre-gl-native-distribution" */,
+				F5582EC76F6DF762100942A2 /* XCRemoteSwiftPackageReference "UTMConversion" */,
+			);
+			preferredProjectObjectVersion = 77;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				B769AA1D3225B4DA90E810DF /* Ayllu */,
+				709D3D1205128B7F5E819CEF /* AylluTests */,
+				E01365DD8A9C353934F8CEBA /* AylluUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		238F7E97D13703DDD125FC85 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				82EB04F925005AD4501E50A7 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2284F8F7DD9E6886D525F6F6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5354F5005D637EB4D0C78E0B /* AylluUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9F9E13D9475D558FA4C6C6BF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CEA55A8978E82097C7EED7C8 /* AylluApp.swift in Sources */,
+				16C2FAF003F7071C771BC85C /* Colors.swift in Sources */,
+				BDCC1AF0DC53DE56249F4106 /* CoordinateFormatter.swift in Sources */,
+				97F28281C7AB66AFF376268E /* DatabaseManager.swift in Sources */,
+				5FC4D19E998330E22DDD0830 /* FieldNote.swift in Sources */,
+				BC486FFA86FD3B6CAF3AD254 /* LocationService.swift in Sources */,
+				5BF73953983F51D8B6C40426 /* MapContainerView.swift in Sources */,
+				E42D945A6C367FF6AF12C0C3 /* MapLibreMapView.swift in Sources */,
+				85E49CB49A74EC3DEEC02DEE /* MapRegion.swift in Sources */,
+				621979A7E9320AE227D34BE5 /* MapRegionRepository.swift in Sources */,
+				793FE68DFDE81B0F0A2BF937 /* NoteEditorView.swift in Sources */,
+				7E8F16F89369985B25CAF197 /* NoteEditorViewModel.swift in Sources */,
+				926374A659DA8D306F7FFD18 /* NoteListView.swift in Sources */,
+				870D291102B2CDA7031DF450 /* NoteRepository.swift in Sources */,
+				E4D89F8067F555F319304BD7 /* OfflineMapService.swift in Sources */,
+				4502D20ACC51982551B7EE22 /* OfflineRegionManagerView.swift in Sources */,
+				BDB2BB9854287CDB9CAF2918 /* Photo.swift in Sources */,
+				2D27F1A241996CC599784BF8 /* PhotoRepository.swift in Sources */,
+				CD6BD70B14F35DE95F786F96 /* Project.swift in Sources */,
+				0888A33AEAC0993839CA3DA5 /* ProjectDetailView.swift in Sources */,
+				154D4E0C0534E2554A1D385F /* ProjectFormView.swift in Sources */,
+				F7896895B2CFDD89A5449FA9 /* ProjectListView.swift in Sources */,
+				FF0FDC0A0F9102D4F89CB733 /* ProjectListViewModel.swift in Sources */,
+				FEAC8FB3C986A32A22CB8FAE /* ProjectRepository.swift in Sources */,
+				297FA57797A6F1B8A6BC141B /* SettingsView.swift in Sources */,
+				C9F786A06073B1E07EA1B1D4 /* SpeechService.swift in Sources */,
+				529F38EDE35A0AC933C4250C /* TabBarView.swift in Sources */,
+				5E937B94CF968145F8D6851E /* Track.swift in Sources */,
+				B945472A1280DF6F7F575180 /* TrackPoint.swift in Sources */,
+				A70F466F206B501FFE71D6A7 /* TrackRepository.swift in Sources */,
+				253CD772A4B4D59C528680F9 /* VoiceRecordingButton.swift in Sources */,
+				101C2225E8C7DFB6ECE7D07D /* Waypoint.swift in Sources */,
+				EA73430E70219E94E458C667 /* WaypointDetailView.swift in Sources */,
+				A06A9B59E766D44BE8829ACD /* WaypointFormView.swift in Sources */,
+				B0B3A101D686939215B11408 /* WaypointListView.swift in Sources */,
+				261C69CF54B2F9AB16094490 /* WaypointListViewModel.swift in Sources */,
+				F7E55143FC5146293004FE04 /* WaypointRepository.swift in Sources */,
+				A1B2C3D4E5F60718A9B0C1D2 /* RegionSelectionMapView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AA027B57D9B4BE5BF0D52CD2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D70FA4E09894F6FFC2C7ED17 /* CoordinateFormatterTests.swift in Sources */,
+				A1B2C3D4E5F60718A9B0C1D4 /* MapRegionModelTests.swift in Sources */,
+				DB3A3AC32473A7F43F2299FB /* MapRegionRepositoryTests.swift in Sources */,
+				A8C04541118CF4D77BD96164 /* NoteEditorViewModelTests.swift in Sources */,
+				B44BED216F4FD2BCB6377D72 /* NoteRepositoryTests.swift in Sources */,
+				56AF8293F662E73FE98175DD /* PhotoRepositoryTests.swift in Sources */,
+				6F0C85988064AC0F1D18038D /* ProjectListViewModelTests.swift in Sources */,
+				42FDD7A474602EA68B9C8760 /* ProjectRepositoryTests.swift in Sources */,
+				6A04ABA48F1BBCE22AA48FE6 /* TrackRepositoryTests.swift in Sources */,
+				4DB6170504C1C8B4EC065A95 /* WaypointListViewModelTests.swift in Sources */,
+				8470ABC94020DA4CB803DAB0 /* WaypointRepositoryTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		2D76C135BB5E944FA7CA6825 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B769AA1D3225B4DA90E810DF /* Ayllu */;
+			targetProxy = 7A98C5CE2BD66CAD3281E3EA /* PBXContainerItemProxy */;
+		};
+		9EB06B8528ECC28630C61B4A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B769AA1D3225B4DA90E810DF /* Ayllu */;
+			targetProxy = E9AE404980FDE9321BC905AF /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		0775BAC48FE70031C46D18FC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.ayllu.tests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Ayllu.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Ayllu";
+			};
+			name = Release;
+		};
+		0BBE6B3B13A6355717C69331 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.9;
+			};
+			name = Debug;
+		};
+		224A9E01C298BB1F5C248AC4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.9;
+			};
+			name = Release;
+		};
+		4903BDCEDA92DC848AEF1BAE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Ayllu/App/Ayllu.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Ayllu/App/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.ayllu.app;
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		80B313272AA343DC439D9EC4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.ayllu.uitests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Ayllu;
+			};
+			name = Debug;
+		};
+		A2418051618222561E230C43 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Ayllu/App/Ayllu.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Ayllu/App/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.ayllu.app;
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		DBD03D9CFB1F46B117887241 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.ayllu.uitests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Ayllu;
+			};
+			name = Release;
+		};
+		E41A719B9256A776DB99C20A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.ayllu.tests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Ayllu.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Ayllu";
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		036BEB90CF2B423BC83E16A4 /* Build configuration list for PBXNativeTarget "AylluUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				80B313272AA343DC439D9EC4 /* Debug */,
+				DBD03D9CFB1F46B117887241 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		6A9827ABF0EDAA6CC0C93162 /* Build configuration list for PBXProject "Ayllu" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0BBE6B3B13A6355717C69331 /* Debug */,
+				224A9E01C298BB1F5C248AC4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		89F46782F0527D857D55A123 /* Build configuration list for PBXNativeTarget "AylluTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E41A719B9256A776DB99C20A /* Debug */,
+				0775BAC48FE70031C46D18FC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		ABFF7BAE924859E3DF08FB3A /* Build configuration list for PBXNativeTarget "Ayllu" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A2418051618222561E230C43 /* Debug */,
+				4903BDCEDA92DC848AEF1BAE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		097E589E8542E213ACC3E172 /* XCRemoteSwiftPackageReference "CoreGPX" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/vincentneo/CoreGPX.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.9.0;
+			};
+		};
+		C0582A4B3766941027CF83D0 /* XCRemoteSwiftPackageReference "GRDB.swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/groue/GRDB.swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.0;
+			};
+		};
+		DDFEE04521007514209FCA5B /* XCRemoteSwiftPackageReference "maplibre-gl-native-distribution" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/maplibre/maplibre-gl-native-distribution.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.0.0;
+			};
+		};
+		F5582EC76F6DF762100942A2 /* XCRemoteSwiftPackageReference "UTMConversion" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/wtw-software/UTMConversion.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.4.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		32FB69F6BDFDB742229E2B7D /* UTMConversion */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F5582EC76F6DF762100942A2 /* XCRemoteSwiftPackageReference "UTMConversion" */;
+			productName = UTMConversion;
+		};
+		3E2F60AA1F6FBC36CCDC9862 /* MapLibre */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DDFEE04521007514209FCA5B /* XCRemoteSwiftPackageReference "maplibre-gl-native-distribution" */;
+			productName = MapLibre;
+		};
+		6E729C0136294F63050F52C3 /* GRDB */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C0582A4B3766941027CF83D0 /* XCRemoteSwiftPackageReference "GRDB.swift" */;
+			productName = GRDB;
+		};
+		9973158943B16BA78131D467 /* CoreGPX */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 097E589E8542E213ACC3E172 /* XCRemoteSwiftPackageReference "CoreGPX" */;
+			productName = CoreGPX;
+		};
+		C950F2E2F910A5780D1ABEBD /* GRDB */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C0582A4B3766941027CF83D0 /* XCRemoteSwiftPackageReference "GRDB.swift" */;
+			productName = GRDB;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 2F7344BCCAC0B39274BD9C26 /* Project object */;
+}
