@@ -22,6 +22,7 @@ jobs:
         run: brew install swiftlint
 
       - name: Run SwiftLint
+        working-directory: Ayllu
         run: swiftlint lint --strict --reporter github-actions-logging
 
   build-and-test:
@@ -43,13 +44,13 @@ jobs:
       - name: Resolve Swift packages
         run: |
           xcodebuild -resolvePackageDependencies \
-            -project Ayllu.xcodeproj \
+            -project Ayllu/Ayllu.xcodeproj \
             -scheme Ayllu
 
       - name: Build
         run: |
           xcodebuild build \
-            -project Ayllu.xcodeproj \
+            -project Ayllu/Ayllu.xcodeproj \
             -scheme Ayllu \
             -sdk iphonesimulator \
             -destination 'platform=iOS Simulator,name=iPhone 16,OS=latest' \
@@ -59,7 +60,7 @@ jobs:
       - name: Run Unit Tests
         run: |
           xcodebuild test \
-            -project Ayllu.xcodeproj \
+            -project Ayllu/Ayllu.xcodeproj \
             -scheme Ayllu \
             -sdk iphonesimulator \
             -destination 'platform=iOS Simulator,name=iPhone 16,OS=latest' \
