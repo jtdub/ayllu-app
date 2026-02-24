@@ -6,25 +6,54 @@ struct MapContainerView: View {
     @Environment(DatabaseManager.self) private var database
     @Environment(LocationService.self) private var locationService
 
+    @AppStorage("useTrueNorth") private var useTrueNorth = false
+
     @State private var waypoints: [Waypoint] = []
     @State private var selectedWaypoint: Waypoint?
     @State private var showingOfflineManager = false
     @State private var userLocation: CLLocation?
+    @State private var centerOnLocation = false
 
     var body: some View {
         ZStack {
             MapLibreMapView(
                 waypoints: $waypoints,
                 selectedWaypoint: $selectedWaypoint,
-                userLocation: $userLocation
+                userLocation: $userLocation,
+                centerOnLocation: $centerOnLocation
             )
             .ignoresSafeArea(edges: .bottom)
 
-            // Quick waypoint FAB
+            // Heading display overlay (top-left)
+            VStack {
+                HStack {
+                    HeadingDisplayView(
+                        heading: locationService.currentHeading,
+                        showTrueNorth: useTrueNorth
+                    )
+                    .padding(8)
+                    .background(.ultraThinMaterial)
+                    .clipShape(RoundedRectangle(cornerRadius: 8))
+                    .padding()
+
+                    Spacer()
+                }
+                Spacer()
+            }
+
+            // Floating action buttons
             VStack {
                 Spacer()
                 HStack {
+                    // Locate me button
+                    LocateMeButton(hasLocation: userLocation != nil) {
+                        centerOnLocation = true
+                    }
+                    .padding()
+
                     Spacer()
+
+                    // Quick waypoint button
                     QuickWaypointButton {
                         createQuickWaypoint()
                     }
@@ -54,6 +83,7 @@ struct MapContainerView: View {
         .onAppear {
             loadWaypoints()
             locationService.startUpdatingLocation()
+            locationService.startUpdatingHeading()
         }
         .onChange(of: locationService.currentLocation) { _, newLocation in
             userLocation = newLocation

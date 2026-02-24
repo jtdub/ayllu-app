@@ -8,6 +8,7 @@ struct MapLibreMapView: UIViewRepresentable {
     @Binding var waypoints: [Waypoint]
     @Binding var selectedWaypoint: Waypoint?
     @Binding var userLocation: CLLocation?
+    @Binding var centerOnLocation: Bool
     var onQuickWaypointTap: ((CLLocationCoordinate2D) -> Void)?
 
     // OpenTopoMap tile URL template
@@ -51,6 +52,14 @@ struct MapLibreMapView: UIViewRepresentable {
         if let location = userLocation, !context.coordinator.hasSetInitialLocation {
             mapView.setCenter(location.coordinate, zoomLevel: 14, animated: true)
             context.coordinator.hasSetInitialLocation = true
+        }
+
+        // Handle center on location request
+        if centerOnLocation, let location = userLocation {
+            mapView.setCenter(location.coordinate, zoomLevel: max(mapView.zoomLevel, 14), animated: true)
+            DispatchQueue.main.async {
+                self.centerOnLocation = false
+            }
         }
     }
 
@@ -187,6 +196,7 @@ class WaypointAnnotation: NSObject, MLNAnnotation {
     MapLibreMapView(
         waypoints: .constant([]),
         selectedWaypoint: .constant(nil),
-        userLocation: .constant(nil)
+        userLocation: .constant(nil),
+        centerOnLocation: .constant(false)
     )
 }
