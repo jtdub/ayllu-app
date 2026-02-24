@@ -6,6 +6,7 @@ struct SettingsView: View {
 
     @AppStorage("coordinateFormat") private var coordinateFormat: CoordinateFormatter.Format = .decimal
     @AppStorage("distanceUnit") private var distanceUnit: CoordinateFormatter.DistanceUnit = .meters
+    @AppStorage("useTrueNorth") private var useTrueNorth = false
 
     @State private var databaseSize: String = "—"
     @State private var offlineMapSize: String = "—"
@@ -33,6 +34,13 @@ struct SettingsView: View {
                         Text(unit.displayName).tag(unit)
                     }
                 }
+            }
+
+            Section("Compass") {
+                Toggle("Use True North", isOn: $useTrueNorth)
+                Text("When enabled, headings are displayed relative to true north instead of magnetic north.")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
             }
 
             Section("Storage") {

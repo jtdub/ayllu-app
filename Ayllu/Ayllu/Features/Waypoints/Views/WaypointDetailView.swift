@@ -17,6 +17,8 @@ struct WaypointDetailView: View {
     @State private var showingDeleteConfirmation = false
     @State private var showingAllFormats = false
     @State private var showingDistanceCalculator = false
+    @State private var showingNavigation = false
+    @State private var showingPhotoCapture = false
 
     init(waypoint: Waypoint) {
         self.waypoint = waypoint
@@ -158,6 +160,18 @@ struct WaypointDetailView: View {
             // Actions Section
             Section {
                 Button {
+                    showingNavigation = true
+                } label: {
+                    Label("Navigate to Waypoint", systemImage: "location.north.line")
+                }
+
+                Button {
+                    showingPhotoCapture = true
+                } label: {
+                    Label("Take Photo", systemImage: "camera")
+                }
+
+                Button {
                     copyCoordinates()
                 } label: {
                     Label("Copy Coordinates", systemImage: "doc.on.doc")
@@ -207,6 +221,16 @@ struct WaypointDetailView: View {
         }
         .sheet(isPresented: $showingDistanceCalculator) {
             DistanceCalculatorSheet(fromWaypoint: currentWaypoint)
+        }
+        .fullScreenCover(isPresented: $showingNavigation) {
+            NavigationStack {
+                WaypointNavigationView(targetWaypoint: currentWaypoint)
+            }
+        }
+        .sheet(isPresented: $showingPhotoCapture) {
+            NavigationStack {
+                PhotoCaptureView(projectId: currentWaypoint.projectId, waypointId: currentWaypoint.id)
+            }
         }
         .onAppear {
             locationService.startUpdatingLocation()
