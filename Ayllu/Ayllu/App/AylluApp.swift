@@ -9,18 +9,21 @@ struct AylluApp: App {
     @State private var locationService = LocationService()
     @State private var speechService = SpeechService()
     @State private var networkMonitor = NetworkMonitor()
+    @State private var trackRecordingService: TrackRecordingService?
     @State private var initializationError: Error?
     @State private var showingOnboarding = false
 
     var body: some Scene {
         WindowGroup {
             Group {
-                if let database = databaseManager {
+                if let database = databaseManager,
+                   let trackService = trackRecordingService {
                     TabBarView()
                         .environment(database)
                         .environment(locationService)
                         .environment(speechService)
                         .environment(networkMonitor)
+                        .environment(trackService)
                         .sheet(isPresented: $showingOnboarding) {
                             OnboardingView()
                         }
@@ -46,7 +49,16 @@ struct AylluApp: App {
 
     private func initializeDatabase() {
         do {
-            databaseManager = try DatabaseManager()
+            let manager = try DatabaseManager()
+            databaseManager = manager
+
+            // Initialize TrackRecordingService with repository
+            let repository = TrackRepository(dbPool: manager.dbPool)
+            trackRecordingService = TrackRecordingService(
+                repository: repository,
+                locationService: locationService
+            )
+
             initializationError = nil
         } catch {
             initializationError = error
