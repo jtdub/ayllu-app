@@ -14,6 +14,7 @@
 		101C2225E8C7DFB6ECE7D07D /* Waypoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 709467A8CE466AD8B758AB85 /* Waypoint.swift */; };
 		154D4E0C0534E2554A1D385F /* ProjectFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C2A3C73A836096F9F7C4566 /* ProjectFormView.swift */; };
 		16C2FAF003F7071C771BC85C /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC020FE5A13CEBFAE3EAA31F /* Colors.swift */; };
+		1EF46A3BC051B17CAD5409BE /* BackupManagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0E693987E440FC18A63FAF /* BackupManagerView.swift */; };
 		253CD772A4B4D59C528680F9 /* VoiceRecordingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 767AF164D9D4FDD27F282F2E /* VoiceRecordingButton.swift */; };
 		261C69CF54B2F9AB16094490 /* WaypointListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615348C8B3B1AD0318626432 /* WaypointListViewModel.swift */; };
 		28DBDD78A73E006CEA15BA83 /* GPXExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F94524AFCAC0139168D5F7 /* GPXExporter.swift */; };
@@ -55,6 +56,7 @@
 		A465DB1E34CF18187D213784 /* ColorSchemePreference.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6365C6A8F6D1C3DD2004A6D /* ColorSchemePreference.swift */; };
 		A70F466F206B501FFE71D6A7 /* TrackRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F9D2137F128348D8E5E37E /* TrackRepository.swift */; };
 		A8C04541118CF4D77BD96164 /* NoteEditorViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5600D717AD89CB20E3D7A0 /* NoteEditorViewModelTests.swift */; };
+		AFB6C7A2268E89057CF4154C /* DatabaseBackupService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56FC824418246CEF589840EA /* DatabaseBackupService.swift */; };
 		B057B727A5C1F220C30EB1DE /* GRDB in Frameworks */ = {isa = PBXBuildFile; productRef = C950F2E2F910A5780D1ABEBD /* GRDB */; };
 		B0B3A101D686939215B11408 /* WaypointListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36A208CCA388D1E74813796 /* WaypointListView.swift */; };
 		B44BED216F4FD2BCB6377D72 /* NoteRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF9B9615936D0C92E1E7B1D /* NoteRepositoryTests.swift */; };
@@ -130,6 +132,7 @@
 		53986E2C314E61FA1AF830DA /* ProjectRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectRepository.swift; sourceTree = "<group>"; };
 		54590C737C5B7F8C5E4591C8 /* MapRegionRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapRegionRepository.swift; sourceTree = "<group>"; };
 		557E0FF018AF0668BA0C736F /* WaypointRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaypointRepositoryTests.swift; sourceTree = "<group>"; };
+		56FC824418246CEF589840EA /* DatabaseBackupService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseBackupService.swift; sourceTree = "<group>"; };
 		5C2A3C73A836096F9F7C4566 /* ProjectFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectFormView.swift; sourceTree = "<group>"; };
 		5CBDE8374861F1A0C49B47E7 /* MapContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapContainerView.swift; sourceTree = "<group>"; };
 		5F2FF7DDDB5B633386AF3D7E /* GPXExporterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPXExporterTests.swift; sourceTree = "<group>"; };
@@ -142,6 +145,7 @@
 		709467A8CE466AD8B758AB85 /* Waypoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Waypoint.swift; sourceTree = "<group>"; };
 		767AF164D9D4FDD27F282F2E /* VoiceRecordingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceRecordingButton.swift; sourceTree = "<group>"; };
 		77EE3A8B71D59855593EA094 /* TrackRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackRepositoryTests.swift; sourceTree = "<group>"; };
+		7B0E693987E440FC18A63FAF /* BackupManagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackupManagerView.swift; sourceTree = "<group>"; };
 		7C0E783FB65AC5F97723E82D /* PhotoReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoReviewView.swift; sourceTree = "<group>"; };
 		7CE6D468AB72B9AE3F6A133A /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
 		7F9F3DC23AFB22A7EFE162C5 /* NoteEditorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteEditorViewModel.swift; sourceTree = "<group>"; };
@@ -340,6 +344,7 @@
 				C7A9CAFB3589C360CF06D268 /* Location */,
 				D2FFE11997E9CDA368BC1869 /* Maps */,
 				652478EAEF22D3E8462C0061 /* Speech */,
+				56FC824418246CEF589840EA /* DatabaseBackupService.swift */,
 				10B021A343AA9248B33ECCFE /* NetworkMonitor.swift */,
 			);
 			path = Services;
@@ -415,6 +420,7 @@
 		89D6EE4DA69508A0D0F8A920 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				7B0E693987E440FC18A63FAF /* BackupManagerView.swift */,
 				9A6C0ED86DE7258749D1A01A /* SettingsView.swift */,
 			);
 			path = Settings;
@@ -768,12 +774,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				CEA55A8978E82097C7EED7C8 /* AylluApp.swift in Sources */,
+				1EF46A3BC051B17CAD5409BE /* BackupManagerView.swift in Sources */,
 				DF5C6042E9EDB9A4A008DBD1 /* CameraPreviewView.swift in Sources */,
 				0CC68414DE54BBED91A8A6D1 /* CameraService.swift in Sources */,
 				A465DB1E34CF18187D213784 /* ColorSchemePreference.swift in Sources */,
 				16C2FAF003F7071C771BC85C /* Colors.swift in Sources */,
 				4DDE1D674919ADAEA86CDE57 /* CompassView.swift in Sources */,
 				BDCC1AF0DC53DE56249F4106 /* CoordinateFormatter.swift in Sources */,
+				AFB6C7A2268E89057CF4154C /* DatabaseBackupService.swift in Sources */,
 				97F28281C7AB66AFF376268E /* DatabaseManager.swift in Sources */,
 				45D5210CD20920FBD2438CD9 /* DistanceBearingView.swift in Sources */,
 				0584FE91239AD5EAD98F48E2 /* DistanceCalculatorSheet.swift in Sources */,

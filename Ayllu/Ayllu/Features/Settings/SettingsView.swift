@@ -12,6 +12,8 @@ struct SettingsView: View {
     @State private var databaseSize: String = "—"
     @State private var offlineMapSize: String = "—"
     @State private var showingClearConfirmation = false
+    @State private var showingBackupManager = false
+    @State private var backupService: DatabaseBackupService?
 
     var body: some View {
         Form {
@@ -67,6 +69,22 @@ struct SettingsView: View {
                 }
             }
 
+            Section("Backup & Restore") {
+                if let service = backupService, let lastBackup = service.lastBackupDate {
+                    LabeledContent("Last Backup") {
+                        Text(lastBackup, style: .relative) + Text(" ago")
+                    }
+                } else {
+                    LabeledContent("Last Backup", value: "Never")
+                }
+
+                Button {
+                    showingBackupManager = true
+                } label: {
+                    Label("Manage Backups", systemImage: "internaldrive")
+                }
+            }
+
             Section("About") {
                 LabeledContent("Version", value: appVersion)
                 LabeledContent("Build", value: buildNumber)
@@ -81,8 +99,16 @@ struct SettingsView: View {
             }
         }
         .navigationTitle("Settings")
+        .sheet(isPresented: $showingBackupManager) {
+            if let service = backupService {
+                BackupManagerView(backupService: service)
+            }
+        }
         .onAppear {
             loadStorageInfo()
+            if backupService == nil {
+                backupService = DatabaseBackupService(databaseManager: database)
+            }
         }
         .alert("Clear Offline Maps?", isPresented: $showingClearConfirmation) {
             Button("Cancel", role: .cancel) {}
