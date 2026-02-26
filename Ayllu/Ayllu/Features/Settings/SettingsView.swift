@@ -96,10 +96,6 @@ struct SettingsView: View {
                 LabeledContent("Version", value: appVersion)
                 LabeledContent("Build", value: buildNumber)
 
-                Link(destination: URL(string: "https://github.com/jtdub/ayllu-app")!) {
-                    Label("Source Code", systemImage: "chevron.left.forwardslash.chevron.right")
-                }
-
                 Link(destination: URL(string: "https://github.com/jtdub/ayllu-feedback/issues")!) {
                     Label("Report Issue", systemImage: "exclamationmark.bubble")
                 }
