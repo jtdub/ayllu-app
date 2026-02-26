@@ -10,6 +10,7 @@
 		0584FE91239AD5EAD98F48E2 /* DistanceCalculatorSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483B9A02DEFF49B1EBF78D12 /* DistanceCalculatorSheet.swift */; };
 		0888A33AEAC0993839CA3DA5 /* ProjectDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC5F02C7CC5BC14A121017A8 /* ProjectDetailView.swift */; };
 		09EFDD9E441EE48C01774B5F /* GRDB in Frameworks */ = {isa = PBXBuildFile; productRef = 6E729C0136294F63050F52C3 /* GRDB */; };
+		0AF7EAB687BD3612EF79D379 /* PrivacyPolicyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681EC95AB78929ACC28AAD3E /* PrivacyPolicyView.swift */; };
 		0CC68414DE54BBED91A8A6D1 /* CameraService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62C0FBB5911D0A4AB702CB52 /* CameraService.swift */; };
 		101C2225E8C7DFB6ECE7D07D /* Waypoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 709467A8CE466AD8B758AB85 /* Waypoint.swift */; };
 		132945EFB6B447C14D424D27 /* PhotoRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566100C697B99C3BC352E6DC /* PhotoRowView.swift */; };
@@ -163,6 +164,7 @@
 		615348C8B3B1AD0318626432 /* WaypointListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaypointListViewModel.swift; sourceTree = "<group>"; };
 		62C0FBB5911D0A4AB702CB52 /* CameraService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraService.swift; sourceTree = "<group>"; };
 		6571BEC7DDACDC8A088D390B /* Ayllu.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Ayllu.entitlements; sourceTree = "<group>"; };
+		681EC95AB78929ACC28AAD3E /* PrivacyPolicyView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PrivacyPolicyView.swift; sourceTree = "<group>"; };
 		686EB75AE32C9F264EE8C030 /* TrackPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackPoint.swift; sourceTree = "<group>"; };
 		6DFAB333F8C54383536E06E7 /* WaypointNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaypointNavigationView.swift; sourceTree = "<group>"; };
 		6EE3526F29A3390D5B90FBEE /* MapRegion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapRegion.swift; sourceTree = "<group>"; };
@@ -487,7 +489,8 @@
 				7B0E693987E440FC18A63FAF /* BackupManagerView.swift */,
 				9A6C0ED86DE7258749D1A01A /* SettingsView.swift */,
 				A7C10A057437737DF6D9418F /* TrashView.swift */,
-				);
+				681EC95AB78929ACC28AAD3E /* PrivacyPolicyView.swift */,
+			);
 			path = Settings;
 			sourceTree = "<group>";
 		};
@@ -787,8 +790,6 @@
 				9EB06B8528ECC28630C61B4A /* PBXTargetDependency */,
 			);
 			name = AylluUITests;
-			packageProductDependencies = (
-			);
 			productName = AylluUITests;
 			productReference = 02B07DD96469AB9072CFFBBA /* AylluUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
@@ -826,6 +827,7 @@
 				DDFEE04521007514209FCA5B /* XCRemoteSwiftPackageReference "maplibre-gl-native-distribution" */,
 				F5582EC76F6DF762100942A2 /* XCRemoteSwiftPackageReference "UTMConversion" */,
 			);
+			productRefGroup = 35A0A7310F80ED4DB3AB7FA6 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -854,7 +856,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5354F5005D637EB4D0C78E0B /* AylluUITests.swift in Sources */,
-				);
+			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		9F9E13D9475D558FA4C6C6BF /* Sources */ = {
@@ -933,6 +935,7 @@
 				261C69CF54B2F9AB16094490 /* WaypointListViewModel.swift in Sources */,
 				3710E972013E9B62E9EB43B8 /* WaypointNavigationView.swift in Sources */,
 				F7E55143FC5146293004FE04 /* WaypointRepository.swift in Sources */,
+				0AF7EAB687BD3612EF79D379 /* PrivacyPolicyView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
