@@ -14,6 +14,11 @@ struct FieldNote: Identifiable, Codable, Equatable, Hashable {
     var longitude: Double?
     var createdAt: Date
     var updatedAt: Date
+    var deletedAt: Date?
+
+    var isDeleted: Bool {
+        deletedAt != nil
+    }
 
     init(
         id: Int64? = nil,
@@ -26,7 +31,8 @@ struct FieldNote: Identifiable, Codable, Equatable, Hashable {
         latitude: Double? = nil,
         longitude: Double? = nil,
         createdAt: Date = Date(),
-        updatedAt: Date = Date()
+        updatedAt: Date = Date(),
+        deletedAt: Date? = nil
     ) {
         self.id = id
         self.projectId = projectId
@@ -39,6 +45,7 @@ struct FieldNote: Identifiable, Codable, Equatable, Hashable {
         self.longitude = longitude
         self.createdAt = createdAt
         self.updatedAt = updatedAt
+        self.deletedAt = deletedAt
     }
 
     /// Whether this note has an associated audio recording

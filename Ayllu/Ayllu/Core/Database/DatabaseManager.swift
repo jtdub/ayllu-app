@@ -258,6 +258,56 @@ final class DatabaseManager {
             }
         }
 
+        // Version 2: Add soft delete support
+        migrator.registerMigration("v2_add_soft_delete") { db in
+            try db.alter(table: "projects") { t in
+                t.add(column: "deletedAt", .datetime)
+            }
+
+            try db.alter(table: "waypoints") { t in
+                t.add(column: "deletedAt", .datetime)
+            }
+
+            try db.alter(table: "photos") { t in
+                t.add(column: "deletedAt", .datetime)
+            }
+
+            try db.alter(table: "field_notes") { t in
+                t.add(column: "deletedAt", .datetime)
+            }
+
+            try db.alter(table: "tracks") { t in
+                t.add(column: "deletedAt", .datetime)
+            }
+
+            // Create indexes for soft delete queries
+            try db.create(
+                index: "projects_deletedAt",
+                on: "projects",
+                columns: ["deletedAt"]
+            )
+            try db.create(
+                index: "waypoints_deletedAt",
+                on: "waypoints",
+                columns: ["deletedAt"]
+            )
+            try db.create(
+                index: "photos_deletedAt",
+                on: "photos",
+                columns: ["deletedAt"]
+            )
+            try db.create(
+                index: "field_notes_deletedAt",
+                on: "field_notes",
+                columns: ["deletedAt"]
+            )
+            try db.create(
+                index: "tracks_deletedAt",
+                on: "tracks",
+                columns: ["deletedAt"]
+            )
+        }
+
         return migrator
     }
 

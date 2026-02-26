@@ -14,6 +14,7 @@ struct SettingsView: View {
     @State private var showingClearConfirmation = false
     @State private var showingBackupManager = false
     @State private var backupService: DatabaseBackupService?
+    @State private var showingTrash = false
 
     var body: some View {
         Form {
@@ -62,10 +63,16 @@ struct SettingsView: View {
 
                 LabeledContent("Offline Maps", value: offlineMapSize)
 
+                Button {
+                    showingTrash = true
+                } label: {
+                    Label("Recently Deleted", systemImage: "trash")
+                }
+
                 Button(role: .destructive) {
                     showingClearConfirmation = true
                 } label: {
-                    Label("Clear Offline Maps", systemImage: "trash")
+                    Label("Clear Offline Maps", systemImage: "trash.slash")
                 }
             }
 
@@ -103,6 +110,9 @@ struct SettingsView: View {
             if let service = backupService {
                 BackupManagerView(backupService: service)
             }
+        }
+        .sheet(isPresented: $showingTrash) {
+            TrashView()
         }
         .onAppear {
             loadStorageInfo()

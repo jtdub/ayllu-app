@@ -10,6 +10,11 @@ struct Project: Identifiable, Codable, Equatable, Hashable {
     var endDate: Date?
     var createdAt: Date
     var updatedAt: Date
+    var deletedAt: Date?
+
+    var isDeleted: Bool {
+        deletedAt != nil
+    }
 
     init(
         id: Int64? = nil,
@@ -18,7 +23,8 @@ struct Project: Identifiable, Codable, Equatable, Hashable {
         startDate: Date? = nil,
         endDate: Date? = nil,
         createdAt: Date = Date(),
-        updatedAt: Date = Date()
+        updatedAt: Date = Date(),
+        deletedAt: Date? = nil
     ) {
         self.id = id
         self.name = name
@@ -27,6 +33,7 @@ struct Project: Identifiable, Codable, Equatable, Hashable {
         self.endDate = endDate
         self.createdAt = createdAt
         self.updatedAt = updatedAt
+        self.deletedAt = deletedAt
     }
 }
 

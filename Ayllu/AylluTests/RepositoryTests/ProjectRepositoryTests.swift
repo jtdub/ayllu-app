@@ -104,10 +104,21 @@ final class ProjectRepositoryTests: XCTestCase {
             return
         }
 
+        // Soft delete
         try repository.delete(id: id)
 
+        // Should still exist in database but marked as deleted
         let fetched = try repository.fetchById(id)
-        XCTAssertNil(fetched)
+        XCTAssertNotNil(fetched)
+        XCTAssertNotNil(fetched?.deletedAt)
+
+        // Should not appear in fetchAll (which excludes deleted)
+        let allProjects = try repository.fetchAll()
+        XCTAssertFalse(allProjects.contains(where: { $0.id == id }))
+
+        // Should appear when includeDeleted is true
+        let allIncludingDeleted = try repository.fetchAll(includeDeleted: true)
+        XCTAssertTrue(allIncludingDeleted.contains(where: { $0.id == id }))
     }
 
     // MARK: - Statistics Tests
