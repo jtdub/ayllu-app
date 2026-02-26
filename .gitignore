@@ -10,5 +10,10 @@ xcuserdata/
 DerivedData/
 *.xcodeproj/project.xcworkspace/xcuserdata/
 
+# XcodeGen - Regenerate with: make regenerate
+# Note: project.pbxproj is still tracked for now
+# To fully adopt XcodeGen workflow, uncomment:
+# *.xcodeproj/
+
 # macOS
 .DS_Store

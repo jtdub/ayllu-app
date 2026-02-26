@@ -3,11 +3,10 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 63;
+	objectVersion = 77;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		70DA4008EDB44DE99F8B6E20 /* PrivacyPolicyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6BFAB273744A78BAD8A0D8 /* PrivacyPolicyView.swift */; };
 		0584FE91239AD5EAD98F48E2 /* DistanceCalculatorSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483B9A02DEFF49B1EBF78D12 /* DistanceCalculatorSheet.swift */; };
 		0888A33AEAC0993839CA3DA5 /* ProjectDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC5F02C7CC5BC14A121017A8 /* ProjectDetailView.swift */; };
 		09EFDD9E441EE48C01774B5F /* GRDB in Frameworks */ = {isa = PBXBuildFile; productRef = 6E729C0136294F63050F52C3 /* GRDB */; };
@@ -17,6 +16,7 @@
 		154D4E0C0534E2554A1D385F /* ProjectFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C2A3C73A836096F9F7C4566 /* ProjectFormView.swift */; };
 		16C2FAF003F7071C771BC85C /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC020FE5A13CEBFAE3EAA31F /* Colors.swift */; };
 		173ECEB12BB1BA36DBDB20F7 /* TrackRecordingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C0C07AD60C6DC9FE6363BE /* TrackRecordingService.swift */; };
+		1D0B8786E1F57DDF8D3D8FED /* PrivacyPolicyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 929D5A8C0EA03037486D4164 /* PrivacyPolicyView.swift */; };
 		1EF46A3BC051B17CAD5409BE /* BackupManagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0E693987E440FC18A63FAF /* BackupManagerView.swift */; };
 		253CD772A4B4D59C528680F9 /* VoiceRecordingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 767AF164D9D4FDD27F282F2E /* VoiceRecordingButton.swift */; };
 		261C69CF54B2F9AB16094490 /* WaypointListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615348C8B3B1AD0318626432 /* WaypointListViewModel.swift */; };
@@ -122,7 +122,6 @@
 
 /* Begin PBXFileReference section */
 		017ADFFA682A313481B1AEE9 /* CompassView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompassView.swift; sourceTree = "<group>"; };
-		8C6BFAB273744A78BAD8A0D8 /* PrivacyPolicyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyPolicyView.swift; sourceTree = "<group>"; };
 		02B07DD96469AB9072CFFBBA /* AylluUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = AylluUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		08C0C07AD60C6DC9FE6363BE /* TrackRecordingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackRecordingService.swift; sourceTree = "<group>"; };
 		0E7FC6EED3561C02DC925DB6 /* ProjectRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectRepositoryTests.swift; sourceTree = "<group>"; };
@@ -180,6 +179,7 @@
 		8E8614C9EF47B1B2542B0341 /* WaypointListViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaypointListViewModelTests.swift; sourceTree = "<group>"; };
 		8EA4657F68D04D7CED85C077 /* LocationIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationIndicator.swift; sourceTree = "<group>"; };
 		8F4D243CBF91C5666E54BD74 /* CoordinateFormatterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateFormatterTests.swift; sourceTree = "<group>"; };
+		929D5A8C0EA03037486D4164 /* PrivacyPolicyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyPolicyView.swift; sourceTree = "<group>"; };
 		92D2DE790409FBA58E40AD55 /* DistanceBearingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistanceBearingView.swift; sourceTree = "<group>"; };
 		939617EAC7A37FED2234F952 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		96A4912C0928C430078BD8A4 /* Track.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Track.swift; sourceTree = "<group>"; };
@@ -207,7 +207,7 @@
 		E7812D6C7FA04318113A744E /* OpenTopoMap-style.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "OpenTopoMap-style.json"; sourceTree = "<group>"; };
 		EA4982A7E18FC3D97111A34C /* PhotoListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoListView.swift; sourceTree = "<group>"; };
 		EC5F02C7CC5BC14A121017A8 /* ProjectDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDetailView.swift; sourceTree = "<group>"; };
-		EE5CE6A0C7EE532727F2E32B /* Ayllu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ayllu.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		EE5CE6A0C7EE532727F2E32B /* Ayllu.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Ayllu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F21CE247F13AB67ED037DC3B /* CoordinateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateFormatter.swift; sourceTree = "<group>"; };
 		F2BDC7F95E158483347B3736 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 		F4D2EF8AD9DD97DD8B535FF8 /* TrackRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackRowView.swift; sourceTree = "<group>"; };
@@ -487,9 +487,9 @@
 			isa = PBXGroup;
 			children = (
 				7B0E693987E440FC18A63FAF /* BackupManagerView.swift */,
+				929D5A8C0EA03037486D4164 /* PrivacyPolicyView.swift */,
 				9A6C0ED86DE7258749D1A01A /* SettingsView.swift */,
 				A7C10A057437737DF6D9418F /* TrashView.swift */,
-				8C6BFAB273744A78BAD8A0D8 /* PrivacyPolicyView.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -790,6 +790,8 @@
 				9EB06B8528ECC28630C61B4A /* PBXTargetDependency */,
 			);
 			name = AylluUITests;
+			packageProductDependencies = (
+			);
 			productName = AylluUITests;
 			productReference = 02B07DD96469AB9072CFFBBA /* AylluUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
@@ -827,7 +829,7 @@
 				DDFEE04521007514209FCA5B /* XCRemoteSwiftPackageReference "maplibre-gl-native-distribution" */,
 				F5582EC76F6DF762100942A2 /* XCRemoteSwiftPackageReference "UTMConversion" */,
 			);
-			productRefGroup = 35A0A7310F80ED4DB3AB7FA6 /* Products */;
+			preferredProjectObjectVersion = 77;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -856,8 +858,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5354F5005D637EB4D0C78E0B /* AylluUITests.swift in Sources */,
-				70DA4008EDB44DE99F8B6E20 /* PrivacyPolicyView.swift in Sources */,
-				);
+			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		9F9E13D9475D558FA4C6C6BF /* Sources */ = {
@@ -905,6 +906,7 @@
 				C25F15DA260CF3A179412EC2 /* PhotoReviewView.swift in Sources */,
 				132945EFB6B447C14D424D27 /* PhotoRowView.swift in Sources */,
 				91F3483B8468968C00DB61DB /* PhotoStorageService.swift in Sources */,
+				1D0B8786E1F57DDF8D3D8FED /* PrivacyPolicyView.swift in Sources */,
 				CD6BD70B14F35DE95F786F96 /* Project.swift in Sources */,
 				0888A33AEAC0993839CA3DA5 /* ProjectDetailView.swift in Sources */,
 				154D4E0C0534E2554A1D385F /* ProjectFormView.swift in Sources */,
@@ -936,7 +938,6 @@
 				261C69CF54B2F9AB16094490 /* WaypointListViewModel.swift in Sources */,
 				3710E972013E9B62E9EB43B8 /* WaypointNavigationView.swift in Sources */,
 				F7E55143FC5146293004FE04 /* WaypointRepository.swift in Sources */,
-				70DA4008EDB44DE99F8B6E20 /* PrivacyPolicyView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1124,7 +1125,6 @@
 				CODE_SIGN_ENTITLEMENTS = Ayllu/App/Ayllu.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = L8C6ADCNAP;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Ayllu/App/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1163,7 +1163,6 @@
 				CODE_SIGN_ENTITLEMENTS = Ayllu/App/Ayllu.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = L8C6ADCNAP;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Ayllu/App/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

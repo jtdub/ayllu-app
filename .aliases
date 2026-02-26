@@ -1,0 +1,24 @@
+# Ayllu Project Aliases
+# Source this file in your shell profile for quick commands
+
+# Clean Xcode and package caches
+alias xcode-clean='rm -rf ~/Library/Developer/Xcode/DerivedData/Ayllu-* && rm -rf ~/Library/Caches/org.swift.swiftpm/* && echo "✅ Caches cleaned!"'
+
+# Regenerate Xcode project from project.yml
+alias xcode-regen='cd ~/Documents/code/ayllu-app/Ayllu && xcodegen generate && echo "✅ Project regenerated!"'
+
+# Quick lint check
+alias ayllu-lint='cd ~/Documents/code/ayllu-app/Ayllu && swiftlint lint --strict'
+
+# Auto-fix lint issues
+alias ayllu-fix='cd ~/Documents/code/ayllu-app/Ayllu && swiftlint --fix'
+
+# Full reset (clean + regenerate)
+alias ayllu-reset='xcode-clean && xcode-regen'
+
+echo "Ayllu aliases loaded! Available commands:"
+echo "  xcode-clean  - Clean all Xcode and package caches"
+echo "  xcode-regen  - Regenerate project from project.yml"
+echo "  ayllu-lint   - Run SwiftLint in strict mode"
+echo "  ayllu-fix    - Auto-fix SwiftLint violations"
+echo "  ayllu-reset  - Clean and regenerate everything"
