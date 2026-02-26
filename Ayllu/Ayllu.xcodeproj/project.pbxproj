@@ -490,7 +490,7 @@
 				9A6C0ED86DE7258749D1A01A /* SettingsView.swift */,
 				A7C10A057437737DF6D9418F /* TrashView.swift */,
 				8C6BFAB273744A78BAD8A0D8 /* PrivacyPolicyView.swift */,
-				);
+			);
 			path = Settings;
 			sourceTree = "<group>";
 		};
@@ -790,8 +790,6 @@
 				9EB06B8528ECC28630C61B4A /* PBXTargetDependency */,
 			);
 			name = AylluUITests;
-			packageProductDependencies = (
-			);
 			productName = AylluUITests;
 			productReference = 02B07DD96469AB9072CFFBBA /* AylluUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
@@ -829,6 +827,7 @@
 				DDFEE04521007514209FCA5B /* XCRemoteSwiftPackageReference "maplibre-gl-native-distribution" */,
 				F5582EC76F6DF762100942A2 /* XCRemoteSwiftPackageReference "UTMConversion" */,
 			);
+			productRefGroup = 35A0A7310F80ED4DB3AB7FA6 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -937,6 +936,7 @@
 				261C69CF54B2F9AB16094490 /* WaypointListViewModel.swift in Sources */,
 				3710E972013E9B62E9EB43B8 /* WaypointNavigationView.swift in Sources */,
 				F7E55143FC5146293004FE04 /* WaypointRepository.swift in Sources */,
+				70DA4008EDB44DE99F8B6E20 /* PrivacyPolicyView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
