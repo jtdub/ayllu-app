@@ -15,6 +15,7 @@ struct SettingsView: View {
     @State private var showingBackupManager = false
     @State private var backupService: DatabaseBackupService?
     @State private var showingTrash = false
+    @State private var showingPrivacyPolicy = false
 
     var body: some View {
         Form {
@@ -96,6 +97,12 @@ struct SettingsView: View {
                 LabeledContent("Version", value: appVersion)
                 LabeledContent("Build", value: buildNumber)
 
+                Button {
+                    showingPrivacyPolicy = true
+                } label: {
+                    Label("Privacy Policy", systemImage: "hand.raised.fill")
+                }
+
                 Link(destination: URL(string: "https://github.com/jtdub/ayllu-feedback/issues")!) {
                     Label("Report Issue", systemImage: "exclamationmark.bubble")
                 }
@@ -109,6 +116,9 @@ struct SettingsView: View {
         }
         .sheet(isPresented: $showingTrash) {
             TrashView()
+        }
+        .sheet(isPresented: $showingPrivacyPolicy) {
+            PrivacyPolicyView()
         }
         .onAppear {
             loadStorageInfo()

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		70DA4008EDB44DE99F8B6E20 /* PrivacyPolicyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C6BFAB273744A78BAD8A0D8 /* PrivacyPolicyView.swift */; };
 		0584FE91239AD5EAD98F48E2 /* DistanceCalculatorSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483B9A02DEFF49B1EBF78D12 /* DistanceCalculatorSheet.swift */; };
 		0888A33AEAC0993839CA3DA5 /* ProjectDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC5F02C7CC5BC14A121017A8 /* ProjectDetailView.swift */; };
 		09EFDD9E441EE48C01774B5F /* GRDB in Frameworks */ = {isa = PBXBuildFile; productRef = 6E729C0136294F63050F52C3 /* GRDB */; };
@@ -121,6 +122,7 @@
 
 /* Begin PBXFileReference section */
 		017ADFFA682A313481B1AEE9 /* CompassView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompassView.swift; sourceTree = "<group>"; };
+		8C6BFAB273744A78BAD8A0D8 /* PrivacyPolicyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyPolicyView.swift; sourceTree = "<group>"; };
 		02B07DD96469AB9072CFFBBA /* AylluUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = AylluUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		08C0C07AD60C6DC9FE6363BE /* TrackRecordingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackRecordingService.swift; sourceTree = "<group>"; };
 		0E7FC6EED3561C02DC925DB6 /* ProjectRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectRepositoryTests.swift; sourceTree = "<group>"; };
@@ -487,7 +489,8 @@
 				7B0E693987E440FC18A63FAF /* BackupManagerView.swift */,
 				9A6C0ED86DE7258749D1A01A /* SettingsView.swift */,
 				A7C10A057437737DF6D9418F /* TrashView.swift */,
-			);
+				8C6BFAB273744A78BAD8A0D8 /* PrivacyPolicyView.swift */,
+				);
 			path = Settings;
 			sourceTree = "<group>";
 		};
@@ -854,7 +857,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				5354F5005D637EB4D0C78E0B /* AylluUITests.swift in Sources */,
-			);
+				70DA4008EDB44DE99F8B6E20 /* PrivacyPolicyView.swift in Sources */,
+				);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		9F9E13D9475D558FA4C6C6BF /* Sources */ = {
