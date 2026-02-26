@@ -48,8 +48,10 @@
 		85E49CB49A74EC3DEEC02DEE /* MapRegion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EE3526F29A3390D5B90FBEE /* MapRegion.swift */; };
 		870D291102B2CDA7031DF450 /* NoteRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA42693DF462447D7F3ED4 /* NoteRepository.swift */; };
 		8D2CD248BBF24A47E19D8570 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939617EAC7A37FED2234F952 /* OnboardingView.swift */; };
+		8EF865E01B9F844C471A2470 /* SearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 850BF7DCD44D0E580968222F /* SearchService.swift */; };
 		91F3483B8468968C00DB61DB /* PhotoStorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6634082737D8C817733C9A /* PhotoStorageService.swift */; };
 		926374A659DA8D306F7FFD18 /* NoteListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D92DEF26577BB49E0B2BAB /* NoteListView.swift */; };
+		9774915A4F38B9FE83BCBA7C /* GlobalSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0A9CD1799E0CCF45AD231F /* GlobalSearchView.swift */; };
 		97F28281C7AB66AFF376268E /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86596F74F8C358B0134C3838 /* DatabaseManager.swift */; };
 		98DDD13717F34E0D9C780B1F /* GeoCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDBE5FB8CEABA9D8F3477EA /* GeoCalculator.swift */; };
 		A06A9B59E766D44BE8829ACD /* WaypointFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5F2D515CE6EA11121C36260 /* WaypointFormView.swift */; };
@@ -123,6 +125,7 @@
 		31D92DEF26577BB49E0B2BAB /* NoteListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteListView.swift; sourceTree = "<group>"; };
 		3248C0E4289A488309B1E495 /* AylluUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AylluUITests.swift; sourceTree = "<group>"; };
 		326A05EC0508D0377B48DD14 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		3F0A9CD1799E0CCF45AD231F /* GlobalSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalSearchView.swift; sourceTree = "<group>"; };
 		436DAF44E185C7469C64A867 /* WaypointRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaypointRepository.swift; sourceTree = "<group>"; };
 		44144BB77EF28C30DBFF6807 /* NoteEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteEditorView.swift; sourceTree = "<group>"; };
 		4507858446C617E7324655CF /* MapRegionRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapRegionRepositoryTests.swift; sourceTree = "<group>"; };
@@ -149,6 +152,7 @@
 		7C0E783FB65AC5F97723E82D /* PhotoReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoReviewView.swift; sourceTree = "<group>"; };
 		7CE6D468AB72B9AE3F6A133A /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
 		7F9F3DC23AFB22A7EFE162C5 /* NoteEditorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteEditorViewModel.swift; sourceTree = "<group>"; };
+		850BF7DCD44D0E580968222F /* SearchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchService.swift; sourceTree = "<group>"; };
 		86596F74F8C358B0134C3838 /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		8E8614C9EF47B1B2542B0341 /* WaypointListViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaypointListViewModelTests.swift; sourceTree = "<group>"; };
 		8EA4657F68D04D7CED85C077 /* LocationIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationIndicator.swift; sourceTree = "<group>"; };
@@ -249,6 +253,7 @@
 				326A5CA95FE5FDA6403177A7 /* Onboarding */,
 				80ACFB86CDC9DB8FD4FE2AE3 /* Photos */,
 				555FE9648FBFDC5CA917E2F0 /* Projects */,
+				8ECC332BF7CDFDE127EA619F /* Search */,
 				89D6EE4DA69508A0D0F8A920 /* Settings */,
 				24C557A32DC6CC4F95D0A231 /* Waypoints */,
 			);
@@ -346,6 +351,7 @@
 				652478EAEF22D3E8462C0061 /* Speech */,
 				56FC824418246CEF589840EA /* DatabaseBackupService.swift */,
 				10B021A343AA9248B33ECCFE /* NetworkMonitor.swift */,
+				850BF7DCD44D0E580968222F /* SearchService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -435,6 +441,14 @@
 				C119CDC509311011E3C1A3A5 /* TabBarView.swift */,
 			);
 			path = Shared;
+			sourceTree = "<group>";
+		};
+		8ECC332BF7CDFDE127EA619F /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				3F0A9CD1799E0CCF45AD231F /* GlobalSearchView.swift */,
+			);
+			path = Search;
 			sourceTree = "<group>";
 		};
 		93C57E607D46AB959919AE7B /* Views */ = {
@@ -788,6 +802,7 @@
 				5FC4D19E998330E22DDD0830 /* FieldNote.swift in Sources */,
 				28DBDD78A73E006CEA15BA83 /* GPXExporter.swift in Sources */,
 				98DDD13717F34E0D9C780B1F /* GeoCalculator.swift in Sources */,
+				9774915A4F38B9FE83BCBA7C /* GlobalSearchView.swift in Sources */,
 				CFFEE7CB114E8E1C4B8E9990 /* LocateMeButton.swift in Sources */,
 				3AB7782D6237C267ADC47A8E /* LocationIndicator.swift in Sources */,
 				BC486FFA86FD3B6CAF3AD254 /* LocationService.swift in Sources */,
@@ -816,6 +831,7 @@
 				FF0FDC0A0F9102D4F89CB733 /* ProjectListViewModel.swift in Sources */,
 				FEAC8FB3C986A32A22CB8FAE /* ProjectRepository.swift in Sources */,
 				D4939C395042973D2AC4314B /* RegionSelectionMapView.swift in Sources */,
+				8EF865E01B9F844C471A2470 /* SearchService.swift in Sources */,
 				297FA57797A6F1B8A6BC141B /* SettingsView.swift in Sources */,
 				C9F786A06073B1E07EA1B1D4 /* SpeechService.swift in Sources */,
 				529F38EDE35A0AC933C4250C /* TabBarView.swift in Sources */,
