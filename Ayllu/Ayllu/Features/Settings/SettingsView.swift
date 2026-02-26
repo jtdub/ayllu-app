@@ -7,6 +7,7 @@ struct SettingsView: View {
     @AppStorage("coordinateFormat") private var coordinateFormat: CoordinateFormatter.Format = .decimal
     @AppStorage("distanceUnit") private var distanceUnit: CoordinateFormatter.DistanceUnit = .meters
     @AppStorage("useTrueNorth") private var useTrueNorth = false
+    @AppStorage("colorScheme") private var colorScheme: ColorSchemePreference = .system
 
     @State private var databaseSize: String = "—"
     @State private var offlineMapSize: String = "—"
@@ -14,6 +15,17 @@ struct SettingsView: View {
 
     var body: some View {
         Form {
+            Section("Appearance") {
+                Picker("Color Scheme", selection: $colorScheme) {
+                    ForEach(ColorSchemePreference.allCases, id: \.self) { scheme in
+                        Text(scheme.displayName).tag(scheme)
+                    }
+                }
+                Text("Choose between light, dark, or automatic appearance based on system settings.")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+            }
+
             Section("Coordinates") {
                 Picker("Format", selection: $coordinateFormat) {
                     ForEach(CoordinateFormatter.Format.allCases, id: \.self) { format in

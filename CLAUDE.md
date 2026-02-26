@@ -33,6 +33,15 @@ cd Ayllu && swift package resolve
 cd Ayllu && swift package update
 ```
 
+### Linting
+```bash
+# Run SwiftLint (warnings treated as errors)
+cd Ayllu && swiftlint lint --strict
+
+# Auto-fix violations where possible
+cd Ayllu && swiftlint --fix
+```
+
 ## Architecture
 
 | Component | Technology | Rationale |
@@ -145,6 +154,32 @@ repo-root/
 - Speech Recognition (on-device transcription)
 
 ## Development Workflow
+
+### Pre-Commit Requirements
+**CRITICAL: Always verify these before committing code or creating pull requests:**
+
+1. **Run tests and ensure they pass:**
+   ```bash
+   xcodebuild test -project Ayllu/Ayllu.xcodeproj -scheme Ayllu -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 15 Pro'
+   ```
+
+2. **Run SwiftLint and ensure zero warnings:**
+   ```bash
+   cd Ayllu && swiftlint lint --strict
+   ```
+   - **Warnings count as failures** - all linting issues must be resolved
+   - Fix all warnings before committing
+   - Use `--strict` mode to treat warnings as errors
+
+3. **Verify build succeeds:**
+   ```bash
+   xcodebuild -project Ayllu/Ayllu.xcodeproj -scheme Ayllu -sdk iphonesimulator -configuration Debug build
+   ```
+
+**Never commit or create pull requests with:**
+- Failing tests
+- Linter warnings or errors
+- Build failures
 
 ### GitHub Issues
 - **Do not close issues directly** - Issues should only be closed via pull requests
