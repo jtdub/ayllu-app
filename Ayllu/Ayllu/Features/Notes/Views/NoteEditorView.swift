@@ -11,6 +11,12 @@ struct NoteEditorView: View {
 
     @State private var viewModel: NoteEditorViewModel?
     @State private var showingDiscardAlert = false
+    @State private var showingPermissionAlert = false
+    @State private var permissionStatus: PermissionStatus = .unknown
+
+    enum PermissionStatus {
+        case unknown, authorized, denied
+    }
 
     init(projectId: Int64, existingNote: FieldNote? = nil) {
         self.projectId = projectId
@@ -56,12 +62,40 @@ struct NoteEditorView: View {
                         existingNote: existingNote
                     )
                 }
+                checkPermissions()
             }
             .alert("Discard Changes?", isPresented: $showingDiscardAlert) {
                 Button("Discard", role: .destructive) {
                     dismiss()
                 }
                 Button("Keep Editing", role: .cancel) {}
+            }
+            .alert("Microphone & Speech Recognition Required", isPresented: $showingPermissionAlert) {
+                if permissionStatus == .denied {
+                    Button("Open Settings") {
+                        if let url = URL(string: UIApplication.openSettingsURLString) {
+                            UIApplication.shared.open(url)
+                        }
+                    }
+                    Button("Cancel", role: .cancel) {}
+                } else {
+                    Button("Grant Access") {
+                        requestPermissions()
+                    }
+                    Button("Cancel", role: .cancel) {}
+                }
+            } message: {
+                if permissionStatus == .denied {
+                    Text(
+                        "Voice recording requires microphone and speech recognition access. " +
+                        "Please enable in Settings."
+                    )
+                } else {
+                    Text(
+                        "Voice recording requires microphone and speech recognition access " +
+                        "to transcribe your field notes."
+                    )
+                }
             }
         }
     }
@@ -73,6 +107,28 @@ struct NoteEditorView: View {
             dismiss()
         } catch {
             // Handle error
+        }
+    }
+
+    private func checkPermissions() {
+        let speechStatus = speechService.authorizationStatus
+        if speechStatus != .authorized {
+            permissionStatus = speechStatus == .denied ? .denied : .unknown
+            showingPermissionAlert = true
+        }
+    }
+
+    private func requestPermissions() {
+        Task {
+            let speechGranted = await speechService.requestAuthorization()
+            let micGranted = await speechService.requestMicrophoneAuthorization()
+
+            if speechGranted && micGranted {
+                permissionStatus = .authorized
+            } else {
+                permissionStatus = .denied
+                showingPermissionAlert = true
+            }
         }
     }
 }

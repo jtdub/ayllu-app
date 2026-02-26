@@ -37,7 +37,7 @@ struct OfflineRegionManagerView: View {
                 }
 
                 Section("Downloaded Regions") {
-                    if regions.isEmpty {
+                    if regions.isEmpty && offlineService.downloadingRegions.isEmpty {
                         ContentUnavailableView(
                             "No Offline Maps",
                             systemImage: "map",
@@ -45,7 +45,7 @@ struct OfflineRegionManagerView: View {
                         )
                         .listRowBackground(Color.clear)
                     } else {
-                        ForEach(regions) { region in
+                        ForEach(mergedRegions) { region in
                             RegionRowView(
                                 region: region,
                                 onPause: { pauseRegion(region) },
@@ -87,6 +87,30 @@ struct OfflineRegionManagerView: View {
                     loadRegions()
                 }
             }
+            .task {
+                // Periodic sync task to update UI from live download progress
+                while !Task.isCancelled {
+                    try? await Task.sleep(for: .seconds(0.5))
+                    await syncDownloadProgress()
+                }
+            }
+        }
+    }
+
+    /// Merges database regions with live download progress
+    private var mergedRegions: [MapRegion] {
+        regions.map { region in
+            // Find matching progress by name (name is stored in context hash)
+            if let progress = offlineService.downloadingRegions.values.first(where: { $0.name == region.name }) {
+                // Merge live progress into region
+                var updated = region
+                updated.status = progress.status
+                updated.downloadedBytes = Int64(progress.completedBytes)
+                updated.totalBytes = Int64(progress.totalResources) * 15_000 // Estimate ~15KB per tile
+                return updated
+            }
+
+            return region
         }
     }
 
@@ -106,6 +130,28 @@ struct OfflineRegionManagerView: View {
         }
 
         isLoading = false
+    }
+
+    @MainActor
+    private func syncDownloadProgress() async {
+        let repo = MapRegionRepository(dbPool: database.dbPool)
+
+        // Sync each downloading region from in-memory to database
+        for progress in offlineService.downloadingRegions.values {
+            // Find matching region by name (name is the context used in MapLibre)
+            if var region = regions.first(where: { $0.name == progress.name }) {
+                // Update with live progress
+                region.status = progress.status
+                region.downloadedBytes = Int64(progress.completedBytes)
+                region.totalBytes = Int64(progress.totalResources) * 15_000 // ~15KB per tile estimate
+
+                // Save to database
+                _ = try? repo.update(region)
+            }
+        }
+
+        // Reload regions to pick up changes
+        regions = (try? repo.fetchAll()) ?? []
     }
 
     private func pauseRegion(_ region: MapRegion) {

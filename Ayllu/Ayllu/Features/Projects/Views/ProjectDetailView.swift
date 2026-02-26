@@ -74,7 +74,7 @@ struct ProjectDetailView: View {
                     NavigationLink {
                         TrackListView(projectId: project.id)
                     } label: {
-                        Label("\(stats.trackCount) Tracks", systemImage: "point.topleft.down.to.point.bottomright.curvepath")
+                        Label("\(stats.trackCount) Tracks", systemImage: "figure.walk")
                     }
                 }
             }

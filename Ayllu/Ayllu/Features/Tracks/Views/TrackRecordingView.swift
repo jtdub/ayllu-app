@@ -1,5 +1,6 @@
 import SwiftUI
-import MapKit
+import MapLibre
+import CoreLocation
 
 /// Full-screen recording UI for GPS tracks
 struct TrackRecordingView: View {
@@ -12,10 +13,7 @@ struct TrackRecordingView: View {
     @State private var showingStopConfirmation = false
     @State private var showingCancelConfirmation = false
     @State private var recordedCoordinates: [CLLocationCoordinate2D] = []
-    @State private var mapRegion = MKCoordinateRegion(
-        center: CLLocationCoordinate2D(latitude: 37.7749, longitude: -122.4194),
-        span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
-    )
+    @State private var mapCenter: CLLocationCoordinate2D?
 
     var body: some View {
         ZStack {
@@ -133,31 +131,16 @@ struct TrackRecordingView: View {
     // MARK: - Map Preview
 
     private var mapPreview: some View {
-        Map(position: .constant(.region(mapRegion))) {
-            // Current location marker
-            if let coordinate = locationService.currentCoordinate {
-                Annotation("", coordinate: coordinate) {
-                    Circle()
-                        .fill(.blue)
-                        .frame(width: 12, height: 12)
-                        .overlay {
-                            Circle()
-                                .stroke(.white, lineWidth: 2)
-                        }
-                }
-            }
-
-            // Track polyline
-            if !recordedCoordinates.isEmpty {
-                MapPolyline(coordinates: recordedCoordinates)
-                    .stroke(.red, lineWidth: 3)
-            }
-        }
+        TrackRecordingMapView(
+            recordedCoordinates: $recordedCoordinates,
+            currentLocation: locationService.currentLocation,
+            mapCenter: $mapCenter
+        )
         .clipShape(RoundedRectangle(cornerRadius: 12))
         .onChange(of: locationService.currentLocation) { _, newLocation in
             if let coordinate = newLocation?.coordinate {
-                // Update map region to follow user
-                mapRegion.center = coordinate
+                // Update map center to follow user
+                mapCenter = coordinate
 
                 // Add coordinate to polyline
                 if recordingService.isRecording && !recordingService.isPaused {
@@ -286,6 +269,124 @@ struct TrackRecordingView: View {
             } catch {
                 // Handle error silently
             }
+        }
+    }
+}
+
+// MARK: - Track Recording Map View
+
+/// Lightweight MapLibre view for track recording preview
+private struct TrackRecordingMapView: UIViewRepresentable {
+    @Binding var recordedCoordinates: [CLLocationCoordinate2D]
+    let currentLocation: CLLocation?
+    @Binding var mapCenter: CLLocationCoordinate2D?
+
+    private static let openTopoMapURL = "https://tile.opentopomap.org/{z}/{x}/{y}.png"
+
+    func makeUIView(context: Context) -> MLNMapView {
+        let mapView = MLNMapView(frame: .zero)
+        mapView.delegate = context.coordinator
+        mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+
+        // Configure map settings
+        mapView.showsUserLocation = true
+        mapView.showsUserHeadingIndicator = true
+        mapView.compassViewPosition = .topRight
+        mapView.logoView.isHidden = true
+        mapView.attributionButton.isHidden = true
+
+        // Set initial camera
+        if let location = currentLocation {
+            mapView.setCenter(location.coordinate, zoomLevel: 16, animated: false)
+        } else {
+            // Default to center of US
+            mapView.setCenter(
+                CLLocationCoordinate2D(latitude: 39.8283, longitude: -98.5795),
+                zoomLevel: 4,
+                animated: false
+            )
+        }
+
+        // Configure OpenTopoMap style
+        if let styleURL = Bundle.main.url(forResource: "OpenTopoMap-style", withExtension: "json") {
+            mapView.styleURL = styleURL
+        } else {
+            // Fallback to demo style
+            mapView.styleURL = URL(string: "https://demotiles.maplibre.org/style.json")
+        }
+
+        return mapView
+    }
+
+    func updateUIView(_ mapView: MLNMapView, context: Context) {
+        // Update map center if changed
+        if let center = mapCenter, !context.coordinator.hasSetInitialLocation {
+            mapView.setCenter(center, zoomLevel: 16, animated: true)
+            context.coordinator.hasSetInitialLocation = true
+        } else if let center = mapCenter {
+            mapView.setCenter(center, zoomLevel: max(mapView.zoomLevel, 16), animated: true)
+        }
+
+        // Update track polyline
+        context.coordinator.updateTrackPolyline(mapView, coordinates: recordedCoordinates)
+    }
+
+    func makeCoordinator() -> Coordinator {
+        Coordinator(self)
+    }
+
+    class Coordinator: NSObject, MLNMapViewDelegate {
+        var parent: TrackRecordingMapView
+        var hasSetInitialLocation = false
+        var currentPolyline: MLNPolyline?
+
+        init(_ parent: TrackRecordingMapView) {
+            self.parent = parent
+        }
+
+        func mapView(_ mapView: MLNMapView, didFinishLoading style: MLNStyle) {
+            // Add OpenTopoMap as raster source if not using bundled style
+            if mapView.styleURL?.absoluteString == "https://demotiles.maplibre.org/style.json" {
+                let options: [MLNTileSourceOption: Any] = [
+                    .tileSize: NSNumber(value: 256),
+                    .minimumZoomLevel: NSNumber(value: 1),
+                    .maximumZoomLevel: NSNumber(value: 17)
+                ]
+
+                let source = MLNRasterTileSource(
+                    identifier: "opentopomap",
+                    tileURLTemplates: [TrackRecordingMapView.openTopoMapURL],
+                    options: options
+                )
+
+                style.addSource(source)
+
+                let rasterLayer = MLNRasterStyleLayer(identifier: "opentopomap-layer", source: source)
+                style.addLayer(rasterLayer)
+            }
+        }
+
+        func updateTrackPolyline(_ mapView: MLNMapView, coordinates: [CLLocationCoordinate2D]) {
+            // Remove existing polyline
+            if let polyline = currentPolyline {
+                mapView.removeAnnotation(polyline)
+            }
+
+            // Add new polyline if we have coordinates
+            guard coordinates.count >= 2 else { return }
+
+            var coords = coordinates
+            let polyline = MLNPolyline(coordinates: &coords, count: UInt(coords.count))
+            mapView.addAnnotation(polyline)
+            currentPolyline = polyline
+        }
+
+        func mapView(_ mapView: MLNMapView, strokeColorForShapeAnnotation annotation: MLNShape) -> UIColor {
+            return .systemRed
+        }
+
+        func mapView(_ mapView: MLNMapView, lineWidthForPolylineAnnotation annotation: MLNPolyline) -> CGFloat {
+            return 3.0
         }
     }
 }

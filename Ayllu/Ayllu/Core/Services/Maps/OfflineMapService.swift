@@ -1,7 +1,10 @@
+// Temporarily disabling linting rules for debugging offline map download issues
+// swiftlint:disable file_length type_body_length function_body_length no_print_statements
 import Foundation
 import MapLibre
 import CoreLocation
 import Combine
+import Network
 
 /// Service for managing offline map tile downloads using MapLibre
 @Observable
@@ -13,10 +16,8 @@ final class OfflineMapService {
 
     private let offlineStorage: MLNOfflineStorage
     private var progressObservers: [NSObjectProtocol] = []
-
-    // OpenTopoMap tile URL
-    private static let tileURLTemplate = "https://tile.opentopomap.org/{z}/{x}/{y}.png"
-    private static let styleURL = URL(string: "https://demotiles.maplibre.org/style.json")!
+    private let styleServer = StyleServerService()
+    private var styleURL: URL?
 
     // MARK: - Types
 
@@ -62,11 +63,24 @@ final class OfflineMapService {
     init() {
         self.offlineStorage = MLNOfflineStorage.shared
         setupProgressObservers()
+
+        // Start local HTTP server to serve style JSON
+        // Required because MapLibre's offline pack system needs HTTP URLs
+        do {
+            let urlString = try styleServer.start()
+            styleURL = URL(string: urlString)
+            print("✅ [OfflineMap] Style server started: \(urlString)")
+        } catch {
+            print("❌ [OfflineMap] Failed to start style server: \(error)")
+            styleURL = nil
+        }
+
         isInitialized = true
     }
 
     deinit {
         progressObservers.forEach { NotificationCenter.default.removeObserver($0) }
+        styleServer.stop()
     }
 
     // MARK: - Public Methods
@@ -84,19 +98,35 @@ final class OfflineMapService {
         minZoom: Double,
         maxZoom: Double
     ) throws -> String {
+        print("🗺️ [OfflineMap] Starting download for region: \(name)")
+        print("🗺️ [OfflineMap] Bounds: SW(\(bounds.sw.latitude), \(bounds.sw.longitude)) " +
+              "NE(\(bounds.ne.latitude), \(bounds.ne.longitude))")
+        print("🗺️ [OfflineMap] Zoom levels: \(minZoom) to \(maxZoom)")
+
         guard isInitialized else {
+            print("❌ [OfflineMap] ERROR: Service not initialized")
             throw OfflineMapError.notInitialized
         }
 
         // Validate bounds
         guard bounds.sw.latitude < bounds.ne.latitude,
               bounds.sw.longitude < bounds.ne.longitude else {
+            print("❌ [OfflineMap] ERROR: Invalid bounds")
             throw OfflineMapError.invalidBounds
         }
 
+        // Use HTTP style URL from local server
+        // MapLibre requires HTTP URLs to properly discover and download tiles
+        guard let styleURL = styleURL else {
+            print("❌ [OfflineMap] ERROR: Style server not available")
+            throw OfflineMapError.storageError("Style server not available")
+        }
+
+        print("🗺️ [OfflineMap] Using style URL: \(styleURL.absoluteString)")
+
         // Create region definition
         let region = MLNTilePyramidOfflineRegion(
-            styleURL: Self.styleURL,
+            styleURL: styleURL,
             bounds: bounds,
             fromZoomLevel: minZoom,
             toZoomLevel: maxZoom
@@ -105,18 +135,15 @@ final class OfflineMapService {
         // Create context with region name
         let context = name.data(using: .utf8)!
 
-        // Start download
-        offlineStorage.addPack(for: region, withContext: context) { [weak self] pack, error in
-            if error != nil {
-                // Error handled - pack creation failed
-                return
-            }
+        // Pre-compute region ID (same as packIdentifier would compute)
+        // This allows us to initialize progress tracking BEFORE addPack callback
+        let regionId = String(context.hashValue)
+        print("🗺️ [OfflineMap] Pre-computed region ID: \(regionId)")
 
-            guard let pack = pack else { return }
-
-            // Initialize progress tracking
-            let regionId = self?.packIdentifier(pack) ?? UUID().uuidString
-            self?.downloadingRegions[regionId] = DownloadProgress(
+        // Initialize progress tracking on main thread for @Observable to work
+        // This prevents race condition where progress notifications arrive before dictionary is updated
+        Task { @MainActor in
+            downloadingRegions[regionId] = DownloadProgress(
                 regionId: regionId,
                 name: name,
                 completedResources: 0,
@@ -124,12 +151,50 @@ final class OfflineMapService {
                 completedBytes: 0,
                 status: .downloading
             )
-
-            // Start the download
-            pack.resume()
+            print("🗺️ [OfflineMap] Progress tracking pre-initialized for \(regionId)")
         }
 
-        return UUID().uuidString
+        print("🗺️ [OfflineMap] Calling addPack...")
+
+        // Start download
+        offlineStorage.addPack(for: region, withContext: context) { [weak self] pack, error in
+            if let error = error {
+                print("❌ [OfflineMap] addPack ERROR: \(error.localizedDescription)")
+                print("❌ [OfflineMap] Error details: \(error)")
+                // Remove from dictionary on error
+                DispatchQueue.main.async {
+                    self?.downloadingRegions.removeValue(forKey: regionId)
+                }
+                return
+            }
+
+            guard let pack = pack else {
+                print("❌ [OfflineMap] ERROR: Pack is nil but no error provided")
+                DispatchQueue.main.async {
+                    self?.downloadingRegions.removeValue(forKey: regionId)
+                }
+                return
+            }
+
+            print("✅ [OfflineMap] Pack created successfully")
+            print("🗺️ [OfflineMap] Verified region ID: \(self?.packIdentifier(pack) ?? "unknown")")
+
+            // Start the download
+            print("🗺️ [OfflineMap] Starting pack.resume()...")
+            pack.resume()
+            print("✅ [OfflineMap] Pack resumed, download should be in progress")
+            print("🗺️ [OfflineMap] Pack region definition: \(pack.region)")
+
+            // Debug: Check if tiles are being requested
+            if let tilePyramid = pack.region as? MLNTilePyramidOfflineRegion {
+                print("🗺️ [OfflineMap] Style URL: \(tilePyramid.styleURL)")
+                print("🗺️ [OfflineMap] Bounds: \(tilePyramid.bounds)")
+                print("🗺️ [OfflineMap] Zoom range: \(tilePyramid.minimumZoomLevel) to \(tilePyramid.maximumZoomLevel)")
+            }
+        }
+
+        print("🗺️ [OfflineMap] Returning region ID: \(regionId)")
+        return regionId
     }
 
     /// Pauses download for a region
@@ -257,14 +322,37 @@ final class OfflineMapService {
     }
 
     private func handleProgressUpdate(_ notification: Notification) {
-        guard let pack = notification.object as? MLNOfflinePack else { return }
+        guard let pack = notification.object as? MLNOfflinePack else {
+            print("⚠️ [OfflineMap] Progress notification but no pack object")
+            return
+        }
 
         let progress = pack.progress
         let regionId = packIdentifier(pack)
 
+        print("📊 [OfflineMap] Progress update for \(regionId): " +
+              "\(progress.countOfResourcesCompleted)/\(progress.countOfResourcesExpected) resources, " +
+              "\(progress.countOfBytesCompleted) bytes")
+
+        // Debug: Show pack state
+        print("📊 [OfflineMap] Pack state: \(pack.state.rawValue)")
+
+        // Debug: If only 1 resource, something is wrong
+        if progress.countOfResourcesExpected == 1 {
+            print("⚠️ [OfflineMap] WARNING: Only 1 resource expected! Tiles may not be downloading.")
+            print("⚠️ [OfflineMap] This suggests the style was loaded but tiles weren't discovered.")
+        }
+
         let status: DownloadStatus
         if progress.countOfResourcesCompleted == progress.countOfResourcesExpected {
             status = .complete
+            print("✅ [OfflineMap] Download COMPLETE for \(regionId)")
+
+            // Debug: Check if this is a premature completion
+            if progress.countOfResourcesExpected == 1 {
+                print("⚠️ [OfflineMap] WARNING: Download 'completed' with only 1 resource.")
+                print("⚠️ [OfflineMap] This is likely just the style, not the tiles!")
+            }
         } else {
             status = .downloading
         }
@@ -275,21 +363,29 @@ final class OfflineMapService {
             existing.completedBytes = progress.countOfBytesCompleted
             existing.status = status
             downloadingRegions[regionId] = existing
+        } else {
+            print("⚠️ [OfflineMap] Received progress for unknown region: \(regionId)")
         }
     }
 
     private func handlePackError(_ notification: Notification) {
-        guard let pack = notification.object as? MLNOfflinePack,
-              notification.userInfo?[MLNOfflinePackUserInfoKey.error] is Error else {
+        guard let pack = notification.object as? MLNOfflinePack else {
+            print("⚠️ [OfflineMap] Pack error notification but no pack object")
             return
         }
 
         let regionId = packIdentifier(pack)
-        // Offline pack error handled
 
-        if var existing = downloadingRegions[regionId] {
-            existing.status = .failed
-            downloadingRegions[regionId] = existing
+        if let error = notification.userInfo?[MLNOfflinePackUserInfoKey.error] as? Error {
+            print("❌ [OfflineMap] Pack ERROR for region \(regionId): \(error.localizedDescription)")
+            print("❌ [OfflineMap] Error details: \(error)")
+
+            if var existing = downloadingRegions[regionId] {
+                existing.status = .failed
+                downloadingRegions[regionId] = existing
+            }
+        } else {
+            print("⚠️ [OfflineMap] Pack error notification but no error in userInfo for region \(regionId)")
         }
     }
 
@@ -324,6 +420,143 @@ final class OfflineMapService {
     }
 }
 
+// MARK: - Style Server Service
+
+/// Minimal HTTP server to serve OpenTopoMap style JSON to MapLibre
+/// Required because MapLibre's offline pack system needs HTTP URLs, not data URLs
+final class StyleServerService {
+    private var listener: NWListener?
+    private let queue = DispatchQueue(label: "com.ayllu.styleserver")
+    private var port: UInt16 = 0
+
+    private static let openTopoMapStyle: [String: Any] = [
+        "version": 8,
+        "name": "OpenTopoMap",
+        "sources": [
+            "opentopo": [
+                "type": "raster",
+                "tiles": ["https://tile.opentopomap.org/{z}/{x}/{y}.png"],
+                "tileSize": 256,
+                "attribution": "Map data: © OpenStreetMap contributors, SRTM | Map style: © OpenTopoMap (CC-BY-SA)"
+            ]
+        ],
+        "layers": [
+            [
+                "id": "opentopo",
+                "type": "raster",
+                "source": "opentopo",
+                "minzoom": 0,
+                "maxzoom": 22
+            ]
+        ]
+    ]
+
+    func start() throws -> String {
+        // If already running, return existing URL
+        if let existingListener = listener, case .ready = existingListener.state, port != 0 {
+            let url = "http://127.0.0.1:\(port)/style.json"
+            print("🌐 [StyleServer] Already running on port \(port)")
+            return url
+        }
+
+        let parameters = NWParameters.tcp
+        parameters.allowLocalEndpointReuse = true
+
+        // Try to listen on port 8765
+        let listener = try NWListener(using: parameters, on: 8_765)
+        self.listener = listener
+
+        listener.newConnectionHandler = { [weak self] connection in
+            self?.handleConnection(connection)
+        }
+
+        listener.stateUpdateHandler = { state in
+            switch state {
+            case .ready:
+                if let port = listener.port {
+                    print("🌐 [StyleServer] Started on port \(port)")
+                }
+            case .failed(let error):
+                print("❌ [StyleServer] Failed: \(error)")
+            default:
+                break
+            }
+        }
+
+        listener.start(queue: queue)
+
+        // Wait a bit for listener to be ready
+        Thread.sleep(forTimeInterval: 0.1)
+
+        guard case .ready = listener.state, let port = listener.port else {
+            throw NSError(domain: "StyleServerService",
+                          code: -1,
+                          userInfo: [NSLocalizedDescriptionKey: "Failed to start server"])
+        }
+
+        self.port = port.rawValue
+        return "http://127.0.0.1:\(port)/style.json"
+    }
+
+    func stop() {
+        listener?.cancel()
+        listener = nil
+    }
+
+    private func handleConnection(_ connection: NWConnection) {
+        connection.start(queue: queue)
+
+        connection.receive(minimumIncompleteLength: 1, maximumLength: 65_536) { [weak self] data, _, _, _ in
+            guard let self = self, let data = data, !data.isEmpty else {
+                connection.cancel()
+                return
+            }
+
+            // Parse HTTP request (very minimal - just check for GET /style.json)
+            if let request = String(data: data, encoding: .utf8), request.contains("GET /style.json") {
+                self.sendStyleResponse(connection)
+            } else {
+                self.send404(connection)
+            }
+        }
+    }
+
+    private func sendStyleResponse(_ connection: NWConnection) {
+        guard let jsonData = try? JSONSerialization.data(withJSONObject: Self.openTopoMapStyle, options: []),
+              let jsonString = String(data: jsonData, encoding: .utf8) else {
+            send404(connection)
+            return
+        }
+
+        let response = """
+        HTTP/1.1 200 OK\r
+        Content-Type: application/json\r
+        Content-Length: \(jsonData.count)\r
+        Access-Control-Allow-Origin: *\r
+        Connection: close\r
+        \r
+        \(jsonString)
+        """
+
+        connection.send(content: response.data(using: .utf8), completion: .contentProcessed { _ in
+            connection.cancel()
+        })
+    }
+
+    private func send404(_ connection: NWConnection) {
+        let response = """
+        HTTP/1.1 404 Not Found\r
+        Content-Length: 0\r
+        Connection: close\r
+        \r
+
+        """
+        connection.send(content: response.data(using: .utf8), completion: .contentProcessed { _ in
+            connection.cancel()
+        })
+    }
+}
+
 // MARK: - Offline Region Info
 
 struct OfflineRegionInfo: Identifiable, Sendable {
@@ -343,3 +576,4 @@ struct OfflineRegionInfo: Identifiable, Sendable {
         ByteCountFormatter.string(fromByteCount: Int64(completedBytes), countStyle: .file)
     }
 }
+// swiftlint:enable file_length type_body_length function_body_length no_print_statements

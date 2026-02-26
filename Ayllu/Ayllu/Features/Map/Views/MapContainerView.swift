@@ -82,6 +82,10 @@ struct MapContainerView: View {
         }
         .onAppear {
             loadWaypoints()
+            // Initialize with current location if already available
+            if userLocation == nil {
+                userLocation = locationService.currentLocation
+            }
             locationService.startUpdatingLocation()
             locationService.startUpdatingHeading()
         }

@@ -26,11 +26,12 @@ struct MapLibreMapView: UIViewRepresentable {
         mapView.logoView.isHidden = true
         mapView.attributionButton.isHidden = false
 
-        // Set initial camera
+        // Set initial camera - prefer user location if available
         if let location = userLocation {
             mapView.setCenter(location.coordinate, zoomLevel: 14, animated: false)
+            context.coordinator.hasSetInitialLocation = true
         } else {
-            // Default to center of contiguous US
+            // Default to center of contiguous US until location is available
             mapView.setCenter(
                 CLLocationCoordinate2D(latitude: 39.8283, longitude: -98.5795),
                 zoomLevel: 4,

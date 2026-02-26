@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 77;
+	objectVersion = 63;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -34,6 +34,7 @@
 		464B4A1D60C2C4B70172FF43 /* PhotoDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9D2FA7E4C180C5EF92409D2 /* PhotoDetailView.swift */; };
 		46854A801648CDEED87399D0 /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10B021A343AA9248B33ECCFE /* NetworkMonitor.swift */; };
 		4900037F0B65E7CF838FFDFE /* TrackStatisticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13029E410FE259EBCF02B676 /* TrackStatisticsView.swift */; };
+		4A581E54A397916F3A5758C7 /* ProjectPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EAB413183C38E453A7D6CF /* ProjectPickerView.swift */; };
 		4DB6170504C1C8B4EC065A95 /* WaypointListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8614C9EF47B1B2542B0341 /* WaypointListViewModelTests.swift */; };
 		4DDE1D674919ADAEA86CDE57 /* CompassView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017ADFFA682A313481B1AEE9 /* CompassView.swift */; };
 		4E70A0767FCF492D8E040A10 /* TrackListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C472DA6305C53D6519B583 /* TrackListView.swift */; };
@@ -64,6 +65,7 @@
 		9774915A4F38B9FE83BCBA7C /* GlobalSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0A9CD1799E0CCF45AD231F /* GlobalSearchView.swift */; };
 		97F28281C7AB66AFF376268E /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86596F74F8C358B0134C3838 /* DatabaseManager.swift */; };
 		98DDD13717F34E0D9C780B1F /* GeoCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDBE5FB8CEABA9D8F3477EA /* GeoCalculator.swift */; };
+		9F6E55A8146D5CCDBBCE5CF5 /* OpenTopoMap-style.json in Resources */ = {isa = PBXBuildFile; fileRef = E7812D6C7FA04318113A744E /* OpenTopoMap-style.json */; };
 		A06A9B59E766D44BE8829ACD /* WaypointFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5F2D515CE6EA11121C36260 /* WaypointFormView.swift */; };
 		A465DB1E34CF18187D213784 /* ColorSchemePreference.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6365C6A8F6D1C3DD2004A6D /* ColorSchemePreference.swift */; };
 		A70F466F206B501FFE71D6A7 /* TrackRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F9D2137F128348D8E5E37E /* TrackRepository.swift */; };
@@ -199,9 +201,11 @@
 		CBDBE5FB8CEABA9D8F3477EA /* GeoCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoCalculator.swift; sourceTree = "<group>"; };
 		CC020FE5A13CEBFAE3EAA31F /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		CFACF1EA9C2CA45A397D0562 /* MapRegionModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapRegionModelTests.swift; sourceTree = "<group>"; };
+		D7EAB413183C38E453A7D6CF /* ProjectPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectPickerView.swift; sourceTree = "<group>"; };
+		E7812D6C7FA04318113A744E /* OpenTopoMap-style.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "OpenTopoMap-style.json"; sourceTree = "<group>"; };
 		EA4982A7E18FC3D97111A34C /* PhotoListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoListView.swift; sourceTree = "<group>"; };
 		EC5F02C7CC5BC14A121017A8 /* ProjectDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDetailView.swift; sourceTree = "<group>"; };
-		EE5CE6A0C7EE532727F2E32B /* Ayllu.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Ayllu.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		EE5CE6A0C7EE532727F2E32B /* Ayllu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ayllu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F21CE247F13AB67ED037DC3B /* CoordinateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateFormatter.swift; sourceTree = "<group>"; };
 		F2BDC7F95E158483347B3736 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 		F4D2EF8AD9DD97DD8B535FF8 /* TrackRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackRowView.swift; sourceTree = "<group>"; };
@@ -379,6 +383,7 @@
 				EC5F02C7CC5BC14A121017A8 /* ProjectDetailView.swift */,
 				5C2A3C73A836096F9F7C4566 /* ProjectFormView.swift */,
 				9A4BB7BAEC46C25517AD8D30 /* ProjectListView.swift */,
+				D7EAB413183C38E453A7D6CF /* ProjectPickerView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -420,6 +425,7 @@
 			isa = PBXGroup;
 			children = (
 				326A05EC0508D0377B48DD14 /* Assets.xcassets */,
+				E7812D6C7FA04318113A744E /* OpenTopoMap-style.json */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -820,7 +826,6 @@
 				DDFEE04521007514209FCA5B /* XCRemoteSwiftPackageReference "maplibre-gl-native-distribution" */,
 				F5582EC76F6DF762100942A2 /* XCRemoteSwiftPackageReference "UTMConversion" */,
 			);
-			preferredProjectObjectVersion = 77;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -837,6 +842,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				82EB04F925005AD4501E50A7 /* Assets.xcassets in Resources */,
+				9F6E55A8146D5CCDBBCE5CF5 /* OpenTopoMap-style.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -901,6 +907,7 @@
 				154D4E0C0534E2554A1D385F /* ProjectFormView.swift in Sources */,
 				F7896895B2CFDD89A5449FA9 /* ProjectListView.swift in Sources */,
 				FF0FDC0A0F9102D4F89CB733 /* ProjectListViewModel.swift in Sources */,
+				4A581E54A397916F3A5758C7 /* ProjectPickerView.swift in Sources */,
 				FEAC8FB3C986A32A22CB8FAE /* ProjectRepository.swift in Sources */,
 				D4939C395042973D2AC4314B /* RegionSelectionMapView.swift in Sources */,
 				8EF865E01B9F844C471A2470 /* SearchService.swift in Sources */,
@@ -1113,6 +1120,7 @@
 				CODE_SIGN_ENTITLEMENTS = Ayllu/App/Ayllu.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = L8C6ADCNAP;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Ayllu/App/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1151,6 +1159,7 @@
 				CODE_SIGN_ENTITLEMENTS = Ayllu/App/Ayllu.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = L8C6ADCNAP;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Ayllu/App/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

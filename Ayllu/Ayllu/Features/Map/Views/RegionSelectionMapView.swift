@@ -6,6 +6,7 @@ import CoreLocation
 
 struct RegionSelectionMapView: View {
     @Environment(\.dismiss) private var dismiss
+    @Environment(LocationService.self) private var locationService
     @Binding var selectedBounds: MLNCoordinateBounds?
 
     @State private var centerCoordinate = CLLocationCoordinate2D(
@@ -13,15 +14,26 @@ struct RegionSelectionMapView: View {
         longitude: -98.5795
     )
     @State private var zoomLevel: Double = 8
+    @State private var hasInitializedLocation = false
 
     var body: some View {
         NavigationStack {
             ZStack {
                 RegionSelectionMapViewRepresentable(
                     centerCoordinate: $centerCoordinate,
-                    zoomLevel: $zoomLevel
+                    zoomLevel: $zoomLevel,
+                    userLocation: locationService.currentLocation
                 )
                 .ignoresSafeArea()
+                .onAppear {
+                    // Initialize with user's current location
+                    if let location = locationService.currentLocation, !hasInitializedLocation {
+                        centerCoordinate = location.coordinate
+                        zoomLevel = 12 // Closer zoom for user's location
+                        hasInitializedLocation = true
+                    }
+                    locationService.startUpdatingLocation()
+                }
 
                 // Selection rectangle overlay
                 GeometryReader { geometry in
@@ -91,18 +103,31 @@ struct RegionSelectionMapView: View {
 struct RegionSelectionMapViewRepresentable: UIViewRepresentable {
     @Binding var centerCoordinate: CLLocationCoordinate2D
     @Binding var zoomLevel: Double
+    let userLocation: CLLocation?
 
     func makeUIView(context: Context) -> MLNMapView {
         let mapView = MLNMapView(frame: .zero)
         mapView.delegate = context.coordinator
         mapView.showsUserLocation = true
-        mapView.setCenter(centerCoordinate, zoomLevel: zoomLevel, animated: false)
+
+        // Center on user location if available, otherwise use provided coordinate
+        if let location = userLocation {
+            mapView.setCenter(location.coordinate, zoomLevel: 12, animated: false)
+            context.coordinator.hasSetInitialLocation = true
+        } else {
+            mapView.setCenter(centerCoordinate, zoomLevel: zoomLevel, animated: false)
+        }
+
         mapView.styleURL = URL(string: "https://demotiles.maplibre.org/style.json")
         return mapView
     }
 
     func updateUIView(_ mapView: MLNMapView, context: Context) {
-        // Updates handled by delegate
+        // Center on user location if it becomes available and hasn't been set yet
+        if let location = userLocation, !context.coordinator.hasSetInitialLocation {
+            mapView.setCenter(location.coordinate, zoomLevel: 12, animated: true)
+            context.coordinator.hasSetInitialLocation = true
+        }
     }
 
     func makeCoordinator() -> Coordinator {
@@ -111,6 +136,7 @@ struct RegionSelectionMapViewRepresentable: UIViewRepresentable {
 
     class Coordinator: NSObject, MLNMapViewDelegate {
         var parent: RegionSelectionMapViewRepresentable
+        var hasSetInitialLocation = false
 
         init(_ parent: RegionSelectionMapViewRepresentable) {
             self.parent = parent
