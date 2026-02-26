@@ -105,9 +105,6 @@ private struct ProjectListContent: View {
                 .listStyle(.plain)
             }
         }
-        .navigationDestination(for: Project.self) { project in
-            ProjectDetailView(project: project)
-        }
     }
 }
 

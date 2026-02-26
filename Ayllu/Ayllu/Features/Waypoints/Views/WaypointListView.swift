@@ -111,14 +111,20 @@ struct WaypointListView: View {
             }
             viewModel?.loadWaypoints()
         }
-        .sheet(isPresented: Binding(
-            get: { viewModel?.showingCreateSheet ?? false },
-            set: { viewModel?.showingCreateSheet = $0 }
-        )) {
-            if let projectId = projectId {
-                WaypointFormView(projectId: projectId, mode: .create)
+        .sheet(
+            isPresented: Binding(
+                get: { viewModel?.showingCreateSheet ?? false },
+                set: { viewModel?.showingCreateSheet = $0 }
+            ),
+            onDismiss: {
+                viewModel?.loadWaypoints()
+            },
+            content: {
+                if let projectId = projectId {
+                    WaypointFormView(projectId: projectId, mode: .create)
+                }
             }
-        }
+        )
         .alert("Delete Waypoint?", isPresented: Binding(
             get: { viewModel?.showingDeleteConfirmation ?? false },
             set: { viewModel?.showingDeleteConfirmation = $0 }
@@ -205,9 +211,6 @@ private struct WaypointListContent: View {
                 }
                 .listStyle(.plain)
             }
-        }
-        .navigationDestination(for: Waypoint.self) { waypoint in
-            WaypointDetailView(waypoint: waypoint)
         }
     }
 }

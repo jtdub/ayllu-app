@@ -14,7 +14,7 @@ struct TrackRowView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
             HStack {
-                Image(systemName: "point.topleft.down.to.point.bottomright.curvepath")
+                Image(systemName: "figure.walk")
                     .foregroundStyle(.secondary)
 
                 Text(track.name)

@@ -45,16 +45,22 @@ struct PhotoListView: View {
             }
             viewModel?.loadPhotos()
         }
-        .sheet(isPresented: Binding(
-            get: { viewModel?.showingCaptureSheet ?? false },
-            set: { viewModel?.showingCaptureSheet = $0 }
-        )) {
-            if let projectId = projectId {
-                NavigationStack {
-                    PhotoCaptureView(projectId: projectId)
+        .sheet(
+            isPresented: Binding(
+                get: { viewModel?.showingCaptureSheet ?? false },
+                set: { viewModel?.showingCaptureSheet = $0 }
+            ),
+            onDismiss: {
+                viewModel?.loadPhotos()
+            },
+            content: {
+                if let projectId = projectId {
+                    NavigationStack {
+                        PhotoCaptureView(projectId: projectId)
+                    }
                 }
             }
-        }
+        )
         .alert("Delete Photo?", isPresented: Binding(
             get: { viewModel?.showingDeleteConfirmation ?? false },
             set: { viewModel?.showingDeleteConfirmation = $0 }
@@ -122,9 +128,6 @@ private struct PhotoListContent: View {
                     .padding(2)
                 }
             }
-        }
-        .navigationDestination(for: Photo.self) { photo in
-            PhotoDetailView(photo: photo)
         }
     }
 }

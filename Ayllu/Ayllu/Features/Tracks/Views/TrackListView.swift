@@ -26,7 +26,7 @@ struct TrackListView: View {
             } else if tracks.isEmpty {
                 ContentUnavailableView(
                     "No Tracks",
-                    systemImage: "point.topleft.down.to.point.bottomright.curvepath",
+                    systemImage: "figure.walk",
                     description: Text("Record a GPS track to get started")
                 )
             } else if filteredTracks.isEmpty {
@@ -50,9 +50,6 @@ struct TrackListView: View {
             }
         }
         .navigationTitle("Tracks")
-        .navigationDestination(for: Track.self) { track in
-            TrackDetailView(track: track)
-        }
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
                 Menu {
@@ -95,13 +92,19 @@ struct TrackListView: View {
         .onAppear {
             loadTracks()
         }
-        .fullScreenCover(isPresented: $showingRecordingView) {
-            if let projectId = projectId {
-                NavigationStack {
-                    TrackRecordingView(projectId: projectId)
+        .fullScreenCover(
+            isPresented: $showingRecordingView,
+            onDismiss: {
+                loadTracks()
+            },
+            content: {
+                if let projectId = projectId {
+                    NavigationStack {
+                        TrackRecordingView(projectId: projectId)
+                    }
                 }
             }
-        }
+        )
         .alert("Delete Track?", isPresented: $showingDeleteConfirmation) {
             Button("Cancel", role: .cancel) {}
             Button("Delete", role: .destructive) {

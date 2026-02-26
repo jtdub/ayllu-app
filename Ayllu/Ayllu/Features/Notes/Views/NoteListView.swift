@@ -9,6 +9,8 @@ struct NoteListView: View {
     @State private var notes: [FieldNote] = []
     @State private var searchText = ""
     @State private var showingCreateSheet = false
+    @State private var selectedProjectIdForNote: Int64?
+    @State private var showingNoteEditor = false
     @State private var isLoading = false
     @State private var error: Error?
 
@@ -58,9 +60,6 @@ struct NoteListView: View {
             }
         }
         .navigationTitle("Notes")
-        .navigationDestination(for: FieldNote.self) { note in
-            NoteEditorView(projectId: note.projectId, existingNote: note)
-        }
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
                 Button {
@@ -74,14 +73,35 @@ struct NoteListView: View {
         .onAppear {
             loadNotes()
         }
-        .sheet(isPresented: $showingCreateSheet) {
-            if let projectId = projectId {
-                NoteEditorView(projectId: projectId, existingNote: nil)
-            } else {
-                // Show project picker first
-                Text("Select a project first")
+        .sheet(
+            isPresented: $showingCreateSheet,
+            onDismiss: {
+                loadNotes()
+            },
+            content: {
+                if let projectId = projectId {
+                    NoteEditorView(projectId: projectId, existingNote: nil)
+                } else {
+                    ProjectPickerView { selectedId in
+                        selectedProjectIdForNote = selectedId
+                        showingCreateSheet = false
+                        showingNoteEditor = true
+                    }
+                }
             }
-        }
+        )
+        .sheet(
+            isPresented: $showingNoteEditor,
+            onDismiss: {
+                selectedProjectIdForNote = nil
+                loadNotes()
+            },
+            content: {
+                if let projectId = selectedProjectIdForNote {
+                    NoteEditorView(projectId: projectId, existingNote: nil)
+                }
+            }
+        )
     }
 
     private func loadNotes() {
