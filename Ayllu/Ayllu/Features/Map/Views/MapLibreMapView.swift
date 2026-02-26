@@ -156,7 +156,7 @@ struct MapLibreMapView: UIViewRepresentable {
             case .artifact: return .systemOrange
             case .sample: return .systemGreen
             case .photoPoint: return .systemYellow
-            case .controlPoint, .datum: return .black
+            case .controlPoint, .datum: return .label
             case .observation: return .systemCyan
             case .specimen: return .systemMint
             case .transectMarker: return .systemIndigo

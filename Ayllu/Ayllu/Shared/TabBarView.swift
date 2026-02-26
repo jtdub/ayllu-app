@@ -33,6 +33,11 @@ struct TabBarView: View {
         TabView(selection: $selectedTab) {
             NavigationStack {
                 ProjectListView()
+                    .toolbar {
+                        ToolbarItem(placement: .topBarTrailing) {
+                            NetworkStatusIndicator()
+                        }
+                    }
             }
             .tabItem {
                 Label(
@@ -46,6 +51,11 @@ struct TabBarView: View {
 
             NavigationStack {
                 MapContainerView()
+                    .toolbar {
+                        ToolbarItem(placement: .topBarTrailing) {
+                            NetworkStatusIndicator()
+                        }
+                    }
             }
             .tabItem {
                 Label(
@@ -59,6 +69,11 @@ struct TabBarView: View {
 
             NavigationStack {
                 NoteListView()
+                    .toolbar {
+                        ToolbarItem(placement: .topBarTrailing) {
+                            NetworkStatusIndicator()
+                        }
+                    }
             }
             .tabItem {
                 Label(
@@ -72,6 +87,11 @@ struct TabBarView: View {
 
             NavigationStack {
                 SettingsView()
+                    .toolbar {
+                        ToolbarItem(placement: .topBarTrailing) {
+                            NetworkStatusIndicator()
+                        }
+                    }
             }
             .tabItem {
                 Label(

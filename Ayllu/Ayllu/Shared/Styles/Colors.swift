@@ -4,8 +4,8 @@ import SwiftUI
 extension Color {
     // MARK: - Brand Colors
 
-    static let aylluPrimary = Color("PrimaryColor", bundle: nil)
-    static let aylluSecondary = Color("SecondaryColor", bundle: nil)
+    static let aylluPrimary = Color.blue
+    static let aylluSecondary = Color.teal
 
     // MARK: - Semantic Colors
 
@@ -15,7 +15,7 @@ extension Color {
     static let waypointArtifact = Color.orange
     static let waypointSample = Color.green
     static let waypointPhoto = Color.yellow
-    static let waypointControl = Color.black
+    static let waypointControl = Color.primary
     static let waypointObservation = Color.cyan
     static let waypointSpecimen = Color.mint
     static let waypointTransect = Color.indigo
