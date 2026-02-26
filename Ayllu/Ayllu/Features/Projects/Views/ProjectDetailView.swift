@@ -10,6 +10,8 @@ struct ProjectDetailView: View {
     @State private var statistics: ProjectStatistics?
     @State private var showingEditSheet = false
     @State private var showingDeleteConfirmation = false
+    @State private var showingPhotoCapture = false
+    @State private var showingTrackRecording = false
     @State private var currentProject: Project
 
     init(project: Project) {
@@ -63,13 +65,34 @@ struct ProjectDetailView: View {
                         Label("\(stats.noteCount) Notes", systemImage: "note.text")
                     }
 
-                    Label("\(stats.photoCount) Photos", systemImage: "photo")
-                    Label("\(stats.trackCount) Tracks", systemImage: "point.topleft.down.to.point.bottomright.curvepath")
+                    NavigationLink {
+                        PhotoListView(projectId: project.id)
+                    } label: {
+                        Label("\(stats.photoCount) Photos", systemImage: "photo")
+                    }
+
+                    NavigationLink {
+                        TrackListView(projectId: project.id)
+                    } label: {
+                        Label("\(stats.trackCount) Tracks", systemImage: "point.topleft.down.to.point.bottomright.curvepath")
+                    }
                 }
             }
 
             // Actions Section
             Section {
+                Button {
+                    showingPhotoCapture = true
+                } label: {
+                    Label("Take Photo", systemImage: "camera")
+                }
+
+                Button {
+                    showingTrackRecording = true
+                } label: {
+                    Label("Record GPS Track", systemImage: "location.circle")
+                }
+
                 Button {
                     showingEditSheet = true
                 } label: {
@@ -87,6 +110,20 @@ struct ProjectDetailView: View {
         .navigationBarTitleDisplayMode(.large)
         .onAppear {
             loadStatistics()
+        }
+        .sheet(isPresented: $showingPhotoCapture) {
+            if let projectId = project.id {
+                NavigationStack {
+                    PhotoCaptureView(projectId: projectId)
+                }
+            }
+        }
+        .fullScreenCover(isPresented: $showingTrackRecording) {
+            if let projectId = project.id {
+                NavigationStack {
+                    TrackRecordingView(projectId: projectId)
+                }
+            }
         }
         .sheet(isPresented: $showingEditSheet) {
             ProjectFormView(mode: .edit(currentProject)) { name, description, startDate, endDate in
