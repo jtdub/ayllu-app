@@ -20,6 +20,11 @@ struct Waypoint: Identifiable, Codable, Equatable, Hashable {
     var category: WaypointCategory?
     var createdAt: Date
     var updatedAt: Date
+    var deletedAt: Date?
+
+    var isDeleted: Bool {
+        deletedAt != nil
+    }
 
     init(
         id: Int64? = nil,
@@ -37,7 +42,8 @@ struct Waypoint: Identifiable, Codable, Equatable, Hashable {
         customFields: [String: String] = [:],
         category: WaypointCategory? = nil,
         createdAt: Date = Date(),
-        updatedAt: Date = Date()
+        updatedAt: Date = Date(),
+        deletedAt: Date? = nil
     ) {
         self.id = id
         self.projectId = projectId
@@ -55,6 +61,7 @@ struct Waypoint: Identifiable, Codable, Equatable, Hashable {
         self.category = category
         self.createdAt = createdAt
         self.updatedAt = updatedAt
+        self.deletedAt = deletedAt
     }
 
     /// Returns a CLLocationCoordinate2D for map display

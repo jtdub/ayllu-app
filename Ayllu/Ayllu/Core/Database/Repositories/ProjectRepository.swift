@@ -19,10 +19,15 @@ struct ProjectRepository {
 
     // MARK: - Read
 
-    /// Fetches all projects, optionally filtered by search term
-    func fetchAll(searchTerm: String? = nil) throws -> [Project] {
+    /// Fetches all projects, optionally filtered by search term (excludes soft-deleted by default)
+    func fetchAll(searchTerm: String? = nil, includeDeleted: Bool = false) throws -> [Project] {
         try dbPool.read { db in
             var query = Project.all().order(Project.Columns.updatedAt.desc)
+
+            // Filter out soft-deleted items unless explicitly requested
+            if !includeDeleted {
+                query = query.filter(Column("deletedAt") == nil)
+            }
 
             if let search = searchTerm, !search.isEmpty {
                 let pattern = "%\(search)%"
@@ -58,17 +63,26 @@ struct ProjectRepository {
 
     // MARK: - Delete
 
-    /// Deletes a project by ID (cascades to waypoints, notes, photos, tracks)
+    /// Soft deletes a project by ID (marks as deleted but keeps in database)
     func delete(id: Int64) throws {
         try dbPool.write { db in
-            _ = try Project.deleteOne(db, key: id)
+            guard var project = try Project.fetchOne(db, key: id) else { return }
+            project.deletedAt = Date()
+            try project.update(db)
         }
     }
 
-    /// Deletes a project
+    /// Soft deletes a project (marks as deleted but keeps in database)
     func delete(_ project: Project) throws {
         guard let id = project.id else { return }
         try delete(id: id)
+    }
+
+    /// Permanently deletes a project by ID (hard delete, cascades to waypoints, notes, photos, tracks)
+    func permanentlyDelete(id: Int64) throws {
+        try dbPool.write { db in
+            _ = try Project.deleteOne(db, key: id)
+        }
     }
 
     // MARK: - Statistics

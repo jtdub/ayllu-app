@@ -17,6 +17,11 @@ struct Photo: Identifiable, Codable, Equatable, Hashable {
     var timestamp: Date
     var createdAt: Date
     var updatedAt: Date
+    var deletedAt: Date?
+
+    var isDeleted: Bool {
+        deletedAt != nil
+    }
 
     init(
         id: Int64? = nil,
@@ -31,7 +36,8 @@ struct Photo: Identifiable, Codable, Equatable, Hashable {
         heading: Double? = nil,
         timestamp: Date = Date(),
         createdAt: Date = Date(),
-        updatedAt: Date = Date()
+        updatedAt: Date = Date(),
+        deletedAt: Date? = nil
     ) {
         self.id = id
         self.projectId = projectId
@@ -46,6 +52,7 @@ struct Photo: Identifiable, Codable, Equatable, Hashable {
         self.timestamp = timestamp
         self.createdAt = createdAt
         self.updatedAt = updatedAt
+        self.deletedAt = deletedAt
     }
 
     /// Whether this photo has GPS coordinates

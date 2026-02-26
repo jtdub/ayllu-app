@@ -3,6 +3,7 @@ import SwiftUI
 /// Main tab bar navigation for the app
 struct TabBarView: View {
     @State private var selectedTab: Tab = .projects
+    @State private var showingSearch = false
 
     enum Tab: String, CaseIterable {
         case projects = "Projects"
@@ -34,6 +35,14 @@ struct TabBarView: View {
             NavigationStack {
                 ProjectListView()
                     .toolbar {
+                        ToolbarItem(placement: .topBarLeading) {
+                            Button {
+                                showingSearch = true
+                            } label: {
+                                Image(systemName: "magnifyingglass")
+                            }
+                        }
+
                         ToolbarItem(placement: .topBarTrailing) {
                             NetworkStatusIndicator()
                         }
@@ -70,6 +79,14 @@ struct TabBarView: View {
             NavigationStack {
                 NoteListView()
                     .toolbar {
+                        ToolbarItem(placement: .topBarLeading) {
+                            Button {
+                                showingSearch = true
+                            } label: {
+                                Image(systemName: "magnifyingglass")
+                            }
+                        }
+
                         ToolbarItem(placement: .topBarTrailing) {
                             NetworkStatusIndicator()
                         }
@@ -102,6 +119,9 @@ struct TabBarView: View {
                 )
             }
             .tag(Tab.settings)
+        }
+        .sheet(isPresented: $showingSearch) {
+            GlobalSearchView()
         }
     }
 }
