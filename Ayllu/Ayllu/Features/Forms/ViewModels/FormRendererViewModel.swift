@@ -19,6 +19,7 @@ final class FormRendererViewModel {
     static let displayDateFormatter: DateFormatter = {
         let fmt = DateFormatter()
         fmt.dateStyle = .medium
+        fmt.locale = Locale(identifier: "en_US_POSIX")
         return fmt
     }()
 
@@ -104,7 +105,8 @@ final class FormRendererViewModel {
             validationErrors[field.name] = "\(field.label) must be at most \(maxLen) characters"
             return
         }
-        if let pattern = field.validationRules[VK.pattern], !pattern.isEmpty {
+        if let pattern = field.validationRules[VK.pattern],
+           !pattern.isEmpty, pattern.count <= 200 {
             do {
                 let regex = try NSRegularExpression(pattern: pattern)
                 let range = NSRange(value.startIndex..., in: value)
@@ -153,9 +155,12 @@ final class FormRendererViewModel {
             return
         }
 
-        if field.validationRules[VK.noFutureDates] == "true" && date > Date() {
-            validationErrors[field.name] = "\(field.label) cannot be a future date"
-            return
+        if field.validationRules[VK.noFutureDates] == "true" {
+            let comparison = Calendar.current.compare(date, to: Date(), toGranularity: .day)
+            if comparison == .orderedDescending {
+                validationErrors[field.name] = "\(field.label) cannot be a future date"
+                return
+            }
         }
 
         if let minDateStr = field.validationRules[VK.minDate],

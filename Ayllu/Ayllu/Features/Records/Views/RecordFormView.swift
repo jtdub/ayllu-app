@@ -104,6 +104,15 @@ struct RecordFormView: View {
         .onChange(of: selectedTypeId) { _, newValue in
             loadFormFields(for: newValue)
         }
+        .onChange(of: formValues) { oldValues, newValues in
+            guard let vm = formViewModel else { return }
+            // Only update changed fields to clear their validation errors
+            for (key, value) in newValues where oldValues[key] != value {
+                if let field = formFields.first(where: { $0.name == key }) {
+                    vm.setValue(for: field, value: value)
+                }
+            }
+        }
         .onAppear {
             loadRecordTypes()
             if let existing = existingRecord {

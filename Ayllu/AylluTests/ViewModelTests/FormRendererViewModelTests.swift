@@ -223,9 +223,7 @@ final class FormRendererViewModelTests: XCTestCase {
 
     func testDateNoFuture() {
         let tomorrow = Calendar.current.date(byAdding: .day, value: 1, to: Date())!
-        let formatter = DateFormatter()
-        formatter.dateStyle = .medium
-        let tomorrowStr = formatter.string(from: tomorrow)
+        let tomorrowStr = FormRendererViewModel.displayDateFormatter.string(from: tomorrow)
 
         let fields = [FormField(
             formTemplateId: 1, name: "date", label: "Date",
@@ -238,11 +236,23 @@ final class FormRendererViewModelTests: XCTestCase {
         XCTAssertEqual(vm.validationErrors["date"], "Date cannot be a future date")
     }
 
+    func testDateTodayIsValid() {
+        let today = Date()
+        let todayStr = FormRendererViewModel.displayDateFormatter.string(from: today)
+
+        let fields = [FormField(
+            formTemplateId: 1, name: "date", label: "Date",
+            fieldType: .date,
+            validationRules: ["noFutureDates": "true"]
+        )]
+        let vm = FormRendererViewModel(fields: fields, values: ["date": todayStr])
+
+        XCTAssertTrue(vm.validate())
+    }
+
     func testDatePastIsValid() {
         let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date())!
-        let formatter = DateFormatter()
-        formatter.dateStyle = .medium
-        let yesterdayStr = formatter.string(from: yesterday)
+        let yesterdayStr = FormRendererViewModel.displayDateFormatter.string(from: yesterday)
 
         let fields = [FormField(
             formTemplateId: 1, name: "date", label: "Date",
