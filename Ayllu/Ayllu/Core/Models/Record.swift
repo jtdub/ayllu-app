@@ -15,6 +15,7 @@ struct Record: Identifiable, Codable, Equatable, Hashable {
     var altitude: Double?
     var formData: [String: String]
     var formTemplateVersion: Int?
+    var isDraft: Bool
     var createdAt: Date
     var updatedAt: Date
     var deletedAt: Date?
@@ -35,6 +36,7 @@ struct Record: Identifiable, Codable, Equatable, Hashable {
         altitude: Double? = nil,
         formData: [String: String] = [:],
         formTemplateVersion: Int? = nil,
+        isDraft: Bool = false,
         createdAt: Date = Date(),
         updatedAt: Date = Date(),
         deletedAt: Date? = nil
@@ -50,6 +52,7 @@ struct Record: Identifiable, Codable, Equatable, Hashable {
         self.altitude = altitude
         self.formData = formData
         self.formTemplateVersion = formTemplateVersion
+        self.isDraft = isDraft
         self.createdAt = createdAt
         self.updatedAt = updatedAt
         self.deletedAt = deletedAt
@@ -78,7 +81,7 @@ extension Record: FetchableRecord, MutablePersistableRecord {
         case id, projectId, recordTypeId, parentRecordId
         case name, description
         case latitude, longitude, altitude
-        case formData, formTemplateVersion
+        case formData, formTemplateVersion, isDraft
         case createdAt, updatedAt, deletedAt
     }
 
@@ -93,6 +96,7 @@ extension Record: FetchableRecord, MutablePersistableRecord {
         longitude = row[Columns.longitude]
         altitude = row[Columns.altitude]
         formTemplateVersion = row[Columns.formTemplateVersion]
+        isDraft = row[Columns.isDraft]
         createdAt = row[Columns.createdAt]
         updatedAt = row[Columns.updatedAt]
         deletedAt = row[Columns.deletedAt]
@@ -119,6 +123,7 @@ extension Record: FetchableRecord, MutablePersistableRecord {
         container[Columns.longitude] = longitude
         container[Columns.altitude] = altitude
         container[Columns.formTemplateVersion] = formTemplateVersion
+        container[Columns.isDraft] = isDraft
         container[Columns.createdAt] = createdAt
         container[Columns.updatedAt] = updatedAt
         container[Columns.deletedAt] = deletedAt

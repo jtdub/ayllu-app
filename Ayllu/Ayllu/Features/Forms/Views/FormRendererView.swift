@@ -4,10 +4,16 @@ import SwiftUI
 struct FormRendererView: View {
     let fields: [FormField]
     @Binding var values: [String: String]
+    var validationErrors: [String: String] = [:]
 
     var body: some View {
         ForEach(fields) { field in
-            FieldView(field: field, value: binding(for: field))
+            FieldView(
+                field: field,
+                value: binding(for: field),
+                errorMessage: validationErrors[field.name]
+            )
+            .id(field.name)
         }
     }
 
@@ -24,6 +30,7 @@ struct FormRendererView: View {
 private struct FieldView: View {
     let field: FormField
     @Binding var value: String
+    var errorMessage: String?
 
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
@@ -60,6 +67,12 @@ private struct FieldView: View {
                     .foregroundStyle(.secondary)
                     .font(.caption)
             }
+
+            if let errorMessage {
+                Text(errorMessage)
+                    .font(.caption)
+                    .foregroundStyle(.red)
+            }
         }
     }
 
@@ -91,7 +104,11 @@ private struct MultiSelectView: View {
     @Binding var value: String
 
     private var selectedOptions: Set<String> {
-        Set(value.components(separatedBy: ",").map { $0.trimmingCharacters(in: .whitespaces) }.filter { !$0.isEmpty })
+        Set(
+            value.components(separatedBy: ",")
+                .map { $0.trimmingCharacters(in: .whitespaces) }
+                .filter { !$0.isEmpty }
+        )
     }
 
     var body: some View {
@@ -118,11 +135,7 @@ private struct DateFieldView: View {
     @Binding var value: String
     @State private var date = Date()
 
-    private let formatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .medium
-        return formatter
-    }()
+    private var formatter: DateFormatter { FormRendererViewModel.displayDateFormatter }
 
     var body: some View {
         DatePicker("", selection: $date, displayedComponents: .date)

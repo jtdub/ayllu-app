@@ -119,8 +119,20 @@ private struct RecordTreeRow: View {
                 .frame(width: 30)
 
             VStack(alignment: .leading, spacing: 2) {
-                Text(record.name)
-                    .font(.headline)
+                HStack(spacing: 6) {
+                    Text(record.name)
+                        .font(.headline)
+
+                    if record.isDraft {
+                        Text("DRAFT")
+                            .font(.caption2.weight(.semibold))
+                            .foregroundStyle(.orange)
+                            .padding(.horizontal, 6)
+                            .padding(.vertical, 2)
+                            .background(.orange.opacity(0.15))
+                            .clipShape(Capsule())
+                    }
+                }
 
                 Text(viewModel.recordTypeName(for: record))
                     .font(.caption)

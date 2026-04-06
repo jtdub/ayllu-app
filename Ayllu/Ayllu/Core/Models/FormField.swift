@@ -42,6 +42,19 @@ enum FieldType: String, Codable, CaseIterable {
     }
 }
 
+/// Keys for the `validationRules` dictionary on `FormField`
+enum ValidationRuleKey {
+    static let min = "min"
+    static let max = "max"
+    static let minLength = "minLength"
+    static let maxLength = "maxLength"
+    static let pattern = "pattern"
+    static let patternMessage = "patternMessage"
+    static let noFutureDates = "noFutureDates"
+    static let minDate = "minDate"
+    static let maxDate = "maxDate"
+}
+
 /// A single field within a form template
 struct FormField: Identifiable, Codable, Equatable, Hashable {
     var id: Int64?

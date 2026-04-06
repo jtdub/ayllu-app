@@ -19,36 +19,58 @@ struct RecordFormView: View {
     @State private var formFields: [FormField] = []
     @State private var recordTypes: [RecordType] = []
     @State private var formTemplate: FormTemplate?
+    @State private var formViewModel: FormRendererViewModel?
+    @State private var locationError: String?
 
     private var isEditing: Bool { existingRecord != nil }
 
     var body: some View {
-        Form {
-            Section("Basic Information") {
-                TextField("Name", text: $name)
+        ScrollViewReader { proxy in
+            Form {
+                Section("Basic Information") {
+                    TextField("Name", text: $name)
 
-                Picker("Record Type", selection: $selectedTypeId) {
-                    Text("Select Type").tag(nil as Int64?)
-                    ForEach(recordTypes) { type in
-                        Text(type.name).tag(type.id as Int64?)
+                    Picker("Record Type", selection: $selectedTypeId) {
+                        Text("Select Type").tag(nil as Int64?)
+                        ForEach(recordTypes) { type in
+                            Text(type.name).tag(type.id as Int64?)
+                        }
+                    }
+                    .disabled(isEditing)
+
+                    TextField("Description (optional)", text: $description, axis: .vertical)
+                        .lineLimit(3...6)
+                }
+
+                Section("Location (Optional)") {
+                    TextField("Latitude", text: $latitude)
+                        .keyboardType(.decimalPad)
+                    TextField("Longitude", text: $longitude)
+                        .keyboardType(.decimalPad)
+
+                    if let locationError {
+                        Text(locationError)
+                            .font(.caption)
+                            .foregroundStyle(.red)
                     }
                 }
-                .disabled(isEditing)
+                .id("location")
 
-                TextField("Description (optional)", text: $description, axis: .vertical)
-                    .lineLimit(3...6)
+                if !formFields.isEmpty {
+                    Section("Form Fields") {
+                        FormRendererView(
+                            fields: formFields,
+                            values: $formValues,
+                            validationErrors: formViewModel?.validationErrors ?? [:]
+                        )
+                    }
+                }
             }
-
-            Section("Location (Optional)") {
-                TextField("Latitude", text: $latitude)
-                    .keyboardType(.decimalPad)
-                TextField("Longitude", text: $longitude)
-                    .keyboardType(.decimalPad)
-            }
-
-            if !formFields.isEmpty {
-                Section("Form Fields") {
-                    FormRendererView(fields: formFields, values: $formValues)
+            .onChange(of: formViewModel?.firstErrorFieldName) { _, fieldName in
+                if let fieldName {
+                    withAnimation {
+                        proxy.scrollTo(fieldName, anchor: .center)
+                    }
                 }
             }
         }
@@ -59,8 +81,22 @@ struct RecordFormView: View {
                 Button("Cancel") { dismiss() }
             }
             ToolbarItem(placement: .confirmationAction) {
-                Button(isEditing ? "Save" : "Create") {
-                    save()
+                Menu {
+                    Button {
+                        save(asDraft: false)
+                    } label: {
+                        Label("Save", systemImage: "checkmark")
+                    }
+
+                    Button {
+                        save(asDraft: true)
+                    } label: {
+                        Label("Save as Draft", systemImage: "doc.badge.clock")
+                    }
+                } label: {
+                    Text(isEditing ? "Save" : "Create")
+                } primaryAction: {
+                    save(asDraft: false)
                 }
                 .disabled(name.trimmingCharacters(in: .whitespaces).isEmpty || selectedTypeId == nil)
             }
@@ -95,23 +131,69 @@ struct RecordFormView: View {
         guard let typeId else {
             formFields = []
             formTemplate = nil
+            formViewModel = nil
             return
         }
         let templateRepo = FormTemplateRepository(dbPool: database.dbPool)
         if let result = try? templateRepo.fetchWithFieldsByRecordType(typeId) {
             formTemplate = result.0
             formFields = result.1
+            formViewModel = FormRendererViewModel(fields: result.1, values: formValues)
         } else {
             formFields = []
             formTemplate = nil
+            formViewModel = nil
         }
     }
 
-    private func save() {
-        let trimmedName = name.trimmingCharacters(in: .whitespaces)
-        let trimmedDesc = description.trimmingCharacters(in: .whitespaces)
-        guard let typeId = selectedTypeId else { return }
+    private func validateLocation() -> Bool {
+        locationError = nil
 
+        let hasLat = !latitude.trimmingCharacters(in: .whitespaces).isEmpty
+        let hasLon = !longitude.trimmingCharacters(in: .whitespaces).isEmpty
+
+        if !hasLat && !hasLon { return true }
+
+        if hasLat != hasLon {
+            locationError = "Both latitude and longitude are required"
+            return false
+        }
+
+        guard let lat = Double(latitude) else {
+            locationError = "Latitude must be a number"
+            return false
+        }
+        guard let lon = Double(longitude) else {
+            locationError = "Longitude must be a number"
+            return false
+        }
+
+        if !CoordinateFormatter.isValidLatitude(lat) {
+            locationError = "Latitude must be between -90 and 90"
+            return false
+        }
+        if !CoordinateFormatter.isValidLongitude(lon) {
+            locationError = "Longitude must be between -180 and 180"
+            return false
+        }
+
+        return true
+    }
+
+    private func save(asDraft: Bool) {
+        let trimmedName = name.trimmingCharacters(in: .whitespaces)
+        guard !trimmedName.isEmpty, let typeId = selectedTypeId else { return }
+
+        guard validateLocation() else { return }
+
+        if let vm = formViewModel {
+            vm.values = formValues
+            if !vm.validate(asDraft: asDraft) {
+                return
+            }
+        }
+
+        let trimmedDesc = description.trimmingCharacters(in: .whitespaces)
         let lat = Double(latitude)
         let lon = Double(longitude)
 
@@ -124,6 +206,7 @@ struct RecordFormView: View {
             existing.longitude = lon
             existing.formData = formValues
             existing.formTemplateVersion = formTemplate?.version
+            existing.isDraft = asDraft
             try? repo.update(existing)
         } else {
             let record = Record(
@@ -135,7 +218,8 @@ struct RecordFormView: View {
                 latitude: lat,
                 longitude: lon,
                 formData: formValues,
-                formTemplateVersion: formTemplate?.version
+                formTemplateVersion: formTemplate?.version,
+                isDraft: asDraft
             )
             try? repo.create(record)
         }

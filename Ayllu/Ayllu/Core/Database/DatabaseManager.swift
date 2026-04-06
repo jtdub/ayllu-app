@@ -313,6 +313,11 @@ final class DatabaseManager {
             try V3RecordsFormsGeometries.migrate(db)
         }
 
+        // Version 4: Add draft status to records
+        migrator.registerMigration("v4_add_draft_status") { db in
+            try V4AddDraftStatus.migrate(db)
+        }
+
         return migrator
     }
 
