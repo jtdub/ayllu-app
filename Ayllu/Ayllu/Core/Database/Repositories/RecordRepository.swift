@@ -148,6 +148,20 @@ struct RecordRepository {
         }
     }
 
+    // MARK: - Drafts
+
+    /// Fetches draft records for a project
+    func fetchDrafts(projectId: Int64) throws -> [Record] {
+        try dbPool.read { db in
+            try Record
+                .filter(Record.Columns.projectId == projectId)
+                .filter(Record.Columns.isDraft == true)
+                .filter(Record.Columns.deletedAt == nil)
+                .order(Record.Columns.createdAt.desc)
+                .fetchAll(db)
+        }
+    }
+
     // MARK: - Count
 
     func countForProject(_ projectId: Int64) throws -> Int {

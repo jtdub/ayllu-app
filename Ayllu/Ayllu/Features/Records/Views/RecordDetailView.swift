@@ -38,6 +38,17 @@ struct RecordDetailView: View {
                     }
                 }
 
+                if record.isDraft {
+                    HStack {
+                        Text("Status")
+                            .foregroundStyle(.secondary)
+                        Spacer()
+                        Text("Draft")
+                            .foregroundStyle(.orange)
+                            .fontWeight(.medium)
+                    }
+                }
+
                 LabeledContent("Created", value: dateFormatter.string(from: record.createdAt))
             }
 
