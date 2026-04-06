@@ -1,14 +1,13 @@
 import SwiftUI
-import GRDB
 
 /// Form for creating or editing a record with dynamic form fields
 struct RecordFormView: View {
+    @Environment(DatabaseManager.self) private var database
     @Environment(\.dismiss) private var dismiss
 
     let projectId: Int64
     var parentRecordId: Int64?
     var existingRecord: Record?
-    let dbPool: DatabasePool
     var onSave: () -> Void
 
     @State private var name = ""
@@ -47,7 +46,6 @@ struct RecordFormView: View {
                     .keyboardType(.decimalPad)
             }
 
-            // Dynamic form fields
             if !formFields.isEmpty {
                 Section("Form Fields") {
                     FormRendererView(fields: formFields, values: $formValues)
@@ -89,7 +87,7 @@ struct RecordFormView: View {
     }
 
     private func loadRecordTypes() {
-        let repo = RecordTypeRepository(dbPool: dbPool)
+        let repo = RecordTypeRepository(dbPool: database.dbPool)
         recordTypes = (try? repo.fetchAll(projectId: projectId)) ?? []
     }
 
@@ -99,7 +97,7 @@ struct RecordFormView: View {
             formTemplate = nil
             return
         }
-        let templateRepo = FormTemplateRepository(dbPool: dbPool)
+        let templateRepo = FormTemplateRepository(dbPool: database.dbPool)
         if let result = try? templateRepo.fetchWithFieldsByRecordType(typeId) {
             formTemplate = result.0
             formFields = result.1
@@ -117,7 +115,7 @@ struct RecordFormView: View {
         let lat = Double(latitude)
         let lon = Double(longitude)
 
-        let repo = RecordRepository(dbPool: dbPool)
+        let repo = RecordRepository(dbPool: database.dbPool)
 
         if var existing = existingRecord {
             existing.name = trimmedName

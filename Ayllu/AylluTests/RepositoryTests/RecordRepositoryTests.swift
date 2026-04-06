@@ -236,6 +236,49 @@ final class RecordRepositoryTests: XCTestCase {
         XCTAssertEqual(results.count, 0)
     }
 
+    func testSoftDeleteCascadesToChildren() throws {
+        let parent = try repository.create(Record(
+            projectId: testProjectId,
+            recordTypeId: testTypeId,
+            name: "Parent"
+        ))
+        guard let parentId = parent.id else {
+            XCTFail("Parent should have an ID")
+            return
+        }
+
+        let child = try repository.create(Record(
+            projectId: testProjectId,
+            recordTypeId: testTypeId,
+            parentRecordId: parentId,
+            name: "Child"
+        ))
+        guard let childId = child.id else {
+            XCTFail("Child should have an ID")
+            return
+        }
+
+        let grandchild = try repository.create(Record(
+            projectId: testProjectId,
+            recordTypeId: testTypeId,
+            parentRecordId: childId,
+            name: "Grandchild"
+        ))
+
+        // Delete parent — should cascade to child and grandchild
+        try repository.delete(id: parentId)
+
+        let allRecords = try repository.fetchAll(projectId: testProjectId)
+        XCTAssertEqual(allRecords.count, 0)
+
+        // Verify each record was soft-deleted (still in DB but has deletedAt)
+        let rawChild = try repository.fetchById(childId)
+        XCTAssertNotNil(rawChild?.deletedAt)
+
+        let rawGrandchild = try repository.fetchById(grandchild.id!)
+        XCTAssertNotNil(rawGrandchild?.deletedAt)
+    }
+
     // MARK: - Count
 
     func testCountForProject() throws {

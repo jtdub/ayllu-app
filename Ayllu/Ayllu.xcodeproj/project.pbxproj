@@ -26,6 +26,7 @@
 		28DBDD78A73E006CEA15BA83 /* GPXExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F94524AFCAC0139168D5F7 /* GPXExporter.swift */; };
 		297FA57797A6F1B8A6BC141B /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A6C0ED86DE7258749D1A01A /* SettingsView.swift */; };
 		2D27F1A241996CC599784BF8 /* PhotoRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DB9A22D8000C7BA9BFA6B6E /* PhotoRepository.swift */; };
+		2D9D9C7192A27780D4483C0D /* RecordHierarchyViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DEF2C92222B604C9C6A8E00 /* RecordHierarchyViewModelTests.swift */; };
 		2E8FDBC4687F67A732A7A46C /* GeometryEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A57071F72F48C1616EB2CC /* GeometryEditorView.swift */; };
 		3363BE8D6C99D7F09FC50B39 /* TrashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C10A057437737DF6D9418F /* TrashView.swift */; };
 		34CB68E63188C8AE8F73F2B3 /* V3RecordsFormsGeometries.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD0D1A9215E68FF58A339C5D /* V3RecordsFormsGeometries.swift */; };
@@ -216,6 +217,7 @@
 		5B733ED410A09443001B034E /* CSVExportServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSVExportServiceTests.swift; sourceTree = "<group>"; };
 		5C2A3C73A836096F9F7C4566 /* ProjectFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectFormView.swift; sourceTree = "<group>"; };
 		5CBDE8374861F1A0C49B47E7 /* MapContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapContainerView.swift; sourceTree = "<group>"; };
+		5DEF2C92222B604C9C6A8E00 /* RecordHierarchyViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordHierarchyViewModelTests.swift; sourceTree = "<group>"; };
 		5F2FF7DDDB5B633386AF3D7E /* GPXExporterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPXExporterTests.swift; sourceTree = "<group>"; };
 		615348C8B3B1AD0318626432 /* WaypointListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaypointListViewModel.swift; sourceTree = "<group>"; };
 		62C0FBB5911D0A4AB702CB52 /* CameraService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraService.swift; sourceTree = "<group>"; };
@@ -466,6 +468,7 @@
 			children = (
 				4D5600D717AD89CB20E3D7A0 /* NoteEditorViewModelTests.swift */,
 				2E38E8A8A0BB2939DB6E27D2 /* ProjectListViewModelTests.swift */,
+				5DEF2C92222B604C9C6A8E00 /* RecordHierarchyViewModelTests.swift */,
 				8E8614C9EF47B1B2542B0341 /* WaypointListViewModelTests.swift */,
 			);
 			path = ViewModelTests;
@@ -1177,6 +1180,7 @@
 				56AF8293F662E73FE98175DD /* PhotoRepositoryTests.swift in Sources */,
 				6F0C85988064AC0F1D18038D /* ProjectListViewModelTests.swift in Sources */,
 				42FDD7A474602EA68B9C8760 /* ProjectRepositoryTests.swift in Sources */,
+				2D9D9C7192A27780D4483C0D /* RecordHierarchyViewModelTests.swift in Sources */,
 				CDF7100BE6E1686B53FBC766 /* RecordRepositoryTests.swift in Sources */,
 				4741E503532CC9E0705AE250 /* RecordTypeRepositoryTests.swift in Sources */,
 				6A04ABA48F1BBCE22AA48FE6 /* TrackRepositoryTests.swift in Sources */,

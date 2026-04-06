@@ -1,10 +1,8 @@
 import SwiftUI
-import GRDB
 
 /// Detail view for a single geometry showing metadata and export options
 struct GeometryDetailView: View {
     let geometry: Geometry
-    let dbPool: DatabasePool
 
     @State private var showingGeoJSONExport = false
 

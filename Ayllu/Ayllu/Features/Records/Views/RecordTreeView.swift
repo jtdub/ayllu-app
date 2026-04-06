@@ -37,12 +37,15 @@ struct RecordTreeView: View {
                                 RecordTreeRow(record: record, viewModel: viewModel)
                                     .contentShape(Rectangle())
                                     .onTapGesture {
-                                        let childCount = viewModel.childCount(for: record)
-                                        if childCount > 0 {
-                                            viewModel.navigateToRecord(record)
-                                        } else {
+                                        viewModel.navigateToRecord(record)
+                                    }
+                                    .swipeActions(edge: .leading) {
+                                        Button {
                                             selectedRecord = record
+                                        } label: {
+                                            Label("Details", systemImage: "info.circle")
                                         }
+                                        .tint(.blue)
                                     }
                                     .swipeActions(edge: .trailing, allowsFullSwipe: false) {
                                         Button(role: .destructive) {
@@ -75,12 +78,12 @@ struct RecordTreeView: View {
                 NavigationStack {
                     RecordFormView(
                         projectId: projectId,
-                        parentRecordId: viewModel.currentParent?.id,
-                        dbPool: database.dbPool
+                        parentRecordId: viewModel.currentParent?.id
                     ) {
                         if let parent = viewModel.currentParent, let parentId = parent.id {
                             let repo = RecordRepository(dbPool: database.dbPool)
                             viewModel.currentRecords = (try? repo.fetchChildren(parentRecordId: parentId)) ?? []
+                            viewModel.loadChildCounts()
                         } else {
                             viewModel.loadInitial()
                         }
@@ -90,7 +93,7 @@ struct RecordTreeView: View {
         }
         .sheet(item: $selectedRecord) { record in
             NavigationStack {
-                RecordDetailView(record: record, dbPool: database.dbPool)
+                RecordDetailView(record: record)
             }
             .presentationDetents([.medium, .large])
         }

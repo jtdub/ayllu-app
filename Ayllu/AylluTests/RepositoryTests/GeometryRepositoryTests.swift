@@ -217,6 +217,24 @@ final class GeometryRepositoryTests: XCTestCase {
         XCTAssertTrue(json.contains("\"name\":\"Test\""))
     }
 
+    func testToGeoJSONWithSpecialCharactersInName() {
+        let geometry = Geometry(
+            projectId: 1,
+            name: "Site \"Alpha\" — L'excavation\nnewline",
+            geometryType: .polygon,
+            coordinates: [[-122.0, 37.0], [-122.0, 38.0], [-121.0, 38.0]]
+        )
+        let json = geometry.toGeoJSON()
+        // Should produce valid JSON despite special characters
+        let data = json.data(using: .utf8)!
+        let parsed = try? JSONSerialization.jsonObject(with: data) as? [String: Any]
+        XCTAssertNotNil(parsed, "GeoJSON with special chars should be valid JSON")
+
+        let properties = parsed?["properties"] as? [String: Any]
+        let name = properties?["name"] as? String
+        XCTAssertTrue(name?.contains("Alpha") ?? false)
+    }
+
     func testToGeoJSONPolyline() {
         let geometry = Geometry(
             projectId: 1,

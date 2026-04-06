@@ -94,28 +94,34 @@ struct Geometry: Identifiable, Codable, Equatable, Hashable {
 
     /// Generates a GeoJSON Feature string for export
     func toGeoJSON() -> String {
-        let type = geometryType == .polygon ? "Polygon" : "LineString"
-        let coordsJSON: String
+        let validCoords = coordinates.filter { $0.count >= 2 }
+        let coordsValue: Any
         if geometryType == .polygon {
-            let ring = coordinates.filter { $0.count >= 2 }
-                + (coordinates.first.map { [$0] } ?? [])
-            let ringJSON = ring.map { "[\($0[0]),\($0[1])]" }.joined(separator: ",")
-            coordsJSON = "[[\(ringJSON)]]"
+            let ring = validCoords + (validCoords.first.map { [$0] } ?? [])
+            coordsValue = [ring]
         } else {
-            let points = coordinates.filter { $0.count >= 2 }
-            let pointsJSON = points.map { "[\($0[0]),\($0[1])]" }.joined(separator: ",")
-            coordsJSON = "[\(pointsJSON)]"
+            coordsValue = validCoords
         }
 
-        let escapedName = name
-            .replacingOccurrences(of: "\\", with: "\\\\")
-            .replacingOccurrences(of: "\"", with: "\\\"")
-            .replacingOccurrences(of: "\n", with: "\\n")
+        let geoJSONType = geometryType == .polygon ? "Polygon" : "LineString"
+        let feature: [String: Any] = [
+            "type": "Feature",
+            "geometry": [
+                "type": geoJSONType,
+                "coordinates": coordsValue
+            ],
+            "properties": [
+                "name": name
+            ]
+        ]
 
-        return """
-        {"type":"Feature","geometry":{"type":"\(type)","coordinates":\(coordsJSON)},\
-        "properties":{"name":"\(escapedName)"}}
-        """
+        guard let data = try? JSONSerialization.data(
+            withJSONObject: feature,
+            options: [.sortedKeys]
+        ) else {
+            return "{}"
+        }
+        return String(data: data, encoding: .utf8) ?? "{}"
     }
 }
 

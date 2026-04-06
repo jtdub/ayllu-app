@@ -1,12 +1,11 @@
 import SwiftUI
-import GRDB
 
 /// Detail view for a single record showing form data, children, and geometries
 struct RecordDetailView: View {
+    @Environment(DatabaseManager.self) private var database
     @Environment(\.dismiss) private var dismiss
 
     let record: Record
-    let dbPool: DatabasePool
 
     @State private var recordType: RecordType?
     @State private var formFields: [FormField] = []
@@ -23,7 +22,6 @@ struct RecordDetailView: View {
 
     var body: some View {
         List {
-            // Header
             Section("Record Information") {
                 LabeledContent("Name", value: record.name)
 
@@ -43,7 +41,6 @@ struct RecordDetailView: View {
                 LabeledContent("Created", value: dateFormatter.string(from: record.createdAt))
             }
 
-            // Location
             if let latitude = record.latitude, let longitude = record.longitude {
                 Section("Location") {
                     LabeledContent("Latitude", value: String(format: "%.6f", latitude))
@@ -54,7 +51,6 @@ struct RecordDetailView: View {
                 }
             }
 
-            // Form data
             if !record.formData.isEmpty && !formFields.isEmpty {
                 Section("Form Data") {
                     ForEach(formFields) { field in
@@ -65,19 +61,20 @@ struct RecordDetailView: View {
                 }
             } else if !record.formData.isEmpty {
                 Section("Form Data") {
-                    ForEach(Array(record.formData.sorted(by: { $0.key < $1.key })), id: \.key) { key, value in
+                    ForEach(
+                        Array(record.formData.sorted(by: { $0.key < $1.key })),
+                        id: \.key
+                    ) { key, value in
                         LabeledContent(key, value: value)
                     }
                 }
             }
 
-            // Children and geometries
             Section("Related") {
                 LabeledContent("Child Records", value: "\(childCount)")
                 LabeledContent("Geometries", value: "\(geometryCount)")
             }
 
-            // Actions
             Section {
                 Button {
                     showingEdit = true
@@ -98,8 +95,7 @@ struct RecordDetailView: View {
                 RecordFormView(
                     projectId: record.projectId,
                     parentRecordId: record.parentRecordId,
-                    existingRecord: record,
-                    dbPool: dbPool
+                    existingRecord: record
                 ) {}
             }
         }
@@ -109,24 +105,20 @@ struct RecordDetailView: View {
     }
 
     private func loadDetails() {
-        // Load record type
-        let typeRepo = RecordTypeRepository(dbPool: dbPool)
+        let typeRepo = RecordTypeRepository(dbPool: database.dbPool)
         recordType = try? typeRepo.fetchById(record.recordTypeId)
 
-        // Load form fields for display
-        let templateRepo = FormTemplateRepository(dbPool: dbPool)
+        let templateRepo = FormTemplateRepository(dbPool: database.dbPool)
         if let result = try? templateRepo.fetchWithFieldsByRecordType(record.recordTypeId) {
             formFields = result.1
         }
 
-        // Load counts
         if let id = record.id {
-            let recordRepo = RecordRepository(dbPool: dbPool)
+            let recordRepo = RecordRepository(dbPool: database.dbPool)
             childCount = (try? recordRepo.countChildren(parentRecordId: id)) ?? 0
 
-            let geometryRepo = GeometryRepository(dbPool: dbPool)
-            let geometries = (try? geometryRepo.fetchByRecord(id)) ?? []
-            geometryCount = geometries.count
+            let geometryRepo = GeometryRepository(dbPool: database.dbPool)
+            geometryCount = (try? geometryRepo.countByRecord(id)) ?? 0
         }
     }
 }

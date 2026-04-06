@@ -1,34 +1,19 @@
 import SwiftUI
 import MapLibre
 import CoreLocation
-import GRDB
 
 /// Full-screen editor for drawing polygons and polylines on the map
 struct GeometryEditorView: View {
+    @Environment(DatabaseManager.self) private var database
+    @Environment(LocationService.self) private var locationService
     @Environment(\.dismiss) private var dismiss
 
     let projectId: Int64
-    let dbPool: DatabasePool
-    let locationService: LocationService
     var existingGeometry: Geometry?
     var onSave: () -> Void
 
     @State private var viewModel: GeometryEditorViewModel?
     @State private var showingNameSheet = false
-
-    init(
-        projectId: Int64,
-        dbPool: DatabasePool,
-        locationService: LocationService,
-        existingGeometry: Geometry? = nil,
-        onSave: @escaping () -> Void
-    ) {
-        self.projectId = projectId
-        self.dbPool = dbPool
-        self.locationService = locationService
-        self.existingGeometry = existingGeometry
-        self.onSave = onSave
-    }
 
     var body: some View {
         Group {
@@ -138,18 +123,20 @@ struct GeometryEditorView: View {
             }
         }
         .sheet(isPresented: $showingNameSheet) {
-            NavigationStack {
-                GeometryNameSheet(viewModel: viewModel!) {
-                    onSave()
-                    dismiss()
+            if let viewModel {
+                NavigationStack {
+                    GeometryNameSheet(viewModel: viewModel) {
+                        onSave()
+                        dismiss()
+                    }
                 }
+                .presentationDetents([.medium])
             }
-            .presentationDetents([.medium])
         }
         .onAppear {
             if viewModel == nil {
                 let vm = GeometryEditorViewModel(
-                    dbPool: dbPool,
+                    dbPool: database.dbPool,
                     locationService: locationService,
                     projectId: projectId
                 )

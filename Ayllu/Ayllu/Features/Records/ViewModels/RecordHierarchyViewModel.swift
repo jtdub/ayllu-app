@@ -122,7 +122,7 @@ final class RecordHierarchyViewModel {
         return childCounts[id] ?? 0
     }
 
-    private func loadChildCounts() {
+    func loadChildCounts() {
         let ids = currentRecords.compactMap(\.id)
         let repo = RecordRepository(dbPool: dbPool)
         childCounts = (try? repo.batchChildCounts(parentIds: ids)) ?? [:]

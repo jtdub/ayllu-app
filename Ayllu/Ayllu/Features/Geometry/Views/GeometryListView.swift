@@ -23,7 +23,7 @@ struct GeometryListView: View {
                     List {
                         ForEach(viewModel.geometries) { geometry in
                             NavigationLink {
-                                GeometryDetailView(geometry: geometry, dbPool: database.dbPool)
+                                GeometryDetailView(geometry: geometry)
                             } label: {
                                 GeometryRow(geometry: geometry)
                             }
@@ -52,9 +52,7 @@ struct GeometryListView: View {
         .fullScreenCover(isPresented: $showingEditor) {
             NavigationStack {
                 GeometryEditorView(
-                    projectId: projectId,
-                    dbPool: database.dbPool,
-                    locationService: locationService
+                    projectId: projectId
                 ) {
                     viewModel?.loadGeometries()
                 }

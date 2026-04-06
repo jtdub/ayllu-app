@@ -25,14 +25,16 @@ struct GeometryRepository {
 
     // MARK: - Read
 
-    /// Fetches all geometries for a project
-    func fetchAll(projectId: Int64) throws -> [Geometry] {
+    /// Fetches all non-deleted geometries, optionally filtered by project
+    func fetchAll(projectId: Int64? = nil) throws -> [Geometry] {
         try dbPool.read { db in
-            try Geometry
-                .filter(Geometry.Columns.projectId == projectId)
+            var query = Geometry
                 .filter(Geometry.Columns.deletedAt == nil)
                 .order(Geometry.Columns.createdAt.desc)
-                .fetchAll(db)
+            if let projectId {
+                query = query.filter(Geometry.Columns.projectId == projectId)
+            }
+            return try query.fetchAll(db)
         }
     }
 
@@ -101,6 +103,15 @@ struct GeometryRepository {
     }
 
     // MARK: - Count
+
+    func countByRecord(_ recordId: Int64) throws -> Int {
+        try dbPool.read { db in
+            try Geometry
+                .filter(Geometry.Columns.recordId == recordId)
+                .filter(Geometry.Columns.deletedAt == nil)
+                .fetchCount(db)
+        }
+    }
 
     func countForProject(_ projectId: Int64) throws -> Int {
         try dbPool.read { db in

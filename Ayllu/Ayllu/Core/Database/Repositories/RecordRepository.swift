@@ -110,13 +110,35 @@ struct RecordRepository {
 
     // MARK: - Delete
 
-    /// Soft deletes a record (children cascade via FK)
+    /// Soft deletes a record and all its descendants
     func delete(id: Int64) throws {
         try dbPool.write { db in
-            guard var record = try Record.fetchOne(db, key: id) else { return }
-            record.deletedAt = Date()
-            try record.update(db)
+            let now = Date()
+            try Self.softDeleteRecursively(db, recordId: id, deletedAt: now)
         }
+    }
+
+    /// Recursively soft-deletes a record and all children
+    private static func softDeleteRecursively(
+        _ db: Database,
+        recordId: Int64,
+        deletedAt: Date
+    ) throws {
+        // Soft-delete children first
+        let children = try Record
+            .filter(Record.Columns.parentRecordId == recordId)
+            .filter(Record.Columns.deletedAt == nil)
+            .fetchAll(db)
+        for child in children {
+            if let childId = child.id {
+                try softDeleteRecursively(db, recordId: childId, deletedAt: deletedAt)
+            }
+        }
+
+        // Soft-delete the record itself
+        guard var record = try Record.fetchOne(db, key: recordId) else { return }
+        record.deletedAt = deletedAt
+        try record.update(db)
     }
 
     /// Permanently deletes a record (children cascade via FK)

@@ -1,6 +1,5 @@
 import SwiftUI
 import CoreLocation
-import GRDB
 
 /// Container view for the map with waypoint markers
 struct MapContainerView: View {
@@ -98,15 +97,11 @@ struct MapContainerView: View {
     }
 
     private func loadWaypoints() {
-        let repo = WaypointRepository(dbPool: database.dbPool)
-        waypoints = (try? repo.fetchAll()) ?? []
+        let waypointRepo = WaypointRepository(dbPool: database.dbPool)
+        waypoints = (try? waypointRepo.fetchAll()) ?? []
 
-        // Load geometries from all projects
-        geometries = (try? database.dbPool.read { db in
-            try Geometry
-                .filter(Geometry.Columns.deletedAt == nil)
-                .fetchAll(db)
-        }) ?? []
+        let geometryRepo = GeometryRepository(dbPool: database.dbPool)
+        geometries = (try? geometryRepo.fetchAll()) ?? []
     }
 
     private func createQuickWaypoint() {
