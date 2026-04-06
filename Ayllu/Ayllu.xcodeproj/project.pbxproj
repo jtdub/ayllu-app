@@ -7,10 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04E64B8CB0DD98E404C02BED /* RecordTypeListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99279A336C9F35ACD1D6F9FA /* RecordTypeListViewModel.swift */; };
 		0584FE91239AD5EAD98F48E2 /* DistanceCalculatorSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483B9A02DEFF49B1EBF78D12 /* DistanceCalculatorSheet.swift */; };
 		0888A33AEAC0993839CA3DA5 /* ProjectDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC5F02C7CC5BC14A121017A8 /* ProjectDetailView.swift */; };
 		09EFDD9E441EE48C01774B5F /* GRDB in Frameworks */ = {isa = PBXBuildFile; productRef = 6E729C0136294F63050F52C3 /* GRDB */; };
 		0CC68414DE54BBED91A8A6D1 /* CameraService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62C0FBB5911D0A4AB702CB52 /* CameraService.swift */; };
+		0EFB575554BB6A324757AFA5 /* RecordTreeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F53F747AA59B0B0AE6D0A1B /* RecordTreeView.swift */; };
 		101C2225E8C7DFB6ECE7D07D /* Waypoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 709467A8CE466AD8B758AB85 /* Waypoint.swift */; };
 		132945EFB6B447C14D424D27 /* PhotoRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 566100C697B99C3BC352E6DC /* PhotoRowView.swift */; };
 		154D4E0C0534E2554A1D385F /* ProjectFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C2A3C73A836096F9F7C4566 /* ProjectFormView.swift */; };
@@ -18,46 +20,66 @@
 		173ECEB12BB1BA36DBDB20F7 /* TrackRecordingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C0C07AD60C6DC9FE6363BE /* TrackRecordingService.swift */; };
 		1D0B8786E1F57DDF8D3D8FED /* PrivacyPolicyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 929D5A8C0EA03037486D4164 /* PrivacyPolicyView.swift */; };
 		1EF46A3BC051B17CAD5409BE /* BackupManagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0E693987E440FC18A63FAF /* BackupManagerView.swift */; };
+		25202F2D11DEECE86B1BBC42 /* GeometryEditorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E4BA393BF763EC905287C9D /* GeometryEditorViewModel.swift */; };
 		253CD772A4B4D59C528680F9 /* VoiceRecordingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 767AF164D9D4FDD27F282F2E /* VoiceRecordingButton.swift */; };
 		261C69CF54B2F9AB16094490 /* WaypointListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615348C8B3B1AD0318626432 /* WaypointListViewModel.swift */; };
 		28DBDD78A73E006CEA15BA83 /* GPXExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F94524AFCAC0139168D5F7 /* GPXExporter.swift */; };
 		297FA57797A6F1B8A6BC141B /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A6C0ED86DE7258749D1A01A /* SettingsView.swift */; };
 		2D27F1A241996CC599784BF8 /* PhotoRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DB9A22D8000C7BA9BFA6B6E /* PhotoRepository.swift */; };
+		2D9D9C7192A27780D4483C0D /* RecordHierarchyViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DEF2C92222B604C9C6A8E00 /* RecordHierarchyViewModelTests.swift */; };
+		2E8FDBC4687F67A732A7A46C /* GeometryEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A57071F72F48C1616EB2CC /* GeometryEditorView.swift */; };
 		3363BE8D6C99D7F09FC50B39 /* TrashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C10A057437737DF6D9418F /* TrashView.swift */; };
+		34CB68E63188C8AE8F73F2B3 /* V3RecordsFormsGeometries.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD0D1A9215E68FF58A339C5D /* V3RecordsFormsGeometries.swift */; };
 		3710E972013E9B62E9EB43B8 /* WaypointNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DFAB333F8C54383536E06E7 /* WaypointNavigationView.swift */; };
 		37FC7213C07667DD1A5F8C87 /* TrackRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D2EF8AD9DD97DD8B535FF8 /* TrackRowView.swift */; };
 		3AB7782D6237C267ADC47A8E /* LocationIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA4657F68D04D7CED85C077 /* LocationIndicator.swift */; };
 		3B73161935835D7AE6823799 /* PhotoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4982A7E18FC3D97111A34C /* PhotoListView.swift */; };
+		400A14D3ADB186896DD70450 /* RecordTypeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CDDFFF0C211590D6528666 /* RecordTypeRepository.swift */; };
 		41E8BFB618169664937DC057 /* MapLibre in Frameworks */ = {isa = PBXBuildFile; productRef = 3E2F60AA1F6FBC36CCDC9862 /* MapLibre */; };
 		42FDD7A474602EA68B9C8760 /* ProjectRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7FC6EED3561C02DC925DB6 /* ProjectRepositoryTests.swift */; };
 		4502D20ACC51982551B7EE22 /* OfflineRegionManagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00BFD06755E5C002138F6F2 /* OfflineRegionManagerView.swift */; };
 		45D5210CD20920FBD2438CD9 /* DistanceBearingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92D2DE790409FBA58E40AD55 /* DistanceBearingView.swift */; };
 		464B4A1D60C2C4B70172FF43 /* PhotoDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9D2FA7E4C180C5EF92409D2 /* PhotoDetailView.swift */; };
 		46854A801648CDEED87399D0 /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10B021A343AA9248B33ECCFE /* NetworkMonitor.swift */; };
+		4741E503532CC9E0705AE250 /* RecordTypeRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300848E1390092CF32F5EAB8 /* RecordTypeRepositoryTests.swift */; };
 		4900037F0B65E7CF838FFDFE /* TrackStatisticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13029E410FE259EBCF02B676 /* TrackStatisticsView.swift */; };
+		4A44C3D27439AFCD519DFD87 /* GeometryRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CDCA51215ADD10DBEB85410 /* GeometryRepositoryTests.swift */; };
 		4A581E54A397916F3A5758C7 /* ProjectPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EAB413183C38E453A7D6CF /* ProjectPickerView.swift */; };
+		4D6A82987A0EDB8F33451AF7 /* BreadcrumbView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88136E3ABEF883A77E76F0CC /* BreadcrumbView.swift */; };
 		4DB6170504C1C8B4EC065A95 /* WaypointListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8614C9EF47B1B2542B0341 /* WaypointListViewModelTests.swift */; };
 		4DDE1D674919ADAEA86CDE57 /* CompassView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017ADFFA682A313481B1AEE9 /* CompassView.swift */; };
 		4E70A0767FCF492D8E040A10 /* TrackListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C472DA6305C53D6519B583 /* TrackListView.swift */; };
+		50B4D16770DEC87F081EC64C /* FormTemplateRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4809F0FEDAAB66B535B8AD /* FormTemplateRepository.swift */; };
+		51392AE344ECB87D0C43DE6B /* Color+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDDD5D4525EEA70CFE31421E /* Color+Hex.swift */; };
 		529F38EDE35A0AC933C4250C /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C119CDC509311011E3C1A3A5 /* TabBarView.swift */; };
 		5354F5005D637EB4D0C78E0B /* AylluUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3248C0E4289A488309B1E495 /* AylluUITests.swift */; };
 		55E41559F8539F2A79184B02 /* PhotoCaptureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1C9F72B73E091AC48A65122 /* PhotoCaptureView.swift */; };
 		56AF8293F662E73FE98175DD /* PhotoRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB1564BAC1453A41CB16E5A8 /* PhotoRepositoryTests.swift */; };
+		581B4A83C361C9DEFF6DFB59 /* FormBuilderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED64FBE916044EE505D3AD90 /* FormBuilderViewModel.swift */; };
+		59756E94127EDFAA08D5FA1E /* Geometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09AFC609C72AE0548BBD89D9 /* Geometry.swift */; };
 		5BF73953983F51D8B6C40426 /* MapContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CBDE8374861F1A0C49B47E7 /* MapContainerView.swift */; };
 		5E8962FCC552F07A7982D56C /* UTMConversion in Frameworks */ = {isa = PBXBuildFile; productRef = 32FB69F6BDFDB742229E2B7D /* UTMConversion */; };
 		5E937B94CF968145F8D6851E /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A4912C0928C430078BD8A4 /* Track.swift */; };
 		5FC4D19E998330E22DDD0830 /* FieldNote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CF5CAE926F215C661731B6 /* FieldNote.swift */; };
+		61CA47C68A8E2C8112101AD4 /* GeometryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B389662A1847DACF8731BFC /* GeometryListView.swift */; };
 		621979A7E9320AE227D34BE5 /* MapRegionRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54590C737C5B7F8C5E4591C8 /* MapRegionRepository.swift */; };
+		667964988F2EFD2313E140AE /* CSVExportService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0486F9B49D8DDF55E7C9D8E /* CSVExportService.swift */; };
 		6A04ABA48F1BBCE22AA48FE6 /* TrackRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77EE3A8B71D59855593EA094 /* TrackRepositoryTests.swift */; };
 		6F0C85988064AC0F1D18038D /* ProjectListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E38E8A8A0BB2939DB6E27D2 /* ProjectListViewModelTests.swift */; };
+		76CEB3850399F6882E11BCDB /* RecordType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B317A2BEFCF646413BA7181C /* RecordType.swift */; };
 		7701E4F3FC4BA9665C26603C /* GeoCalculatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED04D07E789AE014529A817 /* GeoCalculatorTests.swift */; };
 		793FE68DFDE81B0F0A2BF937 /* NoteEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44144BB77EF28C30DBFF6807 /* NoteEditorView.swift */; };
+		79ED99882C7BF63AE3810C1F /* RecordDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02C6866361E26C7F28BEE77A /* RecordDetailView.swift */; };
 		7E8F16F89369985B25CAF197 /* NoteEditorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F9F3DC23AFB22A7EFE162C5 /* NoteEditorViewModel.swift */; };
+		81AB2329889F03E3BD0BF128 /* GeometryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE5265954E07AA3972F331ED /* GeometryRepository.swift */; };
+		82E4DAD802937590FFD6BB88 /* RecordFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53555706888B5EBCDDA7CCC /* RecordFormView.swift */; };
 		82EB04F925005AD4501E50A7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 326A05EC0508D0377B48DD14 /* Assets.xcassets */; };
+		8344335E6753FD4F006EF1A9 /* GeometryListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA262C52FACCCC004A07687 /* GeometryListViewModel.swift */; };
 		8470ABC94020DA4CB803DAB0 /* WaypointRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557E0FF018AF0668BA0C736F /* WaypointRepositoryTests.swift */; };
 		85E49CB49A74EC3DEEC02DEE /* MapRegion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EE3526F29A3390D5B90FBEE /* MapRegion.swift */; };
 		870D291102B2CDA7031DF450 /* NoteRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA42693DF462447D7F3ED4 /* NoteRepository.swift */; };
 		87D19D6437B2405EA40F220A /* TrashService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5112345067A4934FA5BF48AA /* TrashService.swift */; };
+		88617781FE4B62721B244087 /* CSVExportServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B733ED410A09443001B034E /* CSVExportServiceTests.swift */; };
 		8D2CD248BBF24A47E19D8570 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939617EAC7A37FED2234F952 /* OnboardingView.swift */; };
 		8EF865E01B9F844C471A2470 /* SearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 850BF7DCD44D0E580968222F /* SearchService.swift */; };
 		91F3483B8468968C00DB61DB /* PhotoStorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6634082737D8C817733C9A /* PhotoStorageService.swift */; };
@@ -66,6 +88,8 @@
 		9774915A4F38B9FE83BCBA7C /* GlobalSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0A9CD1799E0CCF45AD231F /* GlobalSearchView.swift */; };
 		97F28281C7AB66AFF376268E /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86596F74F8C358B0134C3838 /* DatabaseManager.swift */; };
 		98DDD13717F34E0D9C780B1F /* GeoCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDBE5FB8CEABA9D8F3477EA /* GeoCalculator.swift */; };
+		9A0120A3482F59063E054487 /* GeometryVertex.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A8AF0DEB5530BC1FDEB7C1 /* GeometryVertex.swift */; };
+		9BC856FBF560115ECDAD1A8B /* FormRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295B8148741957EEA373F314 /* FormRepositoryTests.swift */; };
 		9F6E55A8146D5CCDBBCE5CF5 /* OpenTopoMap-style.json in Resources */ = {isa = PBXBuildFile; fileRef = E7812D6C7FA04318113A744E /* OpenTopoMap-style.json */; };
 		A06A9B59E766D44BE8829ACD /* WaypointFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5F2D515CE6EA11121C36260 /* WaypointFormView.swift */; };
 		A465DB1E34CF18187D213784 /* ColorSchemePreference.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6365C6A8F6D1C3DD2004A6D /* ColorSchemePreference.swift */; };
@@ -75,32 +99,47 @@
 		B057B727A5C1F220C30EB1DE /* GRDB in Frameworks */ = {isa = PBXBuildFile; productRef = C950F2E2F910A5780D1ABEBD /* GRDB */; };
 		B0B3A101D686939215B11408 /* WaypointListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36A208CCA388D1E74813796 /* WaypointListView.swift */; };
 		B44BED216F4FD2BCB6377D72 /* NoteRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF9B9615936D0C92E1E7B1D /* NoteRepositoryTests.swift */; };
+		B5A13D9CA020EF199BA29EDF /* GeoCalculatorPolygonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55175CDE9F474E549A344D92 /* GeoCalculatorPolygonTests.swift */; };
 		B945472A1280DF6F7F575180 /* TrackPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 686EB75AE32C9F264EE8C030 /* TrackPoint.swift */; };
 		BC486FFA86FD3B6CAF3AD254 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE6D468AB72B9AE3F6A133A /* LocationService.swift */; };
+		BCB0383CB4E83A6871347C4E /* FormBuilderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BFAA3CD22017B801300CBE /* FormBuilderView.swift */; };
 		BDB2BB9854287CDB9CAF2918 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2BDC7F95E158483347B3736 /* Photo.swift */; };
 		BDCC1AF0DC53DE56249F4106 /* CoordinateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F21CE247F13AB67ED037DC3B /* CoordinateFormatter.swift */; };
 		C1C138750409B64BCC8A792D /* GPXExporterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F2FF7DDDB5B633386AF3D7E /* GPXExporterTests.swift */; };
 		C25F15DA260CF3A179412EC2 /* PhotoReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C0E783FB65AC5F97723E82D /* PhotoReviewView.swift */; };
+		C44F51B7A5B9AC33AD38F8EF /* RecordRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D40255A6CF3636355D97853 /* RecordRepository.swift */; };
+		C56516D63979256AAFB5BCFB /* FormRendererView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34943CFA57F500C2B7423223 /* FormRendererView.swift */; };
+		C56F735A4D1FEC1084A40D31 /* FieldEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826E15D6AC44594A5F25DFF3 /* FieldEditorView.swift */; };
 		C6F04187CA3DA73BB1BF6779 /* MapRegionModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFACF1EA9C2CA45A397D0562 /* MapRegionModelTests.swift */; };
 		C9F786A06073B1E07EA1B1D4 /* SpeechService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF5AD8729FF5F61B8C2697D /* SpeechService.swift */; };
 		CB9680E34E2583E4777723FE /* TrackDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4B1C99AAD1FBF53F806F0B /* TrackDetailView.swift */; };
 		CD6BD70B14F35DE95F786F96 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2206F6B5470CB9AD5ADA3CE6 /* Project.swift */; };
+		CDF7100BE6E1686B53FBC766 /* RecordRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21185E3F82CDAB50025F15B3 /* RecordRepositoryTests.swift */; };
 		CEA55A8978E82097C7EED7C8 /* AylluApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F6E7BE01CBF9CC66F3125BC /* AylluApp.swift */; };
 		CFFEE7CB114E8E1C4B8E9990 /* LocateMeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1849682E6DAA8D6701C137D4 /* LocateMeButton.swift */; };
 		D09855FE119B4B455FA9AF4F /* TrackRecordingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8D18C62FD4943569CFFC2D /* TrackRecordingView.swift */; };
 		D16032FFF39B1E04D508BC9E /* CoreGPX in Frameworks */ = {isa = PBXBuildFile; productRef = 9973158943B16BA78131D467 /* CoreGPX */; };
+		D44E2A7C39667D271EC33F92 /* GeometryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 258B504B4056835B027FC038 /* GeometryDetailView.swift */; };
 		D4939C395042973D2AC4314B /* RegionSelectionMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0664F1FF0FFB7ADAFD6EC2 /* RegionSelectionMapView.swift */; };
 		D6E72B81534198A88A45E5BC /* NetworkStatusIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05C874355A07BCED47B8068 /* NetworkStatusIndicator.swift */; };
 		D70FA4E09894F6FFC2C7ED17 /* CoordinateFormatterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F4D243CBF91C5666E54BD74 /* CoordinateFormatterTests.swift */; };
+		D9933E921FA52952762F085C /* FormFieldRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6CB3B6B99F4495BC4705E7 /* FormFieldRepository.swift */; };
 		DB3A3AC32473A7F43F2299FB /* MapRegionRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4507858446C617E7324655CF /* MapRegionRepositoryTests.swift */; };
 		DF5C6042E9EDB9A4A008DBD1 /* CameraPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00B72E10F75A31E17E5BAAD /* CameraPreviewView.swift */; };
+		DF8F829BD09CC0BADE30F0BD /* RecordTypeSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DE03D05564231691C60007E /* RecordTypeSetupView.swift */; };
 		E42D945A6C367FF6AF12C0C3 /* MapLibreMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2230F396031D1D860B3617B0 /* MapLibreMapView.swift */; };
 		E4D89F8067F555F319304BD7 /* OfflineMapService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2925A29F4CDEF42112867C25 /* OfflineMapService.swift */; };
 		EA73430E70219E94E458C667 /* WaypointDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A462211E5B890C61ABD9F8FE /* WaypointDetailView.swift */; };
+		ED3B39B4E2D3036849329DF3 /* Record.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17F0E7E8F5D7848B36EDCA78 /* Record.swift */; };
+		EF4A54F7BFE8C7EA30DE36B6 /* RecordTypeFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94384087784F25624614F5A7 /* RecordTypeFormView.swift */; };
+		F34B19E12CC962816FEBE9DD /* FormRendererViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4600C28D2DA620CEB9B6B88 /* FormRendererViewModel.swift */; };
 		F7896895B2CFDD89A5449FA9 /* ProjectListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4BB7BAEC46C25517AD8D30 /* ProjectListView.swift */; };
+		F79F8E1D5F12A08D237004AD /* FormTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D64EED1FF59296B3B6BA977 /* FormTemplate.swift */; };
 		F7E55143FC5146293004FE04 /* WaypointRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 436DAF44E185C7469C64A867 /* WaypointRepository.swift */; };
+		F8D963F13D1ABCDD01EDB731 /* FormField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372F43668A7B3FD791E4F2A3 /* FormField.swift */; };
 		FEAC8FB3C986A32A22CB8FAE /* ProjectRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53986E2C314E61FA1AF830DA /* ProjectRepository.swift */; };
 		FF0FDC0A0F9102D4F89CB733 /* ProjectListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E9514F75498DA6F4AAE6933 /* ProjectListViewModel.swift */; };
+		FF8BFAF930D47154FD4EC2AC /* RecordHierarchyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84D842F4EE93B2DB34B34C0 /* RecordHierarchyViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -123,27 +162,43 @@
 /* Begin PBXFileReference section */
 		017ADFFA682A313481B1AEE9 /* CompassView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompassView.swift; sourceTree = "<group>"; };
 		02B07DD96469AB9072CFFBBA /* AylluUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = AylluUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		02C6866361E26C7F28BEE77A /* RecordDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordDetailView.swift; sourceTree = "<group>"; };
 		08C0C07AD60C6DC9FE6363BE /* TrackRecordingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackRecordingService.swift; sourceTree = "<group>"; };
+		09AFC609C72AE0548BBD89D9 /* Geometry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Geometry.swift; sourceTree = "<group>"; };
+		0A4809F0FEDAAB66B535B8AD /* FormTemplateRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormTemplateRepository.swift; sourceTree = "<group>"; };
+		0B389662A1847DACF8731BFC /* GeometryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeometryListView.swift; sourceTree = "<group>"; };
 		0E7FC6EED3561C02DC925DB6 /* ProjectRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectRepositoryTests.swift; sourceTree = "<group>"; };
 		0E9514F75498DA6F4AAE6933 /* ProjectListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectListViewModel.swift; sourceTree = "<group>"; };
 		0F6E7BE01CBF9CC66F3125BC /* AylluApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AylluApp.swift; sourceTree = "<group>"; };
 		0FCDFD0BCAB7D9DE48CF2A8F /* AylluTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = AylluTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		10B021A343AA9248B33ECCFE /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
 		13029E410FE259EBCF02B676 /* TrackStatisticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackStatisticsView.swift; sourceTree = "<group>"; };
+		17F0E7E8F5D7848B36EDCA78 /* Record.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Record.swift; sourceTree = "<group>"; };
 		1849682E6DAA8D6701C137D4 /* LocateMeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocateMeButton.swift; sourceTree = "<group>"; };
 		18CF5CAE926F215C661731B6 /* FieldNote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FieldNote.swift; sourceTree = "<group>"; };
 		19C472DA6305C53D6519B583 /* TrackListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackListView.swift; sourceTree = "<group>"; };
 		1BF9B9615936D0C92E1E7B1D /* NoteRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteRepositoryTests.swift; sourceTree = "<group>"; };
+		1D64EED1FF59296B3B6BA977 /* FormTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormTemplate.swift; sourceTree = "<group>"; };
+		1E4BA393BF763EC905287C9D /* GeometryEditorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeometryEditorViewModel.swift; sourceTree = "<group>"; };
+		1FA262C52FACCCC004A07687 /* GeometryListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeometryListViewModel.swift; sourceTree = "<group>"; };
+		21185E3F82CDAB50025F15B3 /* RecordRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordRepositoryTests.swift; sourceTree = "<group>"; };
 		2206F6B5470CB9AD5ADA3CE6 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		2230F396031D1D860B3617B0 /* MapLibreMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapLibreMapView.swift; sourceTree = "<group>"; };
 		24F94524AFCAC0139168D5F7 /* GPXExporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPXExporter.swift; sourceTree = "<group>"; };
+		258B504B4056835B027FC038 /* GeometryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeometryDetailView.swift; sourceTree = "<group>"; };
 		2925A29F4CDEF42112867C25 /* OfflineMapService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfflineMapService.swift; sourceTree = "<group>"; };
+		295B8148741957EEA373F314 /* FormRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormRepositoryTests.swift; sourceTree = "<group>"; };
 		2AED28453545C1E6AFC78440 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		2DE03D05564231691C60007E /* RecordTypeSetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordTypeSetupView.swift; sourceTree = "<group>"; };
 		2E38E8A8A0BB2939DB6E27D2 /* ProjectListViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectListViewModelTests.swift; sourceTree = "<group>"; };
+		300848E1390092CF32F5EAB8 /* RecordTypeRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordTypeRepositoryTests.swift; sourceTree = "<group>"; };
 		31D92DEF26577BB49E0B2BAB /* NoteListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteListView.swift; sourceTree = "<group>"; };
 		3248C0E4289A488309B1E495 /* AylluUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AylluUITests.swift; sourceTree = "<group>"; };
 		326A05EC0508D0377B48DD14 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		34943CFA57F500C2B7423223 /* FormRendererView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormRendererView.swift; sourceTree = "<group>"; };
+		372F43668A7B3FD791E4F2A3 /* FormField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormField.swift; sourceTree = "<group>"; };
 		3A8D18C62FD4943569CFFC2D /* TrackRecordingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackRecordingView.swift; sourceTree = "<group>"; };
+		3CDCA51215ADD10DBEB85410 /* GeometryRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeometryRepositoryTests.swift; sourceTree = "<group>"; };
 		3F0A9CD1799E0CCF45AD231F /* GlobalSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalSearchView.swift; sourceTree = "<group>"; };
 		436DAF44E185C7469C64A867 /* WaypointRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaypointRepository.swift; sourceTree = "<group>"; };
 		44144BB77EF28C30DBFF6807 /* NoteEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteEditorView.swift; sourceTree = "<group>"; };
@@ -155,11 +210,14 @@
 		5112345067A4934FA5BF48AA /* TrashService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrashService.swift; sourceTree = "<group>"; };
 		53986E2C314E61FA1AF830DA /* ProjectRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectRepository.swift; sourceTree = "<group>"; };
 		54590C737C5B7F8C5E4591C8 /* MapRegionRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapRegionRepository.swift; sourceTree = "<group>"; };
+		55175CDE9F474E549A344D92 /* GeoCalculatorPolygonTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoCalculatorPolygonTests.swift; sourceTree = "<group>"; };
 		557E0FF018AF0668BA0C736F /* WaypointRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaypointRepositoryTests.swift; sourceTree = "<group>"; };
 		566100C697B99C3BC352E6DC /* PhotoRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoRowView.swift; sourceTree = "<group>"; };
 		56FC824418246CEF589840EA /* DatabaseBackupService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseBackupService.swift; sourceTree = "<group>"; };
+		5B733ED410A09443001B034E /* CSVExportServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSVExportServiceTests.swift; sourceTree = "<group>"; };
 		5C2A3C73A836096F9F7C4566 /* ProjectFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectFormView.swift; sourceTree = "<group>"; };
 		5CBDE8374861F1A0C49B47E7 /* MapContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapContainerView.swift; sourceTree = "<group>"; };
+		5DEF2C92222B604C9C6A8E00 /* RecordHierarchyViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordHierarchyViewModelTests.swift; sourceTree = "<group>"; };
 		5F2FF7DDDB5B633386AF3D7E /* GPXExporterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPXExporterTests.swift; sourceTree = "<group>"; };
 		615348C8B3B1AD0318626432 /* WaypointListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaypointListViewModel.swift; sourceTree = "<group>"; };
 		62C0FBB5911D0A4AB702CB52 /* CameraService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraService.swift; sourceTree = "<group>"; };
@@ -173,46 +231,66 @@
 		7B0E693987E440FC18A63FAF /* BackupManagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackupManagerView.swift; sourceTree = "<group>"; };
 		7C0E783FB65AC5F97723E82D /* PhotoReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoReviewView.swift; sourceTree = "<group>"; };
 		7CE6D468AB72B9AE3F6A133A /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
+		7D40255A6CF3636355D97853 /* RecordRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordRepository.swift; sourceTree = "<group>"; };
 		7F9F3DC23AFB22A7EFE162C5 /* NoteEditorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteEditorViewModel.swift; sourceTree = "<group>"; };
+		826E15D6AC44594A5F25DFF3 /* FieldEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FieldEditorView.swift; sourceTree = "<group>"; };
 		850BF7DCD44D0E580968222F /* SearchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchService.swift; sourceTree = "<group>"; };
 		86596F74F8C358B0134C3838 /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
+		88136E3ABEF883A77E76F0CC /* BreadcrumbView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreadcrumbView.swift; sourceTree = "<group>"; };
 		8E8614C9EF47B1B2542B0341 /* WaypointListViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaypointListViewModelTests.swift; sourceTree = "<group>"; };
 		8EA4657F68D04D7CED85C077 /* LocationIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationIndicator.swift; sourceTree = "<group>"; };
 		8F4D243CBF91C5666E54BD74 /* CoordinateFormatterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateFormatterTests.swift; sourceTree = "<group>"; };
 		929D5A8C0EA03037486D4164 /* PrivacyPolicyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyPolicyView.swift; sourceTree = "<group>"; };
 		92D2DE790409FBA58E40AD55 /* DistanceBearingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistanceBearingView.swift; sourceTree = "<group>"; };
 		939617EAC7A37FED2234F952 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		94384087784F25624614F5A7 /* RecordTypeFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordTypeFormView.swift; sourceTree = "<group>"; };
 		96A4912C0928C430078BD8A4 /* Track.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Track.swift; sourceTree = "<group>"; };
+		99279A336C9F35ACD1D6F9FA /* RecordTypeListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordTypeListViewModel.swift; sourceTree = "<group>"; };
 		9A4BB7BAEC46C25517AD8D30 /* ProjectListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectListView.swift; sourceTree = "<group>"; };
 		9A6C0ED86DE7258749D1A01A /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		9B4B1C99AAD1FBF53F806F0B /* TrackDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackDetailView.swift; sourceTree = "<group>"; };
 		9DB9A22D8000C7BA9BFA6B6E /* PhotoRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoRepository.swift; sourceTree = "<group>"; };
+		9F53F747AA59B0B0AE6D0A1B /* RecordTreeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordTreeView.swift; sourceTree = "<group>"; };
 		A05C874355A07BCED47B8068 /* NetworkStatusIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkStatusIndicator.swift; sourceTree = "<group>"; };
+		A0BFAA3CD22017B801300CBE /* FormBuilderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormBuilderView.swift; sourceTree = "<group>"; };
 		A462211E5B890C61ABD9F8FE /* WaypointDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaypointDetailView.swift; sourceTree = "<group>"; };
 		A6365C6A8F6D1C3DD2004A6D /* ColorSchemePreference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSchemePreference.swift; sourceTree = "<group>"; };
 		A7C10A057437737DF6D9418F /* TrashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrashView.swift; sourceTree = "<group>"; };
 		A9D2FA7E4C180C5EF92409D2 /* PhotoDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoDetailView.swift; sourceTree = "<group>"; };
 		AAAA42693DF462447D7F3ED4 /* NoteRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteRepository.swift; sourceTree = "<group>"; };
+		AE5265954E07AA3972F331ED /* GeometryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeometryRepository.swift; sourceTree = "<group>"; };
+		AF6CB3B6B99F4495BC4705E7 /* FormFieldRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormFieldRepository.swift; sourceTree = "<group>"; };
 		B00B72E10F75A31E17E5BAAD /* CameraPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPreviewView.swift; sourceTree = "<group>"; };
 		B1C9F72B73E091AC48A65122 /* PhotoCaptureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCaptureView.swift; sourceTree = "<group>"; };
+		B317A2BEFCF646413BA7181C /* RecordType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordType.swift; sourceTree = "<group>"; };
 		B3F9D2137F128348D8E5E37E /* TrackRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackRepository.swift; sourceTree = "<group>"; };
+		B53555706888B5EBCDDA7CCC /* RecordFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordFormView.swift; sourceTree = "<group>"; };
+		B8A57071F72F48C1616EB2CC /* GeometryEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeometryEditorView.swift; sourceTree = "<group>"; };
 		C00BFD06755E5C002138F6F2 /* OfflineRegionManagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfflineRegionManagerView.swift; sourceTree = "<group>"; };
 		C119CDC509311011E3C1A3A5 /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
 		C36A208CCA388D1E74813796 /* WaypointListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaypointListView.swift; sourceTree = "<group>"; };
+		C4A8AF0DEB5530BC1FDEB7C1 /* GeometryVertex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeometryVertex.swift; sourceTree = "<group>"; };
 		CAF5AD8729FF5F61B8C2697D /* SpeechService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechService.swift; sourceTree = "<group>"; };
 		CBDBE5FB8CEABA9D8F3477EA /* GeoCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoCalculator.swift; sourceTree = "<group>"; };
 		CC020FE5A13CEBFAE3EAA31F /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		CDDD5D4525EEA70CFE31421E /* Color+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Hex.swift"; sourceTree = "<group>"; };
 		CFACF1EA9C2CA45A397D0562 /* MapRegionModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapRegionModelTests.swift; sourceTree = "<group>"; };
 		D7EAB413183C38E453A7D6CF /* ProjectPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectPickerView.swift; sourceTree = "<group>"; };
+		E4CDDFFF0C211590D6528666 /* RecordTypeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordTypeRepository.swift; sourceTree = "<group>"; };
 		E7812D6C7FA04318113A744E /* OpenTopoMap-style.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "OpenTopoMap-style.json"; sourceTree = "<group>"; };
 		EA4982A7E18FC3D97111A34C /* PhotoListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoListView.swift; sourceTree = "<group>"; };
 		EC5F02C7CC5BC14A121017A8 /* ProjectDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDetailView.swift; sourceTree = "<group>"; };
+		ED64FBE916044EE505D3AD90 /* FormBuilderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormBuilderViewModel.swift; sourceTree = "<group>"; };
 		EE5CE6A0C7EE532727F2E32B /* Ayllu.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Ayllu.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F0486F9B49D8DDF55E7C9D8E /* CSVExportService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSVExportService.swift; sourceTree = "<group>"; };
 		F21CE247F13AB67ED037DC3B /* CoordinateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateFormatter.swift; sourceTree = "<group>"; };
 		F2BDC7F95E158483347B3736 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
+		F4600C28D2DA620CEB9B6B88 /* FormRendererViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormRendererViewModel.swift; sourceTree = "<group>"; };
 		F4D2EF8AD9DD97DD8B535FF8 /* TrackRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackRowView.swift; sourceTree = "<group>"; };
 		F5F2D515CE6EA11121C36260 /* WaypointFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaypointFormView.swift; sourceTree = "<group>"; };
+		F84D842F4EE93B2DB34B34C0 /* RecordHierarchyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordHierarchyViewModel.swift; sourceTree = "<group>"; };
 		FB1564BAC1453A41CB16E5A8 /* PhotoRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoRepositoryTests.swift; sourceTree = "<group>"; };
+		FD0D1A9215E68FF58A339C5D /* V3RecordsFormsGeometries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = V3RecordsFormsGeometries.swift; sourceTree = "<group>"; };
 		FE0664F1FF0FFB7ADAFD6EC2 /* RegionSelectionMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionSelectionMapView.swift; sourceTree = "<group>"; };
 		FED04D07E789AE014529A817 /* GeoCalculatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoCalculatorTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -246,6 +324,15 @@
 				CBF965BA4718AA2385C4CF4D /* Views */,
 			);
 			path = Tracks;
+			sourceTree = "<group>";
+		};
+		05257DB655E3A658630B805F /* Forms */ = {
+			isa = PBXGroup;
+			children = (
+				55A7922560A08053514FF1C7 /* ViewModels */,
+				2548DC40E16620AA60DB1F91 /* Views */,
+			);
+			path = Forms;
 			sourceTree = "<group>";
 		};
 		0FCF47CC8AA8F7CE2413F3EE /* ModelTests */ = {
@@ -282,9 +369,20 @@
 			path = Waypoints;
 			sourceTree = "<group>";
 		};
+		2548DC40E16620AA60DB1F91 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				826E15D6AC44594A5F25DFF3 /* FieldEditorView.swift */,
+				A0BFAA3CD22017B801300CBE /* FormBuilderView.swift */,
+				34943CFA57F500C2B7423223 /* FormRendererView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		25E8B5434F6478407B56EBB4 /* Export */ = {
 			isa = PBXGroup;
 			children = (
+				F0486F9B49D8DDF55E7C9D8E /* CSVExportService.swift */,
 				24F94524AFCAC0139168D5F7 /* GPXExporter.swift */,
 			);
 			path = Export;
@@ -293,12 +391,15 @@
 		28EAE752916E69C95DBD38F7 /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				05257DB655E3A658630B805F /* Forms */,
+				DE88CA30665FCEE8B9A7DFB4 /* Geometry */,
 				1A0AB26366B1058FBDA2DB9A /* Map */,
 				A322DCC6C4B39CD59848D4B4 /* Navigation */,
 				F906A5B75616B4B519177590 /* Notes */,
 				326A5CA95FE5FDA6403177A7 /* Onboarding */,
 				80ACFB86CDC9DB8FD4FE2AE3 /* Photos */,
 				555FE9648FBFDC5CA917E2F0 /* Projects */,
+				392516FDA5D3081635A66A3A /* Records */,
 				8ECC332BF7CDFDE127EA619F /* Search */,
 				89D6EE4DA69508A0D0F8A920 /* Settings */,
 				025DBA27C2796673C7513B8A /* Tracks */,
@@ -319,9 +420,15 @@
 			isa = PBXGroup;
 			children = (
 				18CF5CAE926F215C661731B6 /* FieldNote.swift */,
+				372F43668A7B3FD791E4F2A3 /* FormField.swift */,
+				1D64EED1FF59296B3B6BA977 /* FormTemplate.swift */,
+				09AFC609C72AE0548BBD89D9 /* Geometry.swift */,
+				C4A8AF0DEB5530BC1FDEB7C1 /* GeometryVertex.swift */,
 				6EE3526F29A3390D5B90FBEE /* MapRegion.swift */,
 				F2BDC7F95E158483347B3736 /* Photo.swift */,
 				2206F6B5470CB9AD5ADA3CE6 /* Project.swift */,
+				17F0E7E8F5D7848B36EDCA78 /* Record.swift */,
+				B317A2BEFCF646413BA7181C /* RecordType.swift */,
 				96A4912C0928C430078BD8A4 /* Track.swift */,
 				686EB75AE32C9F264EE8C030 /* TrackPoint.swift */,
 				709467A8CE466AD8B758AB85 /* Waypoint.swift */,
@@ -347,14 +454,33 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		392516FDA5D3081635A66A3A /* Records */ = {
+			isa = PBXGroup;
+			children = (
+				45DAF17A61C0497CF6B8A2DE /* ViewModels */,
+				AF29511ADC6FB22BD1A1BAD6 /* Views */,
+			);
+			path = Records;
+			sourceTree = "<group>";
+		};
 		3F0F9A53C3B6787EB4D267D6 /* ViewModelTests */ = {
 			isa = PBXGroup;
 			children = (
 				4D5600D717AD89CB20E3D7A0 /* NoteEditorViewModelTests.swift */,
 				2E38E8A8A0BB2939DB6E27D2 /* ProjectListViewModelTests.swift */,
+				5DEF2C92222B604C9C6A8E00 /* RecordHierarchyViewModelTests.swift */,
 				8E8614C9EF47B1B2542B0341 /* WaypointListViewModelTests.swift */,
 			);
 			path = ViewModelTests;
+			sourceTree = "<group>";
+		};
+		45DAF17A61C0497CF6B8A2DE /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				F84D842F4EE93B2DB34B34C0 /* RecordHierarchyViewModel.swift */,
+				99279A336C9F35ACD1D6F9FA /* RecordTypeListViewModel.swift */,
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 		4958B9AB88AA293756E71D9E /* Ayllu */ = {
@@ -373,6 +499,8 @@
 			isa = PBXGroup;
 			children = (
 				8F4D243CBF91C5666E54BD74 /* CoordinateFormatterTests.swift */,
+				5B733ED410A09443001B034E /* CSVExportServiceTests.swift */,
+				55175CDE9F474E549A344D92 /* GeoCalculatorPolygonTests.swift */,
 				FED04D07E789AE014529A817 /* GeoCalculatorTests.swift */,
 				5F2FF7DDDB5B633386AF3D7E /* GPXExporterTests.swift */,
 			);
@@ -423,6 +551,24 @@
 			path = Projects;
 			sourceTree = "<group>";
 		};
+		55A7922560A08053514FF1C7 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				ED64FBE916044EE505D3AD90 /* FormBuilderViewModel.swift */,
+				F4600C28D2DA620CEB9B6B88 /* FormRendererViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		578997D1B0DEA6762E2E8E93 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				1E4BA393BF763EC905287C9D /* GeometryEditorViewModel.swift */,
+				1FA262C52FACCCC004A07687 /* GeometryListViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
 		5AA71E3F7CC5FF759013B05B /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -451,6 +597,7 @@
 		6DED75EFEDDAAEA65D5DC8BB /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				CDDD5D4525EEA70CFE31421E /* Color+Hex.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -549,11 +696,35 @@
 			path = Navigation;
 			sourceTree = "<group>";
 		};
+		AF29511ADC6FB22BD1A1BAD6 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				88136E3ABEF883A77E76F0CC /* BreadcrumbView.swift */,
+				02C6866361E26C7F28BEE77A /* RecordDetailView.swift */,
+				B53555706888B5EBCDDA7CCC /* RecordFormView.swift */,
+				9F53F747AA59B0B0AE6D0A1B /* RecordTreeView.swift */,
+				94384087784F25624614F5A7 /* RecordTypeFormView.swift */,
+				2DE03D05564231691C60007E /* RecordTypeSetupView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		B3665129CB036A354F52E63F /* Migrations */ = {
 			isa = PBXGroup;
 			children = (
+				FD0D1A9215E68FF58A339C5D /* V3RecordsFormsGeometries.swift */,
 			);
 			path = Migrations;
+			sourceTree = "<group>";
+		};
+		B82060E103F8D4CF44AE0009 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				258B504B4056835B027FC038 /* GeometryDetailView.swift */,
+				B8A57071F72F48C1616EB2CC /* GeometryEditorView.swift */,
+				0B389662A1847DACF8731BFC /* GeometryListView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		C259AF46D87C0BA43F370BFA /* Core */ = {
@@ -643,13 +814,26 @@
 			path = ViewModels;
 			sourceTree = "<group>";
 		};
+		DE88CA30665FCEE8B9A7DFB4 /* Geometry */ = {
+			isa = PBXGroup;
+			children = (
+				578997D1B0DEA6762E2E8E93 /* ViewModels */,
+				B82060E103F8D4CF44AE0009 /* Views */,
+			);
+			path = Geometry;
+			sourceTree = "<group>";
+		};
 		E1D81B22F6B5609DAC30E742 /* RepositoryTests */ = {
 			isa = PBXGroup;
 			children = (
+				295B8148741957EEA373F314 /* FormRepositoryTests.swift */,
+				3CDCA51215ADD10DBEB85410 /* GeometryRepositoryTests.swift */,
 				4507858446C617E7324655CF /* MapRegionRepositoryTests.swift */,
 				1BF9B9615936D0C92E1E7B1D /* NoteRepositoryTests.swift */,
 				FB1564BAC1453A41CB16E5A8 /* PhotoRepositoryTests.swift */,
 				0E7FC6EED3561C02DC925DB6 /* ProjectRepositoryTests.swift */,
+				21185E3F82CDAB50025F15B3 /* RecordRepositoryTests.swift */,
+				300848E1390092CF32F5EAB8 /* RecordTypeRepositoryTests.swift */,
 				77EE3A8B71D59855593EA094 /* TrackRepositoryTests.swift */,
 				557E0FF018AF0668BA0C736F /* WaypointRepositoryTests.swift */,
 			);
@@ -659,10 +843,15 @@
 		E39A704A14D88A68684D0BCE /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
+				AF6CB3B6B99F4495BC4705E7 /* FormFieldRepository.swift */,
+				0A4809F0FEDAAB66B535B8AD /* FormTemplateRepository.swift */,
+				AE5265954E07AA3972F331ED /* GeometryRepository.swift */,
 				54590C737C5B7F8C5E4591C8 /* MapRegionRepository.swift */,
 				AAAA42693DF462447D7F3ED4 /* NoteRepository.swift */,
 				9DB9A22D8000C7BA9BFA6B6E /* PhotoRepository.swift */,
 				53986E2C314E61FA1AF830DA /* ProjectRepository.swift */,
+				7D40255A6CF3636355D97853 /* RecordRepository.swift */,
+				E4CDDFFF0C211590D6528666 /* RecordTypeRepository.swift */,
 				B3F9D2137F128348D8E5E37E /* TrackRepository.swift */,
 				436DAF44E185C7469C64A867 /* WaypointRepository.swift */,
 			);
@@ -867,8 +1056,11 @@
 			files = (
 				CEA55A8978E82097C7EED7C8 /* AylluApp.swift in Sources */,
 				1EF46A3BC051B17CAD5409BE /* BackupManagerView.swift in Sources */,
+				4D6A82987A0EDB8F33451AF7 /* BreadcrumbView.swift in Sources */,
+				667964988F2EFD2313E140AE /* CSVExportService.swift in Sources */,
 				DF5C6042E9EDB9A4A008DBD1 /* CameraPreviewView.swift in Sources */,
 				0CC68414DE54BBED91A8A6D1 /* CameraService.swift in Sources */,
+				51392AE344ECB87D0C43DE6B /* Color+Hex.swift in Sources */,
 				A465DB1E34CF18187D213784 /* ColorSchemePreference.swift in Sources */,
 				16C2FAF003F7071C771BC85C /* Colors.swift in Sources */,
 				4DDE1D674919ADAEA86CDE57 /* CompassView.swift in Sources */,
@@ -877,9 +1069,26 @@
 				97F28281C7AB66AFF376268E /* DatabaseManager.swift in Sources */,
 				45D5210CD20920FBD2438CD9 /* DistanceBearingView.swift in Sources */,
 				0584FE91239AD5EAD98F48E2 /* DistanceCalculatorSheet.swift in Sources */,
+				C56F735A4D1FEC1084A40D31 /* FieldEditorView.swift in Sources */,
 				5FC4D19E998330E22DDD0830 /* FieldNote.swift in Sources */,
+				BCB0383CB4E83A6871347C4E /* FormBuilderView.swift in Sources */,
+				581B4A83C361C9DEFF6DFB59 /* FormBuilderViewModel.swift in Sources */,
+				F8D963F13D1ABCDD01EDB731 /* FormField.swift in Sources */,
+				D9933E921FA52952762F085C /* FormFieldRepository.swift in Sources */,
+				C56516D63979256AAFB5BCFB /* FormRendererView.swift in Sources */,
+				F34B19E12CC962816FEBE9DD /* FormRendererViewModel.swift in Sources */,
+				F79F8E1D5F12A08D237004AD /* FormTemplate.swift in Sources */,
+				50B4D16770DEC87F081EC64C /* FormTemplateRepository.swift in Sources */,
 				28DBDD78A73E006CEA15BA83 /* GPXExporter.swift in Sources */,
 				98DDD13717F34E0D9C780B1F /* GeoCalculator.swift in Sources */,
+				59756E94127EDFAA08D5FA1E /* Geometry.swift in Sources */,
+				D44E2A7C39667D271EC33F92 /* GeometryDetailView.swift in Sources */,
+				2E8FDBC4687F67A732A7A46C /* GeometryEditorView.swift in Sources */,
+				25202F2D11DEECE86B1BBC42 /* GeometryEditorViewModel.swift in Sources */,
+				61CA47C68A8E2C8112101AD4 /* GeometryListView.swift in Sources */,
+				8344335E6753FD4F006EF1A9 /* GeometryListViewModel.swift in Sources */,
+				81AB2329889F03E3BD0BF128 /* GeometryRepository.swift in Sources */,
+				9A0120A3482F59063E054487 /* GeometryVertex.swift in Sources */,
 				9774915A4F38B9FE83BCBA7C /* GlobalSearchView.swift in Sources */,
 				CFFEE7CB114E8E1C4B8E9990 /* LocateMeButton.swift in Sources */,
 				3AB7782D6237C267ADC47A8E /* LocationIndicator.swift in Sources */,
@@ -914,6 +1123,17 @@
 				FF0FDC0A0F9102D4F89CB733 /* ProjectListViewModel.swift in Sources */,
 				4A581E54A397916F3A5758C7 /* ProjectPickerView.swift in Sources */,
 				FEAC8FB3C986A32A22CB8FAE /* ProjectRepository.swift in Sources */,
+				ED3B39B4E2D3036849329DF3 /* Record.swift in Sources */,
+				79ED99882C7BF63AE3810C1F /* RecordDetailView.swift in Sources */,
+				82E4DAD802937590FFD6BB88 /* RecordFormView.swift in Sources */,
+				FF8BFAF930D47154FD4EC2AC /* RecordHierarchyViewModel.swift in Sources */,
+				C44F51B7A5B9AC33AD38F8EF /* RecordRepository.swift in Sources */,
+				0EFB575554BB6A324757AFA5 /* RecordTreeView.swift in Sources */,
+				76CEB3850399F6882E11BCDB /* RecordType.swift in Sources */,
+				EF4A54F7BFE8C7EA30DE36B6 /* RecordTypeFormView.swift in Sources */,
+				04E64B8CB0DD98E404C02BED /* RecordTypeListViewModel.swift in Sources */,
+				400A14D3ADB186896DD70450 /* RecordTypeRepository.swift in Sources */,
+				DF8F829BD09CC0BADE30F0BD /* RecordTypeSetupView.swift in Sources */,
 				D4939C395042973D2AC4314B /* RegionSelectionMapView.swift in Sources */,
 				8EF865E01B9F844C471A2470 /* SearchService.swift in Sources */,
 				297FA57797A6F1B8A6BC141B /* SettingsView.swift in Sources */,
@@ -930,6 +1150,7 @@
 				4900037F0B65E7CF838FFDFE /* TrackStatisticsView.swift in Sources */,
 				87D19D6437B2405EA40F220A /* TrashService.swift in Sources */,
 				3363BE8D6C99D7F09FC50B39 /* TrashView.swift in Sources */,
+				34CB68E63188C8AE8F73F2B3 /* V3RecordsFormsGeometries.swift in Sources */,
 				253CD772A4B4D59C528680F9 /* VoiceRecordingButton.swift in Sources */,
 				101C2225E8C7DFB6ECE7D07D /* Waypoint.swift in Sources */,
 				EA73430E70219E94E458C667 /* WaypointDetailView.swift in Sources */,
@@ -945,9 +1166,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				88617781FE4B62721B244087 /* CSVExportServiceTests.swift in Sources */,
 				D70FA4E09894F6FFC2C7ED17 /* CoordinateFormatterTests.swift in Sources */,
+				9BC856FBF560115ECDAD1A8B /* FormRepositoryTests.swift in Sources */,
 				C1C138750409B64BCC8A792D /* GPXExporterTests.swift in Sources */,
+				B5A13D9CA020EF199BA29EDF /* GeoCalculatorPolygonTests.swift in Sources */,
 				7701E4F3FC4BA9665C26603C /* GeoCalculatorTests.swift in Sources */,
+				4A44C3D27439AFCD519DFD87 /* GeometryRepositoryTests.swift in Sources */,
 				C6F04187CA3DA73BB1BF6779 /* MapRegionModelTests.swift in Sources */,
 				DB3A3AC32473A7F43F2299FB /* MapRegionRepositoryTests.swift in Sources */,
 				A8C04541118CF4D77BD96164 /* NoteEditorViewModelTests.swift in Sources */,
@@ -955,6 +1180,9 @@
 				56AF8293F662E73FE98175DD /* PhotoRepositoryTests.swift in Sources */,
 				6F0C85988064AC0F1D18038D /* ProjectListViewModelTests.swift in Sources */,
 				42FDD7A474602EA68B9C8760 /* ProjectRepositoryTests.swift in Sources */,
+				2D9D9C7192A27780D4483C0D /* RecordHierarchyViewModelTests.swift in Sources */,
+				CDF7100BE6E1686B53FBC766 /* RecordRepositoryTests.swift in Sources */,
+				4741E503532CC9E0705AE250 /* RecordTypeRepositoryTests.swift in Sources */,
 				6A04ABA48F1BBCE22AA48FE6 /* TrackRepositoryTests.swift in Sources */,
 				4DB6170504C1C8B4EC065A95 /* WaypointListViewModelTests.swift in Sources */,
 				8470ABC94020DA4CB803DAB0 /* WaypointRepositoryTests.swift in Sources */,

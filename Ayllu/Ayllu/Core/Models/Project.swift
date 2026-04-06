@@ -47,6 +47,9 @@ extension Project: FetchableRecord, MutablePersistableRecord {
     static let fieldNotes = hasMany(FieldNote.self)
     static let photos = hasMany(Photo.self)
     static let tracks = hasMany(Track.self)
+    static let recordTypes = hasMany(RecordType.self)
+    static let records = hasMany(Record.self)
+    static let geometries = hasMany(Geometry.self)
 
     // Set timestamps on insert
     mutating func willInsert(_ db: Database) throws {
@@ -67,4 +70,22 @@ struct ProjectStatistics {
     let noteCount: Int
     let photoCount: Int
     let trackCount: Int
+    let recordCount: Int
+    let geometryCount: Int
+
+    init(
+        waypointCount: Int = 0,
+        noteCount: Int = 0,
+        photoCount: Int = 0,
+        trackCount: Int = 0,
+        recordCount: Int = 0,
+        geometryCount: Int = 0
+    ) {
+        self.waypointCount = waypointCount
+        self.noteCount = noteCount
+        self.photoCount = photoCount
+        self.trackCount = trackCount
+        self.recordCount = recordCount
+        self.geometryCount = geometryCount
+    }
 }

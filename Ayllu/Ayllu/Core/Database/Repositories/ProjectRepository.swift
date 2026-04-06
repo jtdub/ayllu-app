@@ -106,11 +106,23 @@ struct ProjectRepository {
                 .filter(Track.Columns.projectId == projectId)
                 .fetchCount(db)
 
+            let recordCount = try Record
+                .filter(Record.Columns.projectId == projectId)
+                .filter(Record.Columns.deletedAt == nil)
+                .fetchCount(db)
+
+            let geometryCount = try Geometry
+                .filter(Geometry.Columns.projectId == projectId)
+                .filter(Geometry.Columns.deletedAt == nil)
+                .fetchCount(db)
+
             return ProjectStatistics(
                 waypointCount: waypointCount,
                 noteCount: noteCount,
                 photoCount: photoCount,
-                trackCount: trackCount
+                trackCount: trackCount,
+                recordCount: recordCount,
+                geometryCount: geometryCount
             )
         }
     }

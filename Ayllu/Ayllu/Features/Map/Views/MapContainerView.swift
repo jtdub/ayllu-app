@@ -9,6 +9,7 @@ struct MapContainerView: View {
     @AppStorage("useTrueNorth") private var useTrueNorth = false
 
     @State private var waypoints: [Waypoint] = []
+    @State private var geometries: [Geometry] = []
     @State private var selectedWaypoint: Waypoint?
     @State private var showingOfflineManager = false
     @State private var userLocation: CLLocation?
@@ -20,7 +21,8 @@ struct MapContainerView: View {
                 waypoints: $waypoints,
                 selectedWaypoint: $selectedWaypoint,
                 userLocation: $userLocation,
-                centerOnLocation: $centerOnLocation
+                centerOnLocation: $centerOnLocation,
+                geometries: geometries
             )
             .ignoresSafeArea(edges: .bottom)
 
@@ -95,8 +97,11 @@ struct MapContainerView: View {
     }
 
     private func loadWaypoints() {
-        let repo = WaypointRepository(dbPool: database.dbPool)
-        waypoints = (try? repo.fetchAll()) ?? []
+        let waypointRepo = WaypointRepository(dbPool: database.dbPool)
+        waypoints = (try? waypointRepo.fetchAll()) ?? []
+
+        let geometryRepo = GeometryRepository(dbPool: database.dbPool)
+        geometries = (try? geometryRepo.fetchAll()) ?? []
     }
 
     private func createQuickWaypoint() {
