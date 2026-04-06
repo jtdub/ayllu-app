@@ -74,11 +74,10 @@ final class GeometryRepositoryTests: XCTestCase {
             return
         }
 
-        let fetched = try repository.fetchById(id)
-        XCTAssertNotNil(fetched)
-        XCTAssertEqual(fetched?.coordinates.count, 3)
-        XCTAssertEqual(fetched?.coordinates[0][0], -122.4194, accuracy: 0.0001)
-        XCTAssertEqual(fetched?.coordinates[0][1], 37.7749, accuracy: 0.0001)
+        let fetched = try XCTUnwrap(repository.fetchById(id))
+        XCTAssertEqual(fetched.coordinates.count, 3)
+        XCTAssertEqual(fetched.coordinates[0][0], -122.4194, accuracy: 0.0001)
+        XCTAssertEqual(fetched.coordinates[0][1], 37.7749, accuracy: 0.0001)
     }
 
     func testVerticesCreatedAutomatically() throws {
