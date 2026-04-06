@@ -1,5 +1,6 @@
 import SwiftUI
 import CoreLocation
+import GRDB
 
 /// Container view for the map with waypoint markers
 struct MapContainerView: View {
@@ -9,6 +10,7 @@ struct MapContainerView: View {
     @AppStorage("useTrueNorth") private var useTrueNorth = false
 
     @State private var waypoints: [Waypoint] = []
+    @State private var geometries: [Geometry] = []
     @State private var selectedWaypoint: Waypoint?
     @State private var showingOfflineManager = false
     @State private var userLocation: CLLocation?
@@ -20,7 +22,8 @@ struct MapContainerView: View {
                 waypoints: $waypoints,
                 selectedWaypoint: $selectedWaypoint,
                 userLocation: $userLocation,
-                centerOnLocation: $centerOnLocation
+                centerOnLocation: $centerOnLocation,
+                geometries: geometries
             )
             .ignoresSafeArea(edges: .bottom)
 
@@ -97,6 +100,13 @@ struct MapContainerView: View {
     private func loadWaypoints() {
         let repo = WaypointRepository(dbPool: database.dbPool)
         waypoints = (try? repo.fetchAll()) ?? []
+
+        // Load geometries from all projects
+        geometries = (try? database.dbPool.read { db in
+            try Geometry
+                .filter(Geometry.Columns.deletedAt == nil)
+                .fetchAll(db)
+        }) ?? []
     }
 
     private func createQuickWaypoint() {

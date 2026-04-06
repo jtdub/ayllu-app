@@ -145,11 +145,77 @@ struct GeoCalculator {
     static func formatBearingDegrees(_ bearing: Double) -> String {
         String(format: "%.0f°", bearing)
     }
+
+    // MARK: - Polygon/Polyline Calculations
+
+    /// Calculates the length of a polyline (sum of haversine distances between consecutive points)
+    static func polylineLength(coordinates: [CLLocationCoordinate2D]) -> Double {
+        guard coordinates.count >= 2 else { return 0 }
+        var total = 0.0
+        for i in 0..<(coordinates.count - 1) {
+            total += distance(from: coordinates[i], to: coordinates[i + 1])
+        }
+        return total
+    }
+
+    /// Calculates the perimeter of a polygon (closed ring)
+    static func polygonPerimeter(coordinates: [CLLocationCoordinate2D]) -> Double {
+        guard coordinates.count >= 3 else { return 0 }
+        var total = polylineLength(coordinates: coordinates)
+        // Close the ring
+        total += distance(from: coordinates.last!, to: coordinates.first!)
+        return total
+    }
+
+    /// Calculates the area of a polygon using the spherical excess formula
+    /// Returns area in square meters
+    static func polygonArea(coordinates: [CLLocationCoordinate2D]) -> Double {
+        guard coordinates.count >= 3 else { return 0 }
+
+        // Use the Shoelace formula on projected coordinates for reasonable accuracy
+        // at field research scales (< 100 km extent)
+        var area = 0.0
+        let count = coordinates.count
+
+        for i in 0..<count {
+            let j = (i + 1) % count
+
+            let lat1 = coordinates[i].latitude.degreesToRadians
+            let lat2 = coordinates[j].latitude.degreesToRadians
+            let lon1 = coordinates[i].longitude.degreesToRadians
+            let lon2 = coordinates[j].longitude.degreesToRadians
+
+            area += (lon2 - lon1) * (2 + sin(lat1) + sin(lat2))
+        }
+
+        area = abs(area * earthRadius * earthRadius / 2.0)
+        return area
+    }
+
+    /// Formats area with appropriate units
+    static func formatArea(_ squareMeters: Double) -> String {
+        if squareMeters < 10_000 {
+            return String(format: "%.1f m\u{00B2}", squareMeters)
+        } else if squareMeters < 1_000_000 {
+            return String(format: "%.2f ha", squareMeters / 10_000)
+        } else {
+            return String(format: "%.2f km\u{00B2}", squareMeters / 1_000_000)
+        }
+    }
+
+    /// Formats length/perimeter with appropriate units
+    static func formatLength(_ meters: Double) -> String {
+        if meters < 1_000 {
+            return String(format: "%.1f m", meters)
+        } else {
+            return String(format: "%.2f km", meters / 1_000)
+        }
+    }
 }
 
 // MARK: - Double Extensions
 
-private extension Double {
+extension Double {
     var degreesToRadians: Double {
         self * .pi / 180
     }

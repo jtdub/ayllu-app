@@ -308,6 +308,11 @@ final class DatabaseManager {
             )
         }
 
+        // Version 3: Records, forms, and geometries
+        migrator.registerMigration("v3_records_forms_geometries") { db in
+            try V3RecordsFormsGeometries.migrate(db)
+        }
+
         return migrator
     }
 

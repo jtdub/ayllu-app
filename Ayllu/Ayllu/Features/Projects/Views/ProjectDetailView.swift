@@ -76,6 +76,31 @@ struct ProjectDetailView: View {
                     } label: {
                         Label("\(stats.trackCount) Tracks", systemImage: "figure.walk")
                     }
+
+                    if let projectId = project.id {
+                        NavigationLink {
+                            RecordTreeView(projectId: projectId)
+                        } label: {
+                            Label("\(stats.recordCount) Records", systemImage: "rectangle.stack")
+                        }
+
+                        NavigationLink {
+                            GeometryListView(projectId: projectId)
+                        } label: {
+                            Label("\(stats.geometryCount) Geometries", systemImage: "pentagon")
+                        }
+                    }
+                }
+            }
+
+            // Record Types Section
+            if let projectId = project.id {
+                Section("Data Configuration") {
+                    NavigationLink {
+                        RecordTypeSetupView(projectId: projectId)
+                    } label: {
+                        Label("Record Types", systemImage: "list.bullet.indent")
+                    }
                 }
             }
 

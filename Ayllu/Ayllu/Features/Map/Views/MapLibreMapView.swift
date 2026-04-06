@@ -9,6 +9,7 @@ struct MapLibreMapView: UIViewRepresentable {
     @Binding var selectedWaypoint: Waypoint?
     @Binding var userLocation: CLLocation?
     @Binding var centerOnLocation: Bool
+    var geometries: [Geometry] = []
     var onQuickWaypointTap: ((CLLocationCoordinate2D) -> Void)?
 
     // OpenTopoMap tile URL template
@@ -49,6 +50,9 @@ struct MapLibreMapView: UIViewRepresentable {
         // Update waypoint annotations
         updateAnnotations(mapView, context: context)
 
+        // Update geometry overlays
+        updateGeometryOverlays(mapView, context: context)
+
         // Center on user location if available and not already tracking
         if let location = userLocation, !context.coordinator.hasSetInitialLocation {
             mapView.setCenter(location.coordinate, zoomLevel: 14, animated: true)
@@ -75,13 +79,44 @@ struct MapLibreMapView: UIViewRepresentable {
         mapView.styleURL = URL(string: "https://demotiles.maplibre.org/style.json")
     }
 
+    private func updateGeometryOverlays(_ mapView: MLNMapView, context: Context) {
+        let currentIds = Set(geometries.compactMap(\.id))
+        guard currentIds != context.coordinator.lastGeometryIds else { return }
+        context.coordinator.lastGeometryIds = currentIds
+
+        let existing = context.coordinator.geometryOverlays
+        if !existing.isEmpty {
+            mapView.removeAnnotations(existing)
+        }
+        context.coordinator.geometryOverlays.removeAll()
+
+        for geometry in geometries {
+            var coords = geometry.clLocationCoordinates
+            guard coords.count >= 2 else { continue }
+
+            if geometry.geometryType == .polygon && coords.count >= 3 {
+                let polygon = MLNPolygon(coordinates: &coords, count: UInt(coords.count))
+                polygon.title = geometry.name
+                mapView.addAnnotation(polygon)
+                context.coordinator.geometryOverlays.append(polygon)
+            } else {
+                let polyline = MLNPolyline(coordinates: &coords, count: UInt(coords.count))
+                polyline.title = geometry.name
+                mapView.addAnnotation(polyline)
+                context.coordinator.geometryOverlays.append(polyline)
+            }
+        }
+    }
+
     private func updateAnnotations(_ mapView: MLNMapView, context: Context) {
-        // Remove existing waypoint annotations
+        let currentIds = Set(waypoints.compactMap(\.id))
+        guard currentIds != context.coordinator.lastWaypointIds else { return }
+        context.coordinator.lastWaypointIds = currentIds
+
         if let existingAnnotations = mapView.annotations?.filter({ $0 is WaypointAnnotation }) {
             mapView.removeAnnotations(existingAnnotations)
         }
 
-        // Add new waypoint annotations
         let annotations = waypoints.map { waypoint in
             WaypointAnnotation(waypoint: waypoint)
         }
@@ -93,6 +128,9 @@ struct MapLibreMapView: UIViewRepresentable {
     class Coordinator: NSObject, MLNMapViewDelegate {
         var parent: MapLibreMapView
         var hasSetInitialLocation = false
+        var geometryOverlays: [MLNAnnotation] = []
+        var lastGeometryIds: Set<Int64> = []
+        var lastWaypointIds: Set<Int64> = []
 
         init(_ parent: MapLibreMapView) {
             self.parent = parent
@@ -149,6 +187,23 @@ struct MapLibreMapView: UIViewRepresentable {
             return annotation is WaypointAnnotation
         }
 
+        func mapView(_ mapView: MLNMapView, alphaForShapeAnnotation annotation: MLNShape) -> CGFloat {
+            if annotation is MLNPolygon { return 0.25 }
+            return 1.0
+        }
+
+        func mapView(_ mapView: MLNMapView, strokeColorForShapeAnnotation annotation: MLNShape) -> UIColor {
+            .systemBlue
+        }
+
+        func mapView(_ mapView: MLNMapView, fillColorForPolygonAnnotation annotation: MLNPolygon) -> UIColor {
+            .systemBlue
+        }
+
+        func mapView(_ mapView: MLNMapView, lineWidthForPolylineAnnotation annotation: MLNPolyline) -> CGFloat {
+            2.0
+        }
+
         private func markerColor(for category: WaypointCategory?) -> UIColor {
             guard let category = category else { return .systemRed }
             switch category {
@@ -198,6 +253,7 @@ class WaypointAnnotation: NSObject, MLNAnnotation {
         waypoints: .constant([]),
         selectedWaypoint: .constant(nil),
         userLocation: .constant(nil),
-        centerOnLocation: .constant(false)
+        centerOnLocation: .constant(false),
+        geometries: []
     )
 }
