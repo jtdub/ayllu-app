@@ -22,16 +22,19 @@ struct GeoJSONImportService {
 
         let jsonType = json["type"] as? String
 
+        var items: [ParsedItem]
         if jsonType == "FeatureCollection" {
             guard let features = json["features"] as? [[String: Any]] else {
                 return []
             }
-            return features.flatMap { parseFeature($0) }
+            items = features.flatMap { parseFeature($0) }
         } else if jsonType == "Feature" {
-            return parseFeature(json)
+            items = parseFeature(json)
         } else {
             throw GeoJSONImportError.unsupportedFormat
         }
+
+        return assignIndices(items)
     }
 
     private static func parseFeature(_ feature: [String: Any]) -> [ParsedItem] {
@@ -146,6 +149,19 @@ struct GeoJSONImportService {
                 altitude: coords.count >= 3 ? coords[2] : nil
             )
             return .waypoint(waypoint)
+        }
+    }
+
+    private static func assignIndices(_ items: [ParsedItem]) -> [ParsedItem] {
+        items.enumerated().map { index, item in
+            switch item {
+            case .waypoint(var wp):
+                wp.index = index
+                return .waypoint(wp)
+            case .geometry(var geo):
+                geo.index = index
+                return .geometry(geo)
+            }
         }
     }
 }

@@ -58,7 +58,7 @@ struct CSVImportService {
         let altIdx = mapping.altitudeColumn.flatMap { headers.firstIndex(of: $0) }
         let catIdx = mapping.categoryColumn.flatMap { headers.firstIndex(of: $0) }
 
-        return rows.compactMap { row -> ParsedItem? in
+        return rows.enumerated().compactMap { index, row -> ParsedItem? in
             guard nameIdx < row.count, latIdx < row.count, lonIdx < row.count else {
                 return nil
             }
@@ -79,6 +79,7 @@ struct CSVImportService {
             }
 
             let waypoint = ParsedWaypoint(
+                index: index,
                 name: name,
                 description: desc,
                 latitude: lat,

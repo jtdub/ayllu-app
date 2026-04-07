@@ -4,7 +4,7 @@ import GRDB
 /// ViewModel managing the import flow: parse -> preview -> persist
 @Observable
 final class ImportViewModel {
-    let dbPool: DatabasePool
+    private let dbPool: DatabasePool
     var projectId: Int64?
 
     var parsedItems: [ParsedItem] = []
@@ -41,45 +41,51 @@ final class ImportViewModel {
         error = nil
         parsedItems = []
 
-        Task.detached { [self] in
-            let accessing = url.startAccessingSecurityScopedResource()
-            defer {
-                if accessing { url.stopAccessingSecurityScopedResource() }
-            }
-
-            guard let format = ImportFormat.detect(from: url) else {
-                await MainActor.run {
-                    self.error = "Unsupported file format. Use .gpx, .csv, or .geojson files."
-                    self.isParsing = false
-                }
-                return
-            }
-
+        Task {
             do {
-                let data = try Data(contentsOf: url)
+                let result = try await Self.doParse(url: url)
 
-                switch format {
-                case .gpx:
-                    let items = try GPXImportService.parse(data: data)
-                    await MainActor.run { self.finishParsing(items: items) }
-                case .csv:
-                    let result = try CSVImportService.parseHeaders(data: data)
-                    await MainActor.run {
-                        self.csvHeaders = result.headers
-                        self.csvRows = result.rows
-                        self.needsColumnMapping = true
-                        self.isParsing = false
-                    }
-                case .geojson:
-                    let items = try GeoJSONImportService.parse(data: data)
-                    await MainActor.run { self.finishParsing(items: items) }
+                switch result {
+                case .items(let items):
+                    finishParsing(items: items)
+                case let .csv(headers, rows):
+                    csvHeaders = headers
+                    csvRows = rows
+                    needsColumnMapping = true
+                    isParsing = false
                 }
             } catch {
-                await MainActor.run {
-                    self.error = error.localizedDescription
-                    self.isParsing = false
-                }
+                self.error = error.localizedDescription
+                isParsing = false
             }
+        }
+    }
+
+    private enum ParseOutput: Sendable {
+        case items([ParsedItem])
+        case csv(headers: [String], rows: [[String]])
+    }
+
+    private static func doParse(url: URL) async throws -> ParseOutput {
+        let accessing = url.startAccessingSecurityScopedResource()
+        defer {
+            if accessing { url.stopAccessingSecurityScopedResource() }
+        }
+
+        guard let format = ImportFormat.detect(from: url) else {
+            throw ImportError.unsupportedFormat
+        }
+
+        let data = try Data(contentsOf: url)
+
+        switch format {
+        case .gpx:
+            return .items(try GPXImportService.parse(data: data))
+        case .csv:
+            let result = try CSVImportService.parseHeaders(data: data)
+            return .csv(headers: result.headers, rows: result.rows)
+        case .geojson:
+            return .items(try GeoJSONImportService.parse(data: data))
         }
     }
 
@@ -137,23 +143,20 @@ final class ImportViewModel {
         error = nil
 
         let itemsToImport = parsedItems.filter { selectedItemIds.contains($0.id) }
+        let pool = dbPool
 
-        Task.detached { [self] in
+        Task {
             do {
                 let result = try ImportService.persistItems(
                     itemsToImport,
                     projectId: projectId,
-                    dbPool: self.dbPool
+                    dbPool: pool
                 )
-                await MainActor.run {
-                    self.importResult = result
-                    self.isImporting = false
-                }
+                self.importResult = result
+                self.isImporting = false
             } catch {
-                await MainActor.run {
-                    self.error = error.localizedDescription
-                    self.isImporting = false
-                }
+                self.error = error.localizedDescription
+                self.isImporting = false
             }
         }
     }
@@ -163,5 +166,13 @@ final class ImportViewModel {
     private func updateCounts() {
         waypointCount = parsedItems.filter(\.isWaypoint).count
         geometryCount = parsedItems.filter { !$0.isWaypoint }.count
+    }
+}
+
+private enum ImportError: LocalizedError {
+    case unsupportedFormat
+
+    var errorDescription: String? {
+        "Unsupported file format. Use .gpx, .csv, or .geojson files."
     }
 }
