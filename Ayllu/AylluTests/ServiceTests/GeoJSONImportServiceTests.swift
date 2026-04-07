@@ -25,7 +25,7 @@ final class GeoJSONImportServiceTests: XCTestCase {
         XCTAssertEqual(wp.description, "San Francisco")
         XCTAssertEqual(wp.latitude, 37.7749, accuracy: 0.0001)
         XCTAssertEqual(wp.longitude, -122.4194, accuracy: 0.0001)
-        XCTAssertEqual(wp.altitude, 10.5, accuracy: 0.1)
+        XCTAssertEqual(wp.altitude ?? 0, 10.5, accuracy: 0.1)
     }
 
     func testParsePolygon() throws {
