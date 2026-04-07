@@ -43,7 +43,7 @@ final class GPXImportServiceTests: XCTestCase {
         <gpx version="1.1" creator="test">
           <wpt lat="37.0" lon="-122.0">
             <name>High Point</name>
-            <ele>1_500.5</ele>
+            <ele>1500.5</ele>
             <desc>A description</desc>
           </wpt>
         </gpx>

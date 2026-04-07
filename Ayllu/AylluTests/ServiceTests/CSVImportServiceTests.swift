@@ -91,7 +91,7 @@ final class CSVImportServiceTests: XCTestCase {
 
     func testOptionalAltitudeColumn() {
         let headers = ["Name", "Lat", "Lon", "Alt"]
-        let rows = [["Site A", "37.0", "-122.0", "1_500.5"]]
+        let rows = [["Site A", "37.0", "-122.0", "1500.5"]]
         let mapping = CSVColumnMapping(
             nameColumn: "Name",
             latitudeColumn: "Lat",
