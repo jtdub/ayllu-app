@@ -106,4 +106,23 @@ final class CSVImportServiceTests: XCTestCase {
         }
         XCTAssertEqual(wp.altitude, 1_500.5, accuracy: 0.1)
     }
+
+    func testWindowsLineEndings() throws {
+        let csv = "Name,Lat,Lon\r\nSite A,37.0,-122.0\r\nSite B,38.0,-121.0\r\n"
+        let result = try CSVImportService.parseHeaders(data: Data(csv.utf8))
+
+        XCTAssertEqual(result.headers, ["Name", "Lat", "Lon"])
+        XCTAssertEqual(result.rows.count, 2)
+        XCTAssertEqual(result.rows[0], ["Site A", "37.0", "-122.0"])
+        XCTAssertEqual(result.rows[1], ["Site B", "38.0", "-121.0"])
+    }
+
+    func testEscapedDoubleQuotes() {
+        let line = "\"He said \"\"hello\"\"\",value2"
+        let fields = CSVImportService.parseCSVLine(line)
+
+        XCTAssertEqual(fields.count, 2)
+        XCTAssertEqual(fields[0], "He said \"hello\"")
+        XCTAssertEqual(fields[1], "value2")
+    }
 }

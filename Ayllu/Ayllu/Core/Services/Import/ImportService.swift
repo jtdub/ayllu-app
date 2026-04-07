@@ -1,4 +1,5 @@
 import Foundation
+import CoreLocation
 import GRDB
 
 /// Coordinates import operations across all formats
@@ -38,6 +39,21 @@ struct ImportService {
                         coordinates: parsed.coordinates
                     )
                     try geometry.insert(db)
+
+                    // Save denormalized vertices for spatial queries
+                    if let geometryId = geometry.id {
+                        let coords = geometry.clLocationCoordinates
+                        for (index, coord) in coords.enumerated() {
+                            var vertex = GeometryVertex(
+                                geometryId: geometryId,
+                                latitude: coord.latitude,
+                                longitude: coord.longitude,
+                                sortOrder: index
+                            )
+                            try vertex.insert(db)
+                        }
+                    }
+
                     result.geometriesCreated += 1
                 }
             }

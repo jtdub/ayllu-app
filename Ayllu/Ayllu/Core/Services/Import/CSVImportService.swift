@@ -22,7 +22,10 @@ struct CSVImportService {
             throw CSVImportError.invalidEncoding
         }
 
-        let lines = content.components(separatedBy: .newlines)
+        let lines = content
+            .replacingOccurrences(of: "\r\n", with: "\n")
+            .replacingOccurrences(of: "\r", with: "\n")
+            .components(separatedBy: "\n")
             .filter { !$0.trimmingCharacters(in: .whitespaces).isEmpty }
 
         guard let headerLine = lines.first else {
