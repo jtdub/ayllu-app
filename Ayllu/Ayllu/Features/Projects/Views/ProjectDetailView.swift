@@ -12,6 +12,7 @@ struct ProjectDetailView: View {
     @State private var showingDeleteConfirmation = false
     @State private var showingPhotoCapture = false
     @State private var showingTrackRecording = false
+    @State private var showingImport = false
     @State private var currentProject: Project
 
     init(project: Project) {
@@ -93,9 +94,15 @@ struct ProjectDetailView: View {
                 }
             }
 
-            // Record Types Section
+            // Data Management Section
             if let projectId = project.id {
-                Section("Data Configuration") {
+                Section("Data Management") {
+                    NavigationLink {
+                        DataCompletenessView(projectId: projectId)
+                    } label: {
+                        Label("Data Completeness", systemImage: "chart.bar.fill")
+                    }
+
                     NavigationLink {
                         RecordTypeSetupView(projectId: projectId)
                     } label: {
@@ -106,6 +113,12 @@ struct ProjectDetailView: View {
 
             // Actions Section
             Section {
+                Button {
+                    showingImport = true
+                } label: {
+                    Label("Import Data", systemImage: "square.and.arrow.down")
+                }
+
                 Button {
                     showingPhotoCapture = true
                 } label: {
@@ -135,6 +148,13 @@ struct ProjectDetailView: View {
         .navigationBarTitleDisplayMode(.large)
         .onAppear {
             loadStatistics()
+        }
+        .sheet(isPresented: $showingImport) {
+            if let projectId = project.id {
+                NavigationStack {
+                    ImportView(projectId: projectId)
+                }
+            }
         }
         .sheet(isPresented: $showingPhotoCapture) {
             if let projectId = project.id {
