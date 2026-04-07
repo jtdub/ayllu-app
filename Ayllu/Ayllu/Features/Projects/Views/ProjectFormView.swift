@@ -57,6 +57,7 @@ struct ProjectFormView: View {
                 Section("Project Details") {
                     TextField("Project Name", text: $name)
                         .textInputAutocapitalization(.words)
+                        .accessibilityIdentifier("projectNameField")
 
                     TextField("Description (optional)", text: $description, axis: .vertical)
                         .lineLimit(3...6)
@@ -99,6 +100,7 @@ struct ProjectFormView: View {
                         save()
                     }
                     .disabled(!isValid)
+                    .accessibilityIdentifier("saveProjectButton")
                 }
             }
         }

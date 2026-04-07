@@ -108,11 +108,13 @@ struct OnboardingView: View {
                             }
                         }
                         .buttonStyle(.borderedProminent)
+                        .accessibilityIdentifier("onboardingNextButton")
                     } else {
                         Button("Get Started") {
                             completeOnboarding()
                         }
                         .buttonStyle(.borderedProminent)
+                        .accessibilityIdentifier("onboardingGetStartedButton")
                     }
                 }
                 .padding(.horizontal)

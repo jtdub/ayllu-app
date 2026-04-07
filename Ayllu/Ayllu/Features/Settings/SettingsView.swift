@@ -103,8 +103,8 @@ struct SettingsView: View {
                     Label("Privacy Policy", systemImage: "hand.raised.fill")
                 }
 
-                Link(destination: URL(string: "https://github.com/jtdub/ayllu-feedback/issues")!) {
-                    Label("Report Issue", systemImage: "exclamationmark.bubble")
+                Link(destination: URL(string: "https://www.jtdub.com/apps/support/ayllu/")!) {
+                    Label("Support", systemImage: "questionmark.circle")
                 }
             }
         }
