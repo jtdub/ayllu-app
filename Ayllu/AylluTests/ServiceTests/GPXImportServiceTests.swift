@@ -53,7 +53,7 @@ final class GPXImportServiceTests: XCTestCase {
             XCTFail("Expected waypoint")
             return
         }
-        XCTAssertEqual(wp.altitude, 1_500.5, accuracy: 0.1)
+        XCTAssertEqual(wp.altitude ?? 0, 1_500.5, accuracy: 0.1)
         XCTAssertEqual(wp.description, "A description")
     }
 

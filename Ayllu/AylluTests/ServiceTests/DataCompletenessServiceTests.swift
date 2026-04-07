@@ -142,9 +142,9 @@ final class DataCompletenessServiceTests: XCTestCase {
         XCTAssertEqual(result.typeCompleteness.count, 2)
 
         let siteType = result.typeCompleteness.first { $0.recordType.name == "Site" }
-        XCTAssertEqual(siteType?.completionPercentage, 1.0, accuracy: 0.01)
+        XCTAssertEqual(siteType?.completionPercentage ?? 0, 1.0, accuracy: 0.01)
 
         let trenchType = result.typeCompleteness.first { $0.recordType.name == "Trench" }
-        XCTAssertEqual(trenchType?.completionPercentage, 0.0, accuracy: 0.01)
+        XCTAssertEqual(trenchType?.completionPercentage ?? 0, 0.0, accuracy: 0.01)
     }
 }
