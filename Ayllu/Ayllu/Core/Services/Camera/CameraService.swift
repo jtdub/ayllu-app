@@ -7,17 +7,15 @@ import Combine
 final class CameraService: NSObject {
     // MARK: - Published State
 
-    /// Whether the camera is authorized
     private(set) var isAuthorized: Bool = false
-
-    /// Whether the session is running
     private(set) var isSessionRunning: Bool = false
-
-    /// Last captured image
     private(set) var capturedImage: UIImage?
-
-    /// Last error encountered
     private(set) var lastError: Error?
+
+    /// Current zoom factor (1.0 = no zoom)
+    private(set) var currentZoom: CGFloat = 1.0
+    /// Maximum zoom factor for the current device
+    private(set) var maxZoom: CGFloat = 10.0
 
     // MARK: - Internal Properties
 
@@ -28,6 +26,7 @@ final class CameraService: NSObject {
     private let photoOutput = AVCapturePhotoOutput()
     private var photoContinuation: CheckedContinuation<UIImage, Error>?
     private let sessionQueue = DispatchQueue(label: "com.ayllu.camera.session")
+    private var captureDevice: AVCaptureDevice?
 
     // MARK: - Initialization
 
@@ -38,21 +37,17 @@ final class CameraService: NSObject {
 
     // MARK: - Authorization
 
-    /// Checks current camera authorization status
     private func checkAuthorization() {
         switch AVCaptureDevice.authorizationStatus(for: .video) {
         case .authorized:
             isAuthorized = true
-        case .notDetermined:
-            isAuthorized = false
-        case .denied, .restricted:
+        case .notDetermined, .denied, .restricted:
             isAuthorized = false
         @unknown default:
             isAuthorized = false
         }
     }
 
-    /// Requests camera authorization
     func requestAuthorization() async -> Bool {
         guard !isAuthorized else { return true }
 
@@ -65,7 +60,6 @@ final class CameraService: NSObject {
 
     // MARK: - Session Configuration
 
-    /// Configures the capture session
     func configureSession() throws {
         guard isAuthorized else {
             throw CameraError.notAuthorized
@@ -80,11 +74,11 @@ final class CameraService: NSObject {
         session.beginConfiguration()
         defer { session.commitConfiguration() }
 
-        // Set session preset
         session.sessionPreset = .photo
 
-        // Add video input
-        guard let camera = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back) else {
+        guard let camera = AVCaptureDevice.default(
+            .builtInWideAngleCamera, for: .video, position: .back
+        ) else {
             DispatchQueue.main.async {
                 self.lastError = CameraError.cameraUnavailable
             }
@@ -103,16 +97,19 @@ final class CameraService: NSObject {
             return
         }
 
-        // Add photo output
         if session.canAddOutput(photoOutput) {
             session.addOutput(photoOutput)
             photoOutput.maxPhotoQualityPrioritization = .quality
+        }
+
+        captureDevice = camera
+        DispatchQueue.main.async {
+            self.maxZoom = min(camera.activeFormat.videoMaxZoomFactor, 10.0)
         }
     }
 
     // MARK: - Session Control
 
-    /// Starts the capture session
     func startSession() {
         sessionQueue.async { [weak self] in
             guard let self = self, !self.session.isRunning else { return }
@@ -123,7 +120,6 @@ final class CameraService: NSObject {
         }
     }
 
-    /// Stops the capture session
     func stopSession() {
         sessionQueue.async { [weak self] in
             guard let self = self, self.session.isRunning else { return }
@@ -134,9 +130,80 @@ final class CameraService: NSObject {
         }
     }
 
+    // MARK: - Zoom
+
+    func setZoom(_ factor: CGFloat) {
+        guard let device = captureDevice else { return }
+        let clamped = min(max(factor, 1.0), maxZoom)
+
+        sessionQueue.async {
+            do {
+                try device.lockForConfiguration()
+                device.videoZoomFactor = clamped
+                device.unlockForConfiguration()
+                DispatchQueue.main.async {
+                    self.currentZoom = clamped
+                }
+            } catch {
+                // Zoom change failed silently
+            }
+        }
+    }
+
+    // MARK: - Focus
+
+    /// Focus at a point in the preview layer's coordinate space (0-1, 0-1)
+    func focus(at point: CGPoint) {
+        guard let device = captureDevice else { return }
+
+        sessionQueue.async {
+            do {
+                try device.lockForConfiguration()
+
+                if device.isFocusPointOfInterestSupported {
+                    device.focusPointOfInterest = point
+                    device.focusMode = .autoFocus
+                }
+
+                if device.isExposurePointOfInterestSupported {
+                    device.exposurePointOfInterest = point
+                    device.exposureMode = .autoExpose
+                }
+
+                device.unlockForConfiguration()
+            } catch {
+                // Focus change failed silently
+            }
+        }
+    }
+
+    // MARK: - Exposure
+
+    func setExposureCompensation(_ bias: Float) {
+        guard let device = captureDevice else { return }
+        let clamped = min(max(bias, device.minExposureTargetBias), device.maxExposureTargetBias)
+
+        sessionQueue.async {
+            do {
+                try device.lockForConfiguration()
+                device.setExposureTargetBias(clamped)
+                device.unlockForConfiguration()
+            } catch {
+                // Exposure change failed silently
+            }
+        }
+    }
+
+    var minExposureBias: Float {
+        captureDevice?.minExposureTargetBias ?? -2.0
+    }
+
+    var maxExposureBias: Float {
+        captureDevice?.maxExposureTargetBias ?? 2.0
+    }
+
     // MARK: - Photo Capture
 
-    /// Captures a photo and returns it
     func capturePhoto() async throws -> UIImage {
         guard isSessionRunning else {
             throw CameraError.sessionNotRunning

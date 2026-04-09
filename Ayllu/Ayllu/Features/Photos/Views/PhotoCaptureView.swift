@@ -16,6 +16,9 @@ struct PhotoCaptureView: View {
     @State private var isCapturing = false
     @State private var showingError = false
     @State private var errorMessage = ""
+    @State private var focusPoint: CGPoint?
+    @State private var showFocusIndicator = false
+    @State private var exposureBias: Float = 0
 
     init(projectId: Int64, waypointId: Int64? = nil) {
         self.projectId = projectId
@@ -25,7 +28,6 @@ struct PhotoCaptureView: View {
     var body: some View {
         ZStack {
             if let image = capturedImage {
-                // Review captured photo
                 PhotoReviewView(
                     image: image,
                     projectId: projectId,
@@ -40,7 +42,6 @@ struct PhotoCaptureView: View {
                     }
                 )
             } else {
-                // Camera preview
                 cameraPreviewView
             }
         }
@@ -70,25 +71,89 @@ struct PhotoCaptureView: View {
 
     private var cameraPreviewView: some View {
         ZStack {
-            // Camera preview
-            CameraPreviewView(session: cameraService.session)
-                .ignoresSafeArea()
+            CameraPreviewView(
+                session: cameraService.session,
+                onTapToFocus: { point in
+                    handleTapToFocus(point)
+                },
+                onPinchZoom: { delta in
+                    let newZoom = cameraService.currentZoom * delta
+                    cameraService.setZoom(newZoom)
+                }
+            )
+            .ignoresSafeArea()
 
-            // Overlays
+            // Focus indicator
+            if showFocusIndicator, let point = focusPoint {
+                FocusIndicatorView()
+                    .position(point)
+            }
+
             VStack {
-                // GPS indicator at top
+                // Top bar: GPS + zoom level
                 HStack {
                     LocationIndicator(location: locationService.currentLocation)
+
                     Spacer()
+
+                    if cameraService.currentZoom > 1.05 {
+                        Text(String(format: "%.1fx", cameraService.currentZoom))
+                            .font(.caption.bold())
+                            .padding(.horizontal, 8)
+                            .padding(.vertical, 4)
+                            .background(.ultraThinMaterial)
+                            .clipShape(Capsule())
+                    }
                 }
                 .padding()
 
                 Spacer()
 
-                // Capture button at bottom
-                captureButton
-                    .padding(.bottom, 40)
+                // Bottom: exposure slider + capture button
+                HStack(alignment: .bottom) {
+                    // Exposure slider (vertical)
+                    exposureSlider
+                        .frame(width: 44)
+                        .padding(.leading, 16)
+
+                    Spacer()
+
+                    captureButton
+
+                    Spacer()
+
+                    // Placeholder for symmetry
+                    Color.clear.frame(width: 44)
+                        .padding(.trailing, 16)
+                }
+                .padding(.bottom, 40)
             }
+        }
+    }
+
+    private var exposureSlider: some View {
+        VStack(spacing: 4) {
+            Image(systemName: "sun.max.fill")
+                .font(.caption)
+                .foregroundStyle(.white)
+
+            Slider(
+                value: Binding(
+                    get: { Double(exposureBias) },
+                    set: { newValue in
+                        exposureBias = Float(newValue)
+                        cameraService.setExposureCompensation(Float(newValue))
+                    }
+                ),
+                in: Double(cameraService.minExposureBias)...Double(cameraService.maxExposureBias)
+            )
+            .rotationEffect(.degrees(-90))
+            .frame(width: 120)
+            .frame(height: 120)
+
+            Image(systemName: "sun.min.fill")
+                .font(.caption)
+                .foregroundStyle(.white)
         }
     }
 
@@ -114,7 +179,28 @@ struct PhotoCaptureView: View {
         .disabled(isCapturing || !cameraService.isSessionRunning)
     }
 
-    // MARK: - Private Methods
+    // MARK: - Focus
+
+    private func handleTapToFocus(_ devicePoint: CGPoint) {
+        cameraService.focus(at: devicePoint)
+
+        // Show focus indicator at screen coordinates
+        // devicePoint is 0-1 normalized, convert to screen space
+        let screenSize = UIScreen.main.bounds.size
+        let screenPoint = CGPoint(
+            x: devicePoint.x * screenSize.width,
+            y: devicePoint.y * screenSize.height
+        )
+
+        focusPoint = screenPoint
+        showFocusIndicator = true
+
+        withAnimation(.easeOut(duration: 1.5)) {
+            showFocusIndicator = false
+        }
+    }
+
+    // MARK: - Camera Setup
 
     private func setupCamera() {
         Task {
@@ -134,7 +220,6 @@ struct PhotoCaptureView: View {
             }
         }
 
-        // Start location updates for geotagging
         locationService.startUpdatingLocation()
         locationService.startUpdatingHeading()
     }
@@ -173,7 +258,6 @@ struct PhotoCaptureView: View {
                 projectId: projectId
             )
 
-            // Create Photo record
             let photo = Photo(
                 projectId: projectId,
                 waypointId: waypointId,
@@ -194,6 +278,24 @@ struct PhotoCaptureView: View {
             errorMessage = error.localizedDescription
             showingError = true
         }
+    }
+}
+
+// MARK: - Focus Indicator
+
+private struct FocusIndicatorView: View {
+    @State private var scale: CGFloat = 1.5
+
+    var body: some View {
+        RoundedRectangle(cornerRadius: 4)
+            .stroke(.yellow, lineWidth: 2)
+            .frame(width: 70, height: 70)
+            .scaleEffect(scale)
+            .onAppear {
+                withAnimation(.easeOut(duration: 0.3)) {
+                    scale = 1.0
+                }
+            }
     }
 }
 
