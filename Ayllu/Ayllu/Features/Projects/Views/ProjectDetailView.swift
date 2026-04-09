@@ -85,10 +85,9 @@ struct ProjectDetailView: View {
                             Label("\(stats.recordCount) Records", systemImage: "rectangle.stack")
                         }
 
-                        NavigationLink {
-                            GeometryListView(projectId: projectId)
-                        } label: {
-                            Label("\(stats.geometryCount) Geometries", systemImage: "pentagon")
+                        // Geometry UI temporarily removed pending #112
+                        if stats.geometryCount > 0 {
+                            LabeledContent("Geometries", value: "\(stats.geometryCount)")
                         }
                     }
                 }
@@ -163,7 +162,7 @@ struct ProjectDetailView: View {
                 }
             }
         }
-        .fullScreenCover(isPresented: $showingTrackRecording) {
+        .sheet(isPresented: $showingTrackRecording) {
             if let projectId = project.id {
                 NavigationStack {
                     TrackRecordingView(projectId: projectId)

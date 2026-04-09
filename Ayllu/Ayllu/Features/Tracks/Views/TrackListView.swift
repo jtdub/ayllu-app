@@ -92,7 +92,10 @@ struct TrackListView: View {
         .onAppear {
             loadTracks()
         }
-        .fullScreenCover(
+        .navigationDestination(for: Track.self) { track in
+            TrackDetailView(track: track)
+        }
+        .sheet(
             isPresented: $showingRecordingView,
             onDismiss: {
                 loadTracks()
