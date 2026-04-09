@@ -100,8 +100,8 @@ struct MapContainerView: View {
         let waypointRepo = WaypointRepository(dbPool: database.dbPool)
         waypoints = (try? waypointRepo.fetchAll()) ?? []
 
-        let geometryRepo = GeometryRepository(dbPool: database.dbPool)
-        geometries = (try? geometryRepo.fetchAll()) ?? []
+        // Geometry overlay rendering temporarily disabled pending #112
+        geometries = []
     }
 
     private func createQuickWaypoint() {

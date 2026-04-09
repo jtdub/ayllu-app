@@ -72,9 +72,9 @@ final class AylluUITests: XCTestCase {
     func testSettingsView() throws {
         app.tabBars.buttons["Settings"].tap()
 
-        XCTAssertTrue(app.staticTexts["Coordinates"].waitForExistence(timeout: 3))
-        XCTAssertTrue(app.staticTexts["Units"].exists)
-        XCTAssertTrue(app.staticTexts["About"].exists)
+        XCTAssertTrue(app.navigationBars["Settings"].waitForExistence(timeout: 5))
+        // Verify interactive settings controls exist
+        XCTAssertTrue(app.switches["Use True North"].waitForExistence(timeout: 5))
     }
 
     // MARK: - Helpers

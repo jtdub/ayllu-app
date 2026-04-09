@@ -186,7 +186,9 @@ private struct WaypointListContent: View {
                     }
 
                     ForEach(sortedWaypoints) { waypoint in
-                        NavigationLink(value: waypoint) {
+                        NavigationLink {
+                            WaypointDetailView(waypoint: waypoint)
+                        } label: {
                             if showSortByDistance {
                                 WaypointDistanceRow(
                                     waypoint: waypoint,

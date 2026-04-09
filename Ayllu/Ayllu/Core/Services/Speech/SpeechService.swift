@@ -87,6 +87,11 @@ final class SpeechService: NSObject {
 
     /// Starts recording and transcribing
     func startRecording() throws {
+        // Stop any existing recording first to prevent double-tap crash
+        if isRecording {
+            stopRecording()
+        }
+
         guard isAuthorized else {
             throw SpeechError.notAuthorized
         }
@@ -134,8 +139,9 @@ final class SpeechService: NSObject {
             }
         }
 
-        // Set up audio input
+        // Set up audio input — remove any existing tap first to prevent crash
         let inputNode = audioEngine.inputNode
+        inputNode.removeTap(onBus: 0)
         let recordingFormat = inputNode.outputFormat(forBus: 0)
 
         inputNode.installTap(onBus: 0, bufferSize: 1_024, format: recordingFormat) { buffer, _ in

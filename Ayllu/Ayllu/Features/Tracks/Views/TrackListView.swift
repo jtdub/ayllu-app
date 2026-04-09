@@ -34,7 +34,9 @@ struct TrackListView: View {
             } else {
                 List {
                     ForEach(filteredTracks) { track in
-                        NavigationLink(value: track) {
+                        NavigationLink {
+                            TrackDetailView(track: track)
+                        } label: {
                             TrackRowView(track: track)
                         }
                         .swipeActions(edge: .trailing, allowsFullSwipe: false) {
@@ -92,7 +94,7 @@ struct TrackListView: View {
         .onAppear {
             loadTracks()
         }
-        .fullScreenCover(
+        .sheet(
             isPresented: $showingRecordingView,
             onDismiss: {
                 loadTracks()

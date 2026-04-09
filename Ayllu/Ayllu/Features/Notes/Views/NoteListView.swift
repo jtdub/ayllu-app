@@ -44,7 +44,9 @@ struct NoteListView: View {
             } else {
                 List {
                     ForEach(filteredNotes) { note in
-                        NavigationLink(value: note) {
+                        NavigationLink {
+                            NoteEditorView(projectId: note.projectId, existingNote: note)
+                        } label: {
                             NoteRowView(note: note)
                         }
                         .swipeActions(edge: .trailing, allowsFullSwipe: false) {
