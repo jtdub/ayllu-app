@@ -34,7 +34,9 @@ struct TrackListView: View {
             } else {
                 List {
                     ForEach(filteredTracks) { track in
-                        NavigationLink(value: track) {
+                        NavigationLink {
+                            TrackDetailView(track: track)
+                        } label: {
                             TrackRowView(track: track)
                         }
                         .swipeActions(edge: .trailing, allowsFullSwipe: false) {

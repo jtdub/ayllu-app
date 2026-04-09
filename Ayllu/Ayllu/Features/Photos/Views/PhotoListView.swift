@@ -113,7 +113,9 @@ private struct PhotoListContent: View {
                 ScrollView {
                     LazyVGrid(columns: columns, spacing: 2) {
                         ForEach(viewModel.filteredPhotos) { photo in
-                            NavigationLink(value: photo) {
+                            NavigationLink {
+                                PhotoDetailView(photo: photo)
+                            } label: {
                                 PhotoRowView(photo: photo)
                             }
                             .contextMenu {

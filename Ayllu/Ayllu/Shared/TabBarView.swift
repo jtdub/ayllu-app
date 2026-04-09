@@ -34,18 +34,6 @@ struct TabBarView: View {
         TabView(selection: $selectedTab) {
             NavigationStack {
                 ProjectListView()
-                    .navigationDestination(for: Waypoint.self) { waypoint in
-                        WaypointDetailView(waypoint: waypoint)
-                    }
-                    .navigationDestination(for: Track.self) { track in
-                        TrackDetailView(track: track)
-                    }
-                    .navigationDestination(for: Photo.self) { photo in
-                        PhotoDetailView(photo: photo)
-                    }
-                    .navigationDestination(for: FieldNote.self) { note in
-                        NoteEditorView(projectId: note.projectId, existingNote: note)
-                    }
                     .toolbar {
                         ToolbarItem(placement: .topBarLeading) {
                             Button {
@@ -90,9 +78,6 @@ struct TabBarView: View {
 
             NavigationStack {
                 NoteListView()
-                    .navigationDestination(for: FieldNote.self) { note in
-                        NoteEditorView(projectId: note.projectId, existingNote: note)
-                    }
                     .toolbar {
                         ToolbarItem(placement: .topBarLeading) {
                             Button {
