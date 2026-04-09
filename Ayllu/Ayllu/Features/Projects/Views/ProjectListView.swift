@@ -22,6 +22,7 @@ struct ProjectListView: View {
                 } label: {
                     Image(systemName: "plus")
                 }
+                .accessibilityIdentifier("addProjectButton")
             }
         }
         .searchable(text: $searchText, prompt: "Search projects")
