@@ -72,9 +72,10 @@ final class AylluUITests: XCTestCase {
     func testSettingsView() throws {
         app.tabBars.buttons["Settings"].tap()
 
-        XCTAssertTrue(app.staticTexts["Coordinates"].waitForExistence(timeout: 3))
-        XCTAssertTrue(app.staticTexts["Units"].exists)
-        XCTAssertTrue(app.staticTexts["About"].exists)
+        XCTAssertTrue(app.navigationBars["Settings"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.staticTexts["Coordinates"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.staticTexts["Units"].waitForExistence(timeout: 3))
+        XCTAssertTrue(app.staticTexts["About"].waitForExistence(timeout: 3))
     }
 
     // MARK: - Helpers
