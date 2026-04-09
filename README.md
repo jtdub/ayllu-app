@@ -1,5 +1,7 @@
 # Ayllu
 
+[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
+
 **Offline-first field research companion for iOS**
 
 Ayllu replaces 4-5 separate tools (GPS, camera, notes, offline maps, data export) with a single app designed for archaeological, anthropological, and ecological fieldwork.
@@ -92,6 +94,10 @@ See [GitHub Milestones](https://github.com/jtdub/ayllu-app/milestones) for plann
 - **Phase 2: Polish** - Photos, GPX export, navigation, UX improvements
 - **Phase 3: Pro Features** - Custom forms, hierarchical data, polygons
 - **Phase 4: Advanced** - Team collaboration, 3D scanning, video
+
+## License
+
+This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENSE) file for details.
 
 ## About
 
