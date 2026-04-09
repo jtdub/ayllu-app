@@ -88,7 +88,9 @@ private struct ProjectListContent: View {
             } else {
                 List {
                     ForEach(viewModel.filteredProjects) { project in
-                        NavigationLink(value: project) {
+                        NavigationLink {
+                            ProjectDetailView(project: project)
+                        } label: {
                             ProjectRowView(
                                 project: project,
                                 statistics: viewModel.statistics(for: project)
