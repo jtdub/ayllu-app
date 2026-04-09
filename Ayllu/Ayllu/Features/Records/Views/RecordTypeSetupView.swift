@@ -58,11 +58,15 @@ struct RecordTypeSetupView: View {
                 EditButton()
             }
         }
-        .sheet(isPresented: $showingAddType) {
-            NavigationStack {
-                RecordTypeFormView(projectId: projectId)
+        .sheet(
+            isPresented: $showingAddType,
+            onDismiss: { viewModel?.loadRecordTypes() },
+            content: {
+                NavigationStack {
+                    RecordTypeFormView(projectId: projectId)
+                }
             }
-        }
+        )
         .onAppear {
             if viewModel == nil {
                 viewModel = RecordTypeListViewModel(dbPool: database.dbPool, projectId: projectId)

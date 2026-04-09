@@ -65,6 +65,15 @@ struct RecordFormView: View {
                         )
                     }
                 }
+
+                Section {
+                    Button {
+                        save(asDraft: true)
+                    } label: {
+                        Label("Save as Draft", systemImage: "doc.badge.clock")
+                    }
+                    .foregroundStyle(.secondary)
+                }
             }
             .onChange(of: formViewModel?.firstErrorFieldName) { _, fieldName in
                 if let fieldName {
@@ -81,21 +90,7 @@ struct RecordFormView: View {
                 Button("Cancel") { dismiss() }
             }
             ToolbarItem(placement: .confirmationAction) {
-                Menu {
-                    Button {
-                        save(asDraft: false)
-                    } label: {
-                        Label("Save", systemImage: "checkmark")
-                    }
-
-                    Button {
-                        save(asDraft: true)
-                    } label: {
-                        Label("Save as Draft", systemImage: "doc.badge.clock")
-                    }
-                } label: {
-                    Text(isEditing ? "Save" : "Create")
-                } primaryAction: {
+                Button(isEditing ? "Save" : "Create") {
                     save(asDraft: false)
                 }
                 .disabled(name.trimmingCharacters(in: .whitespaces).isEmpty || selectedTypeId == nil)
