@@ -46,6 +46,55 @@ struct GPXExporter {
         return fileURL
     }
 
+    // MARK: - Track Export
+
+    /// Exports a track with its points to a GPX string
+    func exportTrack(
+        _ track: Track,
+        points: [TrackPoint],
+        project: Project? = nil,
+        options: Options = .default
+    ) -> String {
+        let root = GPXRoot(creator: options.creator)
+        applyMetadata(to: root, project: project)
+
+        let gpxTrack = GPXTrack()
+        gpxTrack.name = track.name
+        gpxTrack.desc = track.description
+
+        // Group points by segment
+        let segments = Dictionary(grouping: points, by: \.segmentIndex)
+        for segmentIndex in segments.keys.sorted() {
+            guard let segmentPoints = segments[segmentIndex] else { continue }
+            let segment = GPXTrackSegment()
+            for point in segmentPoints.sorted(by: { $0.timestamp < $1.timestamp }) {
+                let trackPoint = GPXTrackPoint(latitude: point.latitude, longitude: point.longitude)
+                trackPoint.elevation = point.altitude
+                trackPoint.time = point.timestamp
+                segment.add(trackpoint: trackPoint)
+            }
+            gpxTrack.add(trackSegment: segment)
+        }
+
+        root.add(track: gpxTrack)
+        return root.gpx()
+    }
+
+    /// Exports a track and returns a temporary file URL for sharing
+    func exportTrackForSharing(
+        _ track: Track,
+        points: [TrackPoint],
+        project: Project? = nil,
+        options: Options = .default
+    ) throws -> URL {
+        let gpxString = exportTrack(track, points: points, project: project, options: options)
+        let name = generateFileName(project: project, fallback: track.name)
+        let tempDir = FileManager.default.temporaryDirectory
+        let fileURL = tempDir.appendingPathComponent("\(name).gpx")
+        try gpxString.write(to: fileURL, atomically: true, encoding: .utf8)
+        return fileURL
+    }
+
     // MARK: - Private Methods
 
     private func createGPXRoot(
@@ -54,17 +103,8 @@ struct GPXExporter {
         options: Options
     ) -> GPXRoot {
         let root = GPXRoot(creator: options.creator)
+        applyMetadata(to: root, project: project)
 
-        // Add metadata if project is provided
-        if let project = project {
-            let metadata = GPXMetadata()
-            metadata.name = project.name
-            metadata.desc = project.description
-            metadata.time = project.createdAt
-            root.metadata = metadata
-        }
-
-        // Convert waypoints
         for waypoint in waypoints {
             let gpxWaypoint = createGPXWaypoint(from: waypoint, options: options)
             root.add(waypoint: gpxWaypoint)
@@ -160,13 +200,23 @@ struct GPXExporter {
         }
     }
 
-    private func generateFileName(project: Project?) -> String {
+    private func applyMetadata(to root: GPXRoot, project: Project?) {
+        guard let project else { return }
+        let metadata = GPXMetadata()
+        metadata.name = project.name
+        metadata.desc = project.description
+        metadata.time = project.createdAt
+        root.metadata = metadata
+    }
+
+    private func generateFileName(project: Project?, fallback: String? = nil) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd_HHmmss"
         let timestamp = dateFormatter.string(from: Date())
 
-        if let projectName = project?.name {
-            let safeName = projectName
+        let baseName = project?.name ?? fallback
+        if let baseName {
+            let safeName = baseName
                 .replacingOccurrences(of: " ", with: "_")
                 .replacingOccurrences(of: "/", with: "-")
             return "\(safeName)_\(timestamp)"

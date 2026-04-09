@@ -16,6 +16,9 @@ struct TrackDetailView: View {
     @State private var editingName = ""
     @State private var editingDescription = ""
     @State private var mapRegion: MKCoordinateRegion?
+    @State private var gpxExportURL: URL?
+    @State private var showingShareSheet = false
+    @State private var exportError: String?
 
     init(track: Track) {
         self.track = track
@@ -70,7 +73,7 @@ struct TrackDetailView: View {
                     }
 
                     Button {
-                        // TODO: Implement GPX export
+                        exportTrackGPX()
                     } label: {
                         Label("Export GPX", systemImage: "square.and.arrow.up")
                     }
@@ -103,6 +106,19 @@ struct TrackDetailView: View {
             }
         } message: {
             Text("This will permanently delete the track and all its points.")
+        }
+        .sheet(isPresented: $showingShareSheet) {
+            if let url = gpxExportURL {
+                ShareSheet(items: [url])
+            }
+        }
+        .alert("Export Failed", isPresented: Binding(
+            get: { exportError != nil },
+            set: { if !$0 { exportError = nil } }
+        )) {
+            Button("OK", role: .cancel) {}
+        } message: {
+            Text(exportError ?? "An unknown error occurred.")
         }
     }
 
@@ -176,7 +192,7 @@ struct TrackDetailView: View {
             .buttonStyle(.bordered)
 
             Button {
-                shareTrack()
+                exportTrackGPX()
             } label: {
                 Label("Share Track", systemImage: "square.and.arrow.up")
                     .frame(maxWidth: .infinity)
@@ -267,8 +283,19 @@ struct TrackDetailView: View {
         mapItem.openInMaps()
     }
 
-    private func shareTrack() {
-        // TODO: Implement GPX export and sharing
+    private func exportTrackGPX() {
+        guard let trackId = currentTrack.id else { return }
+        let repo = TrackRepository(dbPool: database.dbPool)
+
+        do {
+            let points = try repo.fetchTrackPoints(trackId: trackId)
+            let exporter = GPXExporter()
+            let url = try exporter.exportTrackForSharing(currentTrack, points: points)
+            gpxExportURL = url
+            showingShareSheet = true
+        } catch {
+            exportError = error.localizedDescription
+        }
     }
 }
 
