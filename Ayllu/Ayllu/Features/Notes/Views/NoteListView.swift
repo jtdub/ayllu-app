@@ -73,9 +73,6 @@ struct NoteListView: View {
         .onAppear {
             loadNotes()
         }
-        .navigationDestination(for: FieldNote.self) { note in
-            NoteEditorView(projectId: note.projectId, existingNote: note)
-        }
         .sheet(
             isPresented: $showingCreateSheet,
             onDismiss: {

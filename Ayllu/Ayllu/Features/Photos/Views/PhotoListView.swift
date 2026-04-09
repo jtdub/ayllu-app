@@ -45,9 +45,6 @@ struct PhotoListView: View {
             }
             viewModel?.loadPhotos()
         }
-        .navigationDestination(for: Photo.self) { photo in
-            PhotoDetailView(photo: photo)
-        }
         .sheet(
             isPresented: Binding(
                 get: { viewModel?.showingCaptureSheet ?? false },

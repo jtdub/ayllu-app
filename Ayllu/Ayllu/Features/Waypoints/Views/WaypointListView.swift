@@ -111,9 +111,6 @@ struct WaypointListView: View {
             }
             viewModel?.loadWaypoints()
         }
-        .navigationDestination(for: Waypoint.self) { waypoint in
-            WaypointDetailView(waypoint: waypoint)
-        }
         .sheet(
             isPresented: Binding(
                 get: { viewModel?.showingCreateSheet ?? false },
