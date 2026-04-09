@@ -34,9 +34,6 @@ struct TabBarView: View {
         TabView(selection: $selectedTab) {
             NavigationStack {
                 ProjectListView()
-                    .navigationDestination(for: Project.self) { project in
-                        ProjectDetailView(project: project)
-                    }
                     .toolbar {
                         ToolbarItem(placement: .topBarLeading) {
                             Button {

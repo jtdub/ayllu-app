@@ -36,6 +36,9 @@ struct ProjectListView: View {
             }
             viewModel?.loadProjects()
         }
+        .navigationDestination(for: Project.self) { project in
+            ProjectDetailView(project: project)
+        }
         .sheet(isPresented: Binding(
             get: { viewModel?.showingCreateSheet ?? false },
             set: { viewModel?.showingCreateSheet = $0 }
