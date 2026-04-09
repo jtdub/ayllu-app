@@ -18,6 +18,7 @@ struct TrackDetailView: View {
     @State private var mapRegion: MKCoordinateRegion?
     @State private var gpxExportURL: URL?
     @State private var showingShareSheet = false
+    @State private var exportError: String?
 
     init(track: Track) {
         self.track = track
@@ -110,6 +111,14 @@ struct TrackDetailView: View {
             if let url = gpxExportURL {
                 ShareSheet(items: [url])
             }
+        }
+        .alert("Export Failed", isPresented: Binding(
+            get: { exportError != nil },
+            set: { if !$0 { exportError = nil } }
+        )) {
+            Button("OK", role: .cancel) {}
+        } message: {
+            Text(exportError ?? "An unknown error occurred.")
         }
     }
 
@@ -277,16 +286,16 @@ struct TrackDetailView: View {
     private func exportTrackGPX() {
         guard let trackId = currentTrack.id else { return }
         let repo = TrackRepository(dbPool: database.dbPool)
-        guard let points = try? repo.fetchTrackPoints(trackId: trackId) else { return }
 
-        let exporter = GPXExporter()
-        guard let url = try? exporter.exportTrackForSharing(
-            currentTrack,
-            points: points
-        ) else { return }
-
-        gpxExportURL = url
-        showingShareSheet = true
+        do {
+            let points = try repo.fetchTrackPoints(trackId: trackId)
+            let exporter = GPXExporter()
+            let url = try exporter.exportTrackForSharing(currentTrack, points: points)
+            gpxExportURL = url
+            showingShareSheet = true
+        } catch {
+            exportError = error.localizedDescription
+        }
     }
 }
 
