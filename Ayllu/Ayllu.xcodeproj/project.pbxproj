@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 77;
+	objectVersion = 63;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -327,7 +327,7 @@
 		EC7EBB707FC0CF85A5A460C0 /* ImportModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportModels.swift; sourceTree = "<group>"; };
 		ECF6592DB5F9008D38250F1F /* DataCompletenessViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataCompletenessViewModel.swift; sourceTree = "<group>"; };
 		ED64FBE916044EE505D3AD90 /* FormBuilderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormBuilderViewModel.swift; sourceTree = "<group>"; };
-		EE5CE6A0C7EE532727F2E32B /* Ayllu.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Ayllu.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		EE5CE6A0C7EE532727F2E32B /* Ayllu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ayllu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0486F9B49D8DDF55E7C9D8E /* CSVExportService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSVExportService.swift; sourceTree = "<group>"; };
 		F21CE247F13AB67ED037DC3B /* CoordinateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateFormatter.swift; sourceTree = "<group>"; };
 		F2BDC7F95E158483347B3736 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
@@ -1143,7 +1143,6 @@
 				DDFEE04521007514209FCA5B /* XCRemoteSwiftPackageReference "maplibre-gl-native-distribution" */,
 				F5582EC76F6DF762100942A2 /* XCRemoteSwiftPackageReference "UTMConversion" */,
 			);
-			preferredProjectObjectVersion = 77;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -1501,6 +1500,7 @@
 				CODE_SIGN_ENTITLEMENTS = Ayllu/App/Ayllu.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = L8C6ADCNAP;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Ayllu/App/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1539,6 +1539,7 @@
 				CODE_SIGN_ENTITLEMENTS = Ayllu/App/Ayllu.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = L8C6ADCNAP;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Ayllu/App/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
