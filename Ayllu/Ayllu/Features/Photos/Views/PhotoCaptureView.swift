@@ -50,6 +50,8 @@ struct PhotoCaptureView: View {
         }
         .onAppear { setupCamera() }
         .onDisappear { cameraService.stopSession() }
+        .onChange(of: cameraService.currentLens) { _, _ in exposureBias = 0 }
+        .onChange(of: cameraService.isUsingFrontCamera) { _, _ in exposureBias = 0 }
         .alert("Error", isPresented: $showingError) {
             Button("OK", role: .cancel) {}
         } message: {

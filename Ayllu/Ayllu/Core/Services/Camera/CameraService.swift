@@ -67,6 +67,8 @@ final class CameraService: NSObject {
         session.beginConfiguration()
         defer { session.commitConfiguration() }
 
+        session.sessionPreset = .photo
+
         // Remove existing inputs
         for input in session.inputs {
             session.removeInput(input)
@@ -162,15 +164,15 @@ final class CameraService: NSObject {
     // MARK: - Zoom
 
     func setZoom(_ factor: CGFloat) {
-        guard let device = captureDevice else { return }
-        let clamped = min(max(factor, 1.0), maxZoom)
+        let targetZoom = min(max(factor, 1.0), maxZoom)
 
         sessionQueue.async { [weak self] in
+            guard let device = self?.captureDevice else { return }
             do {
                 try device.lockForConfiguration()
                 defer { device.unlockForConfiguration() }
-                device.videoZoomFactor = clamped
-                DispatchQueue.main.async { self?.currentZoom = clamped }
+                device.videoZoomFactor = targetZoom
+                DispatchQueue.main.async { self?.currentZoom = targetZoom }
             } catch {}
         }
     }
@@ -178,9 +180,8 @@ final class CameraService: NSObject {
     // MARK: - Focus
 
     func focus(at point: CGPoint) {
-        guard let device = captureDevice else { return }
-
-        sessionQueue.async {
+        sessionQueue.async { [weak self] in
+            guard let device = self?.captureDevice else { return }
             do {
                 try device.lockForConfiguration()
                 defer { device.unlockForConfiguration() }
@@ -200,10 +201,9 @@ final class CameraService: NSObject {
     // MARK: - Exposure
 
     func setExposureCompensation(_ bias: Float) {
-        guard let device = captureDevice else { return }
-        let clamped = min(max(bias, device.minExposureTargetBias), device.maxExposureTargetBias)
-
-        sessionQueue.async {
+        sessionQueue.async { [weak self] in
+            guard let device = self?.captureDevice else { return }
+            let clamped = min(max(bias, device.minExposureTargetBias), device.maxExposureTargetBias)
             do {
                 try device.lockForConfiguration()
                 defer { device.unlockForConfiguration() }
@@ -219,6 +219,7 @@ final class CameraService: NSObject {
 
     func capturePhoto() async throws -> UIImage {
         guard isSessionRunning else { throw CameraError.sessionNotRunning }
+        guard photoContinuation == nil else { throw CameraError.captureFailure }
 
         return try await withCheckedThrowingContinuation { continuation in
             photoContinuation = continuation
