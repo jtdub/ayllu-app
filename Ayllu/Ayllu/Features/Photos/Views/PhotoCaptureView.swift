@@ -34,12 +34,8 @@ struct PhotoCaptureView: View {
                     waypointId: waypointId,
                     location: locationService.currentLocation,
                     heading: locationService.currentHeading,
-                    onSave: { caption in
-                        savePhoto(caption: caption)
-                    },
-                    onRetake: {
-                        capturedImage = nil
-                    }
+                    onSave: { caption in savePhoto(caption: caption) },
+                    onRetake: { capturedImage = nil }
                 )
             } else {
                 cameraPreviewView
@@ -49,17 +45,11 @@ struct PhotoCaptureView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .cancellationAction) {
-                Button("Cancel") {
-                    dismiss()
-                }
+                Button("Cancel") { dismiss() }
             }
         }
-        .onAppear {
-            setupCamera()
-        }
-        .onDisappear {
-            cameraService.stopSession()
-        }
+        .onAppear { setupCamera() }
+        .onDisappear { cameraService.stopSession() }
         .alert("Error", isPresented: $showingError) {
             Button("OK", role: .cancel) {}
         } message: {
@@ -75,11 +65,7 @@ struct PhotoCaptureView: View {
                 session: cameraService.session,
                 onTapToFocus: { devicePoint, viewPoint in
                     handleTapToFocus(devicePoint: devicePoint, viewPoint: viewPoint)
-                },
-                onPinchZoom: { targetZoom in
-                    cameraService.setZoom(targetZoom)
-                },
-                initialZoomForPinch: cameraService.currentZoom
+                }
             )
             .ignoresSafeArea()
 
@@ -89,73 +75,138 @@ struct PhotoCaptureView: View {
                     .position(point)
             }
 
-            VStack {
-                // Top bar: GPS + zoom level
-                HStack {
-                    LocationIndicator(location: locationService.currentLocation)
-
-                    Spacer()
-
-                    if cameraService.currentZoom > 1.05 {
-                        Text(String(format: "%.1fx", cameraService.currentZoom))
-                            .font(.caption.bold())
-                            .padding(.horizontal, 8)
-                            .padding(.vertical, 4)
-                            .background(.ultraThinMaterial)
-                            .clipShape(Capsule())
-                    }
-                }
-                .padding()
+            VStack(spacing: 0) {
+                // Top bar: GPS + flip camera
+                topBar
 
                 Spacer()
 
-                // Bottom: exposure slider + capture button
+                // Zoom slider
+                zoomControl
+
+                // Lens switcher + exposure
                 HStack(alignment: .bottom) {
-                    // Exposure slider (vertical)
-                    exposureSlider
-                        .frame(width: 44)
-                        .padding(.leading, 16)
+                    exposureControl
+                        .frame(width: 50)
 
                     Spacer()
 
+                    // Shutter
                     captureButton
 
                     Spacer()
 
-                    // Placeholder for symmetry
-                    Color.clear.frame(width: 44)
-                        .padding(.trailing, 16)
+                    // Flip camera
+                    flipCameraButton
+                        .frame(width: 50)
                 }
-                .padding(.bottom, 40)
+                .padding(.horizontal, 20)
+                .padding(.bottom, 30)
             }
         }
     }
 
-    private var exposureSlider: some View {
+    // MARK: - Top Bar
+
+    private var topBar: some View {
+        HStack {
+            LocationIndicator(location: locationService.currentLocation)
+            Spacer()
+            if cameraService.currentZoom > 1.05 {
+                Text(String(format: "%.1fx", cameraService.currentZoom))
+                    .font(.caption.bold())
+                    .padding(.horizontal, 8)
+                    .padding(.vertical, 4)
+                    .background(.ultraThinMaterial)
+                    .clipShape(Capsule())
+            }
+        }
+        .padding()
+    }
+
+    // MARK: - Zoom Control
+
+    private var zoomControl: some View {
+        VStack(spacing: 8) {
+            // Lens picker (if multiple lenses available)
+            if cameraService.availableLenses.count > 1 {
+                HStack(spacing: 12) {
+                    ForEach(cameraService.availableLenses) { lens in
+                        Button {
+                            cameraService.switchLens(lens)
+                        } label: {
+                            Text(lens.rawValue)
+                                .font(.caption.bold())
+                                .padding(.horizontal, 12)
+                                .padding(.vertical, 6)
+                                .background(
+                                    cameraService.currentLens == lens
+                                        ? Color.yellow : Color.white.opacity(0.3)
+                                )
+                                .foregroundStyle(
+                                    cameraService.currentLens == lens ? .black : .white
+                                )
+                                .clipShape(Capsule())
+                        }
+                    }
+                }
+                .padding(.bottom, 4)
+            }
+
+            // Zoom slider
+            HStack(spacing: 8) {
+                Image(systemName: "minus.magnifyingglass")
+                    .font(.caption)
+                    .foregroundStyle(.white)
+
+                Slider(
+                    value: Binding(
+                        get: { cameraService.currentZoom },
+                        set: { cameraService.setZoom($0) }
+                    ),
+                    in: 1.0...cameraService.maxZoom
+                )
+                .tint(.yellow)
+
+                Image(systemName: "plus.magnifyingglass")
+                    .font(.caption)
+                    .foregroundStyle(.white)
+            }
+            .padding(.horizontal, 24)
+            .padding(.bottom, 12)
+        }
+    }
+
+    // MARK: - Exposure Control
+
+    private var exposureControl: some View {
         VStack(spacing: 4) {
             Image(systemName: "sun.max.fill")
-                .font(.caption)
-                .foregroundStyle(.white)
+                .font(.caption2)
+                .foregroundStyle(.yellow)
 
             Slider(
                 value: Binding(
                     get: { Double(exposureBias) },
-                    set: { newValue in
-                        exposureBias = Float(newValue)
-                        cameraService.setExposureCompensation(Float(newValue))
+                    set: {
+                        exposureBias = Float($0)
+                        cameraService.setExposureCompensation(Float($0))
                     }
                 ),
                 in: Double(cameraService.minExposureBias)...Double(cameraService.maxExposureBias)
             )
             .rotationEffect(.degrees(-90))
-            .frame(width: 120)
-            .frame(height: 120)
+            .frame(width: 100)
+            .frame(height: 100)
+            .tint(.yellow)
 
             Image(systemName: "sun.min.fill")
-                .font(.caption)
-                .foregroundStyle(.white)
+                .font(.caption2)
+                .foregroundStyle(.yellow)
         }
     }
+
+    // MARK: - Capture Button
 
     private var captureButton: some View {
         Button {
@@ -165,11 +216,9 @@ struct PhotoCaptureView: View {
                 Circle()
                     .fill(.white)
                     .frame(width: 70, height: 70)
-
                 Circle()
                     .stroke(.white, lineWidth: 4)
                     .frame(width: 80, height: 80)
-
                 if isCapturing {
                     ProgressView()
                         .tint(.gray)
@@ -177,6 +226,21 @@ struct PhotoCaptureView: View {
             }
         }
         .disabled(isCapturing || !cameraService.isSessionRunning)
+    }
+
+    // MARK: - Flip Camera
+
+    private var flipCameraButton: some View {
+        Button {
+            cameraService.toggleFrontBack()
+        } label: {
+            Image(systemName: "camera.rotate.fill")
+                .font(.title2)
+                .foregroundStyle(.white)
+                .padding(12)
+                .background(.ultraThinMaterial)
+                .clipShape(Circle())
+        }
     }
 
     // MARK: - Focus
@@ -239,7 +303,6 @@ struct PhotoCaptureView: View {
 
     private func savePhoto(caption: String?) {
         let storageService = PhotoStorageService()
-
         guard let image = capturedImage else { return }
 
         do {
@@ -264,7 +327,6 @@ struct PhotoCaptureView: View {
 
             let repo = PhotoRepository(dbPool: database.dbPool)
             try repo.create(photo)
-
             dismiss()
         } catch {
             errorMessage = error.localizedDescription

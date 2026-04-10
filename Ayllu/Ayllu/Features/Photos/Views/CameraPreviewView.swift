@@ -1,14 +1,11 @@
 import SwiftUI
 import AVFoundation
 
-/// UIViewRepresentable wrapper for AVCaptureVideoPreviewLayer with gesture support
+/// UIViewRepresentable wrapper for AVCaptureVideoPreviewLayer with tap-to-focus
 struct CameraPreviewView: UIViewRepresentable {
     let session: AVCaptureSession
-    /// Called with (devicePoint for focus, viewPoint for indicator)
+    /// Called with (devicePoint, viewPoint) for focus + indicator positioning
     var onTapToFocus: ((CGPoint, CGPoint) -> Void)?
-    /// Called with the target zoom factor (initialZoom * gesture.scale)
-    var onPinchZoom: ((CGFloat) -> Void)?
-    var initialZoomForPinch: CGFloat = 1.0
 
     func makeUIView(context: Context) -> CameraPreviewUIView {
         let view = CameraPreviewUIView()
@@ -19,12 +16,6 @@ struct CameraPreviewView: UIViewRepresentable {
             action: #selector(Coordinator.handleTap(_:))
         )
         view.addGestureRecognizer(tapGesture)
-
-        let pinchGesture = UIPinchGestureRecognizer(
-            target: context.coordinator,
-            action: #selector(Coordinator.handlePinch(_:))
-        )
-        view.addGestureRecognizer(pinchGesture)
 
         return view
     }
@@ -54,29 +45,13 @@ struct CameraPreviewView: UIViewRepresentable {
             )
             parent.onTapToFocus?(devicePoint, viewLocation)
         }
-
-        @objc func handlePinch(_ gesture: UIPinchGestureRecognizer) {
-            switch gesture.state {
-            case .began:
-                parent.initialZoomForPinch = parent.initialZoomForPinch // capture current
-            case .changed:
-                let targetZoom = parent.initialZoomForPinch * gesture.scale
-                parent.onPinchZoom?(targetZoom)
-            case .ended, .cancelled:
-                parent.initialZoomForPinch = parent.initialZoomForPinch // no-op, reset happens in view
-            default:
-                break
-            }
-        }
     }
 }
 
 /// UIView subclass that hosts AVCaptureVideoPreviewLayer
 class CameraPreviewUIView: UIView {
     var session: AVCaptureSession? {
-        didSet {
-            previewLayer?.session = session
-        }
+        didSet { previewLayer?.session = session }
     }
 
     private var previewLayer: AVCaptureVideoPreviewLayer? {
