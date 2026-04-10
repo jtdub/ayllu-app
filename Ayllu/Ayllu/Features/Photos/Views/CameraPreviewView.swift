@@ -4,8 +4,11 @@ import AVFoundation
 /// UIViewRepresentable wrapper for AVCaptureVideoPreviewLayer with gesture support
 struct CameraPreviewView: UIViewRepresentable {
     let session: AVCaptureSession
-    var onTapToFocus: ((CGPoint) -> Void)?
+    /// Called with (devicePoint for focus, viewPoint for indicator)
+    var onTapToFocus: ((CGPoint, CGPoint) -> Void)?
+    /// Called with the target zoom factor (initialZoom * gesture.scale)
     var onPinchZoom: ((CGFloat) -> Void)?
+    var initialZoomForPinch: CGFloat = 1.0
 
     func makeUIView(context: Context) -> CameraPreviewUIView {
         let view = CameraPreviewUIView()
@@ -33,8 +36,7 @@ struct CameraPreviewView: UIViewRepresentable {
     }
 
     class Coordinator: NSObject {
-        let parent: CameraPreviewView
-        private var lastZoomFactor: CGFloat = 1.0
+        var parent: CameraPreviewView
 
         init(_ parent: CameraPreviewView) {
             self.parent = parent
@@ -46,21 +48,22 @@ struct CameraPreviewView: UIViewRepresentable {
                 return
             }
 
-            let location = gesture.location(in: view)
-            let point = previewLayer.captureDevicePointConverted(
-                fromLayerPoint: location
+            let viewLocation = gesture.location(in: view)
+            let devicePoint = previewLayer.captureDevicePointConverted(
+                fromLayerPoint: viewLocation
             )
-            parent.onTapToFocus?(point)
+            parent.onTapToFocus?(devicePoint, viewLocation)
         }
 
         @objc func handlePinch(_ gesture: UIPinchGestureRecognizer) {
             switch gesture.state {
             case .began:
-                lastZoomFactor = gesture.scale
+                parent.initialZoomForPinch = parent.initialZoomForPinch // capture current
             case .changed:
-                let delta = gesture.scale / lastZoomFactor
-                lastZoomFactor = gesture.scale
-                parent.onPinchZoom?(delta)
+                let targetZoom = parent.initialZoomForPinch * gesture.scale
+                parent.onPinchZoom?(targetZoom)
+            case .ended, .cancelled:
+                parent.initialZoomForPinch = parent.initialZoomForPinch // no-op, reset happens in view
             default:
                 break
             }

@@ -1,6 +1,5 @@
 import AVFoundation
 import UIKit
-import Combine
 
 /// Service for managing camera capture using AVCaptureSession
 @Observable
@@ -136,13 +135,13 @@ final class CameraService: NSObject {
         guard let device = captureDevice else { return }
         let clamped = min(max(factor, 1.0), maxZoom)
 
-        sessionQueue.async {
+        sessionQueue.async { [weak self] in
             do {
                 try device.lockForConfiguration()
+                defer { device.unlockForConfiguration() }
                 device.videoZoomFactor = clamped
-                device.unlockForConfiguration()
                 DispatchQueue.main.async {
-                    self.currentZoom = clamped
+                    self?.currentZoom = clamped
                 }
             } catch {
                 // Zoom change failed silently
@@ -159,6 +158,7 @@ final class CameraService: NSObject {
         sessionQueue.async {
             do {
                 try device.lockForConfiguration()
+                defer { device.unlockForConfiguration() }
 
                 if device.isFocusPointOfInterestSupported {
                     device.focusPointOfInterest = point
@@ -169,8 +169,6 @@ final class CameraService: NSObject {
                     device.exposurePointOfInterest = point
                     device.exposureMode = .autoExpose
                 }
-
-                device.unlockForConfiguration()
             } catch {
                 // Focus change failed silently
             }
@@ -186,8 +184,8 @@ final class CameraService: NSObject {
         sessionQueue.async {
             do {
                 try device.lockForConfiguration()
-                device.setExposureTargetBias(clamped)
-                device.unlockForConfiguration()
+                defer { device.unlockForConfiguration() }
+                device.setExposureTargetBias(clamped, completionHandler: nil)
             } catch {
                 // Exposure change failed silently
             }

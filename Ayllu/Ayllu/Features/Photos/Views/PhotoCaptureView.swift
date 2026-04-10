@@ -73,13 +73,13 @@ struct PhotoCaptureView: View {
         ZStack {
             CameraPreviewView(
                 session: cameraService.session,
-                onTapToFocus: { point in
-                    handleTapToFocus(point)
+                onTapToFocus: { devicePoint, viewPoint in
+                    handleTapToFocus(devicePoint: devicePoint, viewPoint: viewPoint)
                 },
-                onPinchZoom: { delta in
-                    let newZoom = cameraService.currentZoom * delta
-                    cameraService.setZoom(newZoom)
-                }
+                onPinchZoom: { targetZoom in
+                    cameraService.setZoom(targetZoom)
+                },
+                initialZoomForPinch: cameraService.currentZoom
             )
             .ignoresSafeArea()
 
@@ -181,18 +181,10 @@ struct PhotoCaptureView: View {
 
     // MARK: - Focus
 
-    private func handleTapToFocus(_ devicePoint: CGPoint) {
+    private func handleTapToFocus(devicePoint: CGPoint, viewPoint: CGPoint) {
         cameraService.focus(at: devicePoint)
 
-        // Show focus indicator at screen coordinates
-        // devicePoint is 0-1 normalized, convert to screen space
-        let screenSize = UIScreen.main.bounds.size
-        let screenPoint = CGPoint(
-            x: devicePoint.x * screenSize.width,
-            y: devicePoint.y * screenSize.height
-        )
-
-        focusPoint = screenPoint
+        focusPoint = viewPoint
         showFocusIndicator = true
 
         withAnimation(.easeOut(duration: 1.5)) {
