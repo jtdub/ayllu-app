@@ -1363,7 +1363,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.ayllu.tests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ayllu.fieldresearch.tests;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Ayllu.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Ayllu";
@@ -1507,7 +1507,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.ayllu.app;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ayllu.fieldresearch;
 				SDKROOT = iphoneos;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1524,7 +1524,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.ayllu.uitests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ayllu.fieldresearch.uitests;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = Ayllu;
@@ -1545,7 +1545,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.ayllu.app;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ayllu.fieldresearch;
 				SDKROOT = iphoneos;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1562,7 +1562,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.ayllu.uitests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ayllu.fieldresearch.uitests;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = Ayllu;
@@ -1579,7 +1579,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.ayllu.tests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ayllu.fieldresearch.tests;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Ayllu.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Ayllu";

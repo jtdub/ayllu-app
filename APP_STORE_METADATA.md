@@ -4,7 +4,7 @@
 
 - **App Name:** Ayllu
 - **Subtitle:** Field Research Companion
-- **Bundle ID:** com.ayllu.app
+- **Bundle ID:** com.ayllu.fieldresearch
 - **Primary Category:** Productivity
 - **Secondary Category:** Education
 - **Content Rating:** 4+
